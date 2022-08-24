@@ -1,0 +1,21 @@
+{
+  "name": "youyo-ui",
+  "version": "1.0.12",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "keywords": [
+    "youyo-ui",
+    "vue3组件库"
+  ],
+  "dependencies": {
+    "@youyo-ui/utils": "1.0.0"
+  },
+  "author": "you",
+  "license": "MIT",
+  "description": "",
+  "typings": "lib/index.d.ts"
+}

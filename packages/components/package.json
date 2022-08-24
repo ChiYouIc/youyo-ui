@@ -1,0 +1,22 @@
+{
+  "name": "youyo-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "you",
+  "license": "MIT",
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "files": [
+    "es",
+    "lib"
+  ],
+  "keywords": [],
+  "typings": "lib/index.d.ts",
+  "dependencies": {
+    "@youyo-ui/utils": "workspace:1.0.0"
+  }
+}
