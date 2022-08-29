@@ -10,6 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ant-design-vue": "^3.2.11",
     "youyo-ui": "workspace:1.0.0"
+  },
+  "devDependencies": {
+    "less": "^4.1.3"
   }
 }
