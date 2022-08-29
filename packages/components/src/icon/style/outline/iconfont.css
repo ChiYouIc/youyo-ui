@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3520809 */
+  src: url('./iconfont.woff2?t=1657723315239') format('woff2'),
+       url('./iconfont.woff?t=1657723315239') format('woff'),
+       url('./iconfont.ttf?t=1657723315239') format('truetype');
+}
+
+
+.outline-ellipsis:before {
+  content: "\e889";
+}
+
