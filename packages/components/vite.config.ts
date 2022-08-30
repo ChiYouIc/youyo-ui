@@ -15,7 +15,7 @@ export default defineConfig(
             //cssCodeSplit: true,
             rollupOptions: {
                 //忽略打包vue文件
-                external: ['vue', /\.less/, '@kitty-ui/utils'],
+                external: ['vue', /\.less/, '@youyo-ui/utils'],
                 input: ['index.ts'],
                 output: [
                     {
