@@ -1,6 +1,6 @@
 {
   "name": "youyo-ui",
-  "version": "1.0.18",
+  "version": "1.0.23",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -11,9 +11,7 @@
     "youyo-ui",
     "vue3组件库"
   ],
-  "dependencies": {
-    "@youyo-ui/utils": "1.0.0"
-  },
+  "dependencies": {},
   "author": "you",
   "license": "MIT",
   "description": "",

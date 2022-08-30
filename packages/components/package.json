@@ -20,6 +20,5 @@
   "description": "",
   "typings": "lib/index.d.ts",
   "dependencies": {
-    "@youyo-ui/utils": "workspace:1.0.0"
   }
 }

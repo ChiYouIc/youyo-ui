@@ -1,5 +1,5 @@
 import icon from './icon.vue'
-import {withInstall} from '@youyo-ui/utils'
+import {withInstall} from '@utils/index'
 
 const Icon = withInstall(icon)
 export default Icon

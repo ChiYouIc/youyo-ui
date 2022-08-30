@@ -13,6 +13,9 @@
     "paths": {
       "@/*": [
         "packages/components/src/*"
+      ],
+      "@utils/*": [
+        "packages/components/utils/*"
       ]
     },
   }
