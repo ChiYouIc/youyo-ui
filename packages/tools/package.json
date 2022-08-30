@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "tools",
   "main": "index.ts",
-  "scripts": {
-    "build": "vite build"
-  },
   "files": [
     "dist"
   ],
@@ -13,6 +10,9 @@
     "tool"
   ],
   "author": "you",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "vite build"
+  }
 }
 

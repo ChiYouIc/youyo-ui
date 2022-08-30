@@ -1,16 +1,16 @@
 {
   "name": "@youyo-ui/utils",
   "version": "1.0.0",
-  "description": "",
   "main": "index.ts",
   "module": "index.ts",
-  "scripts": {
-    "build": "vite build"
-  },
+  "description": "",
+  "keywords": [],
   "files": [
     "dist"
   ],
-  "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "vite build"
+  }
 }
