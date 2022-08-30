@@ -68,27 +68,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="less" scoped>
-.y-search-bar {
-  width: 100%;
-
-  .y-search-bar-content {
-    display: grid;
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
-  }
-
-  .y-search-bar-bt {
-    display: flex;
-    flex-direction: row;
-    column-gap: 10px;
-    align-items: center;
-
-    .fold {
-      color: #0070F4;
-      cursor: pointer;
-    }
-  }
-}
-</style>

@@ -9,7 +9,8 @@
 
 <script lang="ts">
 import {defineComponent, inject} from "vue";
-import {searchBarItemProps} from './types'
+import {searchBarItemProps} from './types';
+import './style/item.less';
 
 export default defineComponent({
   name: "y-search-bar-item",
@@ -25,21 +26,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="less" scoped>
-.y-search-bar-item {
-  display: flex;
-  align-items: center;
-  align-content: flex-start;
-  column-gap: 5px;
-
-  .y-search-bar-item-fl {
-    margin-left: 5px;
-    text-align: right;
-  }
-
-  .y-search-bar-item-ri {
-    display: inline-block;
-  }
-}
-</style>

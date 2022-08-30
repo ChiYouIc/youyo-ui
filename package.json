@@ -2,8 +2,9 @@
   "name": "youyoui",
   "version": "1.0.0",
   "description": "youyo ui",
-  "author": "",
   "main": "index.js",
+  "keywords": [],
+  "author": "you",
   "license": "ISC",
   "scripts": {
     "build:youyo": "gulp -f packages/components/script/build/gulpfile.ts",

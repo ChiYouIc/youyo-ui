@@ -7,6 +7,7 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import {iconProps} from "./types";
+import "./style/index.css";
 
 export default defineComponent({
   name: "y-icon",
@@ -16,7 +17,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="less" scoped>
-@import "./style/index.css";
-</style>
