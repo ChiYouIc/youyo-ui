@@ -5,5 +5,6 @@ import antd from 'ant-design-vue'
 import you from "youyo-ui"
 
 const app = createApp(App)
-app.use(you).use(antd)
+app.use(you)
+    .use(antd)
 app.mount('#app') 

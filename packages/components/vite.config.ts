@@ -42,7 +42,7 @@ export default defineConfig(
             },
             lib: {
                 entry: './index.ts',
-                name: 'kitty',
+                name: 'youyo',
             }
         },
 
@@ -84,7 +84,6 @@ export default defineConfig(
         resolve: {
             alias: {
                 '@': resolve(__dirname, 'src'),
-                '@utils': resolve(__dirname, 'utils'),
             },
         },
         test: {
