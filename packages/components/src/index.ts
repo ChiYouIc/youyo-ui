@@ -1,4 +1,3 @@
-export {default as Icon} from './icon'
-export {SearchBar} from './search'
-export {SearchBarItem} from './search'
+export {Icon, IconSelect} from './icon'
+export {SearchBarItem, SearchBar} from './search'
 export {default as TableOperator} from './TableOperator'

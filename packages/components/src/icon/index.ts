@@ -1,5 +1,6 @@
-import icon from './icon.vue'
-import {withInstall} from '../../utils/index'
+import icon from './icon.vue';
+import iconSelect from "./iconSelect.vue";
+import {withInstall} from '../../utils/index';
 
-const Icon = withInstall(icon)
-export default Icon
+export const Icon = withInstall(icon);
+export const IconSelect = withInstall(iconSelect);
