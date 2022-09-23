@@ -1,30 +1,26 @@
 <template>
 
   <div class="icon-select">
-    <div class="icon-select-header">
-      <ul>
-        <li>antd-design</li>
-        <li>antd-design</li>
-        <li>antd-design</li>
-        <li>antd-design</li>
-        <li>antd-design</li>
-      </ul>
-    </div>
-
-    <div class="icon-select-content">
-      <div class="icon-item" v-for="icon in antdIconList">
-        <div>
-          <y-icon :icon="icon" size="60px"/>
+    <a-tabs v-model:activeKey="activeKey" centered>
+      <a-tab-pane key="antd" tab="Ant Design">
+        <div class="icon-select-content">
+          <div class="icon-item" v-for="icon in antdIconList">
+            <div>
+              <y-icon :icon="icon" size="60px"/>
+            </div>
+            <span>{{ icon }}</span>
+          </div>
         </div>
-        <span>{{ icon }}</span>
-      </div>
-    </div>
+      </a-tab-pane>
+    </a-tabs>
+
+
   </div>
 
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import {defineComponent, ref} from "vue";
 import antdIcons from './style/antd/iconfont.json';
 import YIcon from './icon.vue'
 
@@ -36,6 +32,7 @@ export default defineComponent({
     const antdIconList = antdIcons.glyphs.map((icon: { font_class: string; }) => `${antdPrefix}${icon.font_class}`);
     console.log(antdIconList)
     return {
+      activeKey: ref('antd'),
       antdIconList,
     }
   }
@@ -45,26 +42,6 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .icon-select {
-  .icon-select-header {
-
-    padding-bottom: 10px;
-
-    ul {
-      height: 30px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-
-      display: flex;
-      justify-content: center;
-      column-gap: 20px;
-    }
-
-    li:hover {
-      border-bottom: 1px solid black;
-      cursor: pointer;
-    }
-  }
 
   .icon-select-content {
     display: flex;
