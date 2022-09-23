@@ -1,6 +1,6 @@
 {
   "name": "youyo-ui",
-  "version": "1.0.26",
+  "version": "1.0.28",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
