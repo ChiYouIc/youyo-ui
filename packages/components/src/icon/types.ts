@@ -23,4 +23,18 @@ export const iconProps = {
     }
 }
 
+export const iconPicker = {
+    icon: {
+        type: String,
+        require: true,
+        default: () => ''
+    },
+    disabled: {
+        type: Boolean,
+        required: false,
+        default: () => false
+    }
+}
+
 export type IconProps = ExtractPropTypes<typeof iconProps>;
+export type IconPicker = ExtractPropTypes<typeof iconPicker>;

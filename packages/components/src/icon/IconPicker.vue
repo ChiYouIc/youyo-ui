@@ -1,9 +1,9 @@
 <template>
   <div class="icon-picker">
-    <a-input v-model:value="currentIcon">
+    <a-input v-model:value="currentIcon" :disabled="disabled">
       <template #addonAfter>
         <a-popover placement="bottom" trigger="click">
-          <y-icon :icon="currentIcon || 'antd-icon-test'"/>
+          <y-icon :icon="currentIcon"/>
           <template #title>
             <a-input v-model:value="searchIcon" placeholder="搜索图标" @change="handleSearchIconChange"/>
           </template>
@@ -30,10 +30,11 @@ import {computed, defineComponent, reactive, ref, toRefs} from "vue";
 import YIcon from './Icon.vue';
 import useIcon from './Icon.hook';
 import './style/icon-picker.less';
+import {iconPicker} from "./types";
 
 export default defineComponent({
   name: "y-icon-picker",
-  props: {icon: String},
+  props: iconPicker,
   components: {YIcon},
   emits: ["selected", "update:icon"],
   setup(prop, {emit}) {
@@ -47,7 +48,7 @@ export default defineComponent({
     const searchIcon = ref<string>('');
 
     const currentIcon = computed({
-      get: () => prop.icon,
+      get: () => prop.icon || 'antd-icon-test',
       set: (icon) => emit("update:icon", icon)
     })
 

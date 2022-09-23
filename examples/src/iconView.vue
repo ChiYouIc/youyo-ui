@@ -1,5 +1,5 @@
 <template>
-  <y-icon-picker v-model:icon="icon" @selected="handleSelected"/>
+  <y-icon-picker v-model:icon="icon" disabled @selected="handleSelected"/>
   <!--  <y-icon-select />-->
 </template>
 
@@ -10,7 +10,7 @@ import {defineComponent, ref} from "vue";
 export default defineComponent({
   name: "iconView",
   setup() {
-    const icon = ref<string>('antd-View')
+    const icon = ref<string>('')
 
     function handleSelected(i: string) {
       console.log(icon.value)
