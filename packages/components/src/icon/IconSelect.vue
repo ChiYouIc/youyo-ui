@@ -1,5 +1,4 @@
 <template>
-
   <div class="icon-select">
     <a-tabs v-model:activeKey="activeKey" centered>
       <a-tab-pane key="antd" tab="Ant Design">
@@ -13,24 +12,21 @@
         </div>
       </a-tab-pane>
     </a-tabs>
-
-
   </div>
-
 </template>
 
 <script lang="ts">
 import {defineComponent, ref} from "vue";
-import antdIcons from './style/antd/iconfont.json';
-import YIcon from './icon.vue'
+import useIcon from './Icon.hook';
+import YIcon from './Icon.vue';
+import './style/icon-select.less';
 
 export default defineComponent({
   name: 'y-icon-select',
   components: {YIcon},
   setup() {
-    const antdPrefix = antdIcons.css_prefix_text;
-    const antdIconList = antdIcons.glyphs.map((icon: { font_class: string; }) => `${antdPrefix}${icon.font_class}`);
-    console.log(antdIconList)
+    const {antdIconList} = useIcon();
+    console.log(antdIconList);
     return {
       activeKey: ref('antd'),
       antdIconList,
@@ -40,27 +36,6 @@ export default defineComponent({
 
 </script>
 
-<style lang="less" scoped>
-.icon-select {
+<style scoped>
 
-  .icon-select-content {
-    display: flex;
-    width: 100%;
-    flex-flow: wrap;
-    column-gap: 10px;
-    row-gap: 10px;
-
-    .icon-item {
-      width: 225px;
-      text-align: center;
-    }
-
-    .icon-item:hover {
-      border-radius: 10px;
-      background-color: #1890FF;
-      color: #FFFFFF;
-      cursor: pointer;
-    }
-  }
-}
 </style>

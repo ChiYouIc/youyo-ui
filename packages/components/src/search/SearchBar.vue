@@ -17,7 +17,7 @@ import './style/index.less';
 import YSearchBarItem from "./SearchBarItem.vue";
 import {searchBarProps, searchBarStateType} from "./types";
 import {Document, INode} from "happy-dom";
-import YIcon from "../icon/icon.vue";
+import YIcon from "../icon/Icon.vue";
 
 export default defineComponent({
   name: "y-search-bar",

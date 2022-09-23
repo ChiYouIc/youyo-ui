@@ -4,23 +4,22 @@ export const iconProps = {
     icon: {
         type: String,
         require: true,
-        default: () => {
-            return '';
-        }
+        default: () => ''
     },
     size: {
         type: String,
         require: false,
-        default: () => {
-            return '';
-        }
+        default: () => ''
     },
     color: {
         type: String,
         require: false,
-        default: () => {
-            return '';
-        }
+        default: () => ''
+    },
+    cursor: {
+        type: String,
+        require: false,
+        default: () => 'pointer'
     }
 }
 
