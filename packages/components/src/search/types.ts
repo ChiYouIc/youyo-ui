@@ -10,6 +10,11 @@ export const searchBarProps = {
         type: String,
         required: false,
         default: () => '48',
+    },
+    fold: {
+        type: Boolean,
+        required: false,
+        default: () => true,
     }
 }
 

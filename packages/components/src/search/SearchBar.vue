@@ -4,8 +4,10 @@
       <slot></slot>
       <div class="y-search-bar-bt">
         <slot name="bt"></slot>
-        <y-icon v-if="!unfold" icon="antd-up" size="12px" class="fold" @click="handleFold">折叠</y-icon>
-        <y-icon v-else icon="antd-down" size="12px" class="fold" @click="handleUnfold">展开</y-icon>
+        <template v-if="fold">
+          <y-icon v-if="!unfold" icon="antd-up" size="12px" class="fold" @click="handleFold">折叠</y-icon>
+          <y-icon v-else icon="antd-down" size="12px" class="fold" @click="handleUnfold">展开</y-icon>
+        </template>
       </div>
     </div>
   </div>
