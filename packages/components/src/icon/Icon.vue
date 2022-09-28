@@ -1,19 +1,19 @@
 <template>
-  <i :class="['iconfont',icon]" :style="{fontSize: size, color: color, cursor: cursor}">
+  <i :class="['iconfont', icon]" :style="{ fontSize: size, color: color, cursor: cursor }">
     <slot></slot>
   </i>
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
-import {iconProps} from "./types";
-import "./style/index.css";
+import { defineComponent } from 'vue';
+import { iconProps } from './types';
+import './style/index.css';
 
 export default defineComponent({
-  name: "y-icon",
+  name: 'y-icon',
   props: iconProps,
   setup() {
-    return {}
-  }
-})
+    return {};
+  },
+});
 </script>

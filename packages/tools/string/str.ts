@@ -1,5 +1,4 @@
-import Formatter, {FormatType} from "./formatter";
-
+import Formatter, { FormatType } from './formatter';
 
 /**
  * 格式化字符串
@@ -8,9 +7,9 @@ import Formatter, {FormatType} from "./formatter";
  * @return format 被 params 填充后的字符串
  */
 function format(format: string, params: FormatType[]): string {
-    return Formatter.format(format, params);
+  return Formatter.format(format, params);
 }
 
 export default {
-    format
-}
+  format,
+};

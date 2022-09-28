@@ -1,3 +1,1 @@
-<template>
-    anniu
-</template>
+<template>anniu</template>

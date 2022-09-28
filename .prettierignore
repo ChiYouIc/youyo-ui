@@ -1,0 +1,5 @@
+node_modules
+*.woff
+*.ttf
+.idea
+/public

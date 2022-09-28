@@ -14,17 +14,17 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, provide, reactive, toRefs} from "vue";
+import { defineComponent, provide, reactive, toRefs } from 'vue';
 import './style/index.less';
-import YSearchBarItem from "./SearchBarItem.vue";
-import {searchBarProps, searchBarStateType} from "./types";
-import {Document, INode} from "happy-dom";
-import YIcon from "../icon/Icon.vue";
+import YSearchBarItem from './SearchBarItem.vue';
+import { searchBarProps, searchBarStateType } from './types';
+import { Document, INode } from 'happy-dom';
+import YIcon from '../icon/Icon.vue';
 
 export default defineComponent({
-  name: "y-search-bar",
+  name: 'y-search-bar',
   props: searchBarProps,
-  components: {YIcon, YSearchBarItem},
+  components: { YIcon, YSearchBarItem },
   setup(props) {
     const state = reactive<searchBarStateType>({
       unfold: false,
@@ -40,21 +40,21 @@ export default defineComponent({
       for (let i = 0; i < props.columns - 1; i++) {
         columns = `${columns} 1fr`;
       }
-      return {'grid-template-columns': columns};
-    }
+      return { 'grid-template-columns': columns };
+    };
 
     return {
       ...toRefs(state),
       style,
-    }
+    };
   },
   methods: {
     handleFold() {
       const searchBarRef = this.$refs.searchBarRef as Document;
       const children = searchBarRef.children;
-      for (let i = this.columns - 1; i < children.length - 1;) {
-        this.itemList.push(children[i])
-        searchBarRef.removeChild(children[i])
+      for (let i = this.columns - 1; i < children.length - 1; ) {
+        this.itemList.push(children[i]);
+        searchBarRef.removeChild(children[i]);
       }
       this.unfold = !this.unfold;
     },
@@ -62,11 +62,11 @@ export default defineComponent({
     handleUnfold() {
       const searchBarRef = this.$refs.searchBarRef as Document;
       for (let i = 0; i < this.itemList.length; i++) {
-        searchBarRef.insertBefore((this.itemList[i] as unknown as INode), searchBarRef.lastChild)
+        searchBarRef.insertBefore(this.itemList[i] as unknown as INode, searchBarRef.lastChild);
       }
-      this.itemList = []
-      this.unfold = !this.unfold
-    }
-  }
-})
+      this.itemList = [];
+      this.unfold = !this.unfold;
+    },
+  },
+});
 </script>

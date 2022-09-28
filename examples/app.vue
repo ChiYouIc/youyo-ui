@@ -5,10 +5,9 @@
 import { defineComponent } from 'vue';
 import iconView from './src/iconView.vue';
 export default defineComponent({
-  name: "app",
-  components: {iconView}
-})
-
+  name: 'app',
+  components: { iconView },
+});
 </script>
 <style lang="less">
 .upload-demo {

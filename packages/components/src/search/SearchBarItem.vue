@@ -8,21 +8,21 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, inject} from "vue";
-import {searchBarItemProps} from './types';
+import { defineComponent, inject } from 'vue';
+import { searchBarItemProps } from './types';
 import './style/item.less';
 
 export default defineComponent({
-  name: "y-search-bar-item",
+  name: 'y-search-bar-item',
   props: searchBarItemProps,
   setup() {
     const labelWidth = inject('labelWidth');
 
     return {
       labelStyle: {
-        'width': `${labelWidth}px`
-      }
-    }
-  }
-})
+        width: `${labelWidth}px`,
+      },
+    };
+  },
+});
 </script>
