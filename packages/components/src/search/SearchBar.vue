@@ -27,7 +27,7 @@ export default defineComponent({
   components: { YIcon, YSearchBarItem },
   setup(props) {
     const state = reactive<searchBarStateType>({
-      unfold: false,
+      unfold: true,
       itemList: [],
     });
 
