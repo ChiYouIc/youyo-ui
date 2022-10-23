@@ -1,6 +1,3 @@
-import { ExtractPropTypes } from 'vue';
-import { IElement } from 'happy-dom';
-
 export const searchBarProps = {
   columns: {
     type: Number,
@@ -25,11 +22,3 @@ export const searchBarItemProps = {
     default: () => '',
   },
 };
-
-export type searchBarStateType = {
-  unfold: boolean;
-  itemList: Array<IElement>;
-};
-
-export type SearchBarProps = ExtractPropTypes<typeof searchBarProps>;
-export type SearchBarItemProps = ExtractPropTypes<typeof searchBarItemProps>;
