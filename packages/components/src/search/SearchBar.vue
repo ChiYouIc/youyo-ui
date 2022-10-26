@@ -28,6 +28,10 @@ export default defineComponent({
 
     function foldButton() {
       if (props.fold) {
+        // 如果插槽元素数量小于一行的列数，不显示展开，折叠按钮
+        if(slots.default().length < props.columns) {
+          return []
+        }
         return [
           !unfold.value
               ? h(YIcon, {icon: "antd-up", size: "12px", class: "fold", onClick: () => unfold.value = true}, () => ['折叠'])
