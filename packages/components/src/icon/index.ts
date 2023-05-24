@@ -1,6 +1,6 @@
 import icon from './Icon.vue';
 import iconSelect from './IconSelect.vue';
-import iconPicker from './iconPicker.vue';
+import iconPicker from './IconPicker.vue';
 import { withInstall } from '../../utils/index';
 
 export const Icon = withInstall(icon);
