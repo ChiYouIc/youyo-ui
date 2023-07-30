@@ -1,6 +1,4 @@
 import tableOperator from './TableOperator.vue';
-import { withInstall } from '../../utils/index';
+import { withInstall } from '@youyo-ui/utils';
 
-export const TableOperator = withInstall(tableOperator);
-
-export default TableOperator;
+export const YTableOperator = withInstall(tableOperator);

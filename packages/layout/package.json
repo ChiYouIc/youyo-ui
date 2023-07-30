@@ -1,0 +1,35 @@
+{
+  "name": "youyo-basic-layout",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "author": "Youyo",
+  "license": "MIT",
+  "keywords": [
+    "youyo-ui-layout"
+  ],
+  "files": [
+    "es",
+    "lib"
+  ],
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "vite build && esno ./build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@youyo-ui/utils": "workspace:^1.0.0"
+  },
+  "devDependencies": {
+    "vite-plugin-vue-setup-extend": "^0.4.0",
+    "vue-i18n": "^9.1.10",
+    "pinia": "^2.1.4",
+    "vue-router": "^4.0.3",
+    "ant-design-vue": "^3.2.7",
+    "store": "^2.0.12",
+    "core-js": "^3.8.3",
+    "@youyo-ui/plugins": "workspace:^1.0.0",
+    "@youyo-ui/builds": "workspace:^1.0.0"
+  }
+}

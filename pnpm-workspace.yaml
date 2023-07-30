@@ -1,4 +1,7 @@
 packages:
-  - "packages/**"
-  - "examples"
-  - "site"
+  - 'examples/youyo-template'
+  - 'packages/components'
+  - 'packages/layout'
+  - 'packages/utils'
+  - 'packages/plugins'
+  - 'packages/builds'

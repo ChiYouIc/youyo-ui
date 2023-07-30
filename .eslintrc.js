@@ -1,36 +1,32 @@
 module.exports = {
-  root: true,
-  // 指定代码运行的宿主环境。
   env: {
     browser: true,
-    node: true,
-    es6: true,
+    es2021: true,
   },
-  parser: 'vue-eslint-parser',
-  // 设置解析器选项。
-  parserOptions: {
-    parser: '@typescript-eslint/parser',
-    ecmaVersion: 2020,
-    sourceType: 'module',
-    jsxPragma: 'React',
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
-  // 声明在代码中的自定义全局变量。
-  globals: {
-
-  },
-  // 指定 eslint 规范。
   extends: [
     'eslint:recommended',
-    '@vue/typescript/recommended',
-    'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:vue/vue3-essential',
+    'plugin:prettier/recommended',
+    'eslint-config-prettier',
   ],
-  // 引用第三方的插件。
-  plugins: ['@typescript-eslint'],
-  // 启用额外的规则或覆盖默认的规则。
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint', 'vue', 'prettier'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -86,4 +82,5 @@ module.exports = {
     ],
     'vue/multi-word-component-names': 'off',
   },
+  ignorePatterns: '.eslintignore',
 };

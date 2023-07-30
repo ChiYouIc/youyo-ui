@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { iconProps } from './types';
-import './style/index.css';
+import './style/index.less';
 
 export default defineComponent({
   name: 'y-icon',

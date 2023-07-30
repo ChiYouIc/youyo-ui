@@ -3,3 +3,5 @@ node_modules
 *.ttf
 .idea
 /public
+/packages/**/lib
+/packages/**/es

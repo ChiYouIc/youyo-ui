@@ -1,0 +1,50 @@
+.msg-notification {
+  :deep(.ant-badge-count) {
+    top: -8px;
+  }
+
+  .bell {
+    font-size: 14px;
+  }
+}
+
+.notification-pane {
+  width: 340px;
+  max-height: 600px;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  .notification-pane-tabs {
+    flex: 1;
+    height: 100%;
+
+    .notification-pane-tab-pane {
+      &.opacity {
+        opacity: 0.4;
+      }
+    }
+  }
+
+  .notification-pane-footer {
+    flex: 0;
+    display: flex;
+    width: 100%;
+    height: 46px;
+    border-top: 1px solid #d9d9d9;
+
+    .line-between {
+      width: 1px;
+      height: 100%;
+      border: 1px solid #d9d9d9;
+    }
+
+    .ant-btn {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  }
+}
