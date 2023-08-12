@@ -5,11 +5,6 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup name="youyo-back-top">
 import './style/index.less';
-
-export default defineComponent({
-  name: 'youyo-back-top',
-});
 </script>

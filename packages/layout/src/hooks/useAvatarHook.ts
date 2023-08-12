@@ -1,3 +1,5 @@
+import { reactive, toRefs } from 'vue';
+
 export type AvatarHookType = {
   username: string;
   avatar: string;
@@ -10,15 +12,15 @@ export interface AvatarMenu {
   action: () => void;
 }
 
-const avatar: AvatarHookType = {};
+const avatar = reactive<AvatarHookType>({});
 
 export default function useAvatarHook() {
   return {
-    setup: (param: AvatarHookType) => {
-      avatar.center = param.center;
-      avatar.information = param.information;
-      avatar.logout = param.logout;
+    setupAvatar: (param: AvatarHookType) => {
+      avatar.username = param.username;
+      avatar.avatar = param.avatar;
+      avatar.menuItem = param.menuItem;
     },
-    ...avatar,
+    ...toRefs(avatar),
   };
 }

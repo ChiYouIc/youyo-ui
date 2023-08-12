@@ -1,5 +1,5 @@
 packages:
-  - 'examples/youyo-template'
+  - 'examples'
   - 'packages/components'
   - 'packages/layout'
   - 'packages/utils'
