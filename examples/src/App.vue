@@ -4,9 +4,9 @@
       <youyo-logo style="padding: 12px 10px" />
     </template>
     <template #header>
-      <a-button @click="handleCollapsible">collapsible</a-button>
+      <a-button @click="switchCollapsible">collapsible</a-button>
       <youyo-avatar />
-      <youyo-search />
+      <!--      <youyo-search />-->
     </template>
     <template #content>
       <content />
@@ -18,26 +18,16 @@
 </template>
 
 <script setup lang="ts">
-import YouyoLayout from 'youyo-basic-layout/src/layout/index.vue';
-import YouyoFooter from 'youyo-basic-layout/src/footer/index.vue';
-import YouyoLogo from 'youyo-basic-layout/src/logo/index.vue';
-import YouyoAvatar from 'youyo-basic-layout/src/avatar/index.vue';
-import YouyoSearch from 'youyo-basic-layout/src/search/index.vue';
-import Content from './components/Content.vue';
-import useLayoutHook from 'youyo-basic-layout/src/hooks/useLayoutHook.ts';
-import useAvatarHook from 'youyo-basic-layout/src/hooks/useAvatarHook.ts';
-import useSearchHook from 'youyo-basic-layout/src/hooks/useSearchHook.ts';
-import useLogoHook from 'youyo-basic-layout/src/hooks/useLogoHook.ts';
+import { YouyoLayout, YouyoFooter, YouyoAvatar, useLayoutHook, useAvatarHook, useSearchHook } from 'youyo-basic-layout/es';
+import { YouyoLogo } from 'youyo-basic-layout/src/logo';
+import { useLogoHook } from 'youyo-basic-layout/src/hooks';
 
-const { layout, switchCollapsible } = useLayoutHook();
+import Content from './components/Content.vue';
+
+const { switchCollapsible } = useLayoutHook();
 const { setupAvatar } = useAvatarHook();
 const { setupSearch } = useSearchHook();
 const { setupLogo } = useLogoHook();
-
-function handleCollapsible() {
-  console.log(layout.sidebar.collapsible);
-  switchCollapsible(!layout.sidebar.collapsible);
-}
 
 setupAvatar({
   username: 'string',
@@ -64,7 +54,10 @@ setupSearch({
 
 setupLogo({
   name: 'Youyo-basic-layout',
-  img: 'https://aliyuncdn.antdv.com/favicon.ico',
+  img: 'https://cn.vuejs.org/logo.svg',
+  width: 50,
+  height: 50,
+  showName: false,
 });
 </script>
 

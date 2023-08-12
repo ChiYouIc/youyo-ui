@@ -9,6 +9,8 @@ export type LogoType = {
 };
 
 const logo = reactive<LogoType>({
+  name: '',
+  img: '',
   width: 40,
   height: 40,
   showName: true,
@@ -16,13 +18,14 @@ const logo = reactive<LogoType>({
 
 export default function useLogoHook() {
   return {
+    logo,
     ...toRefs(logo),
-    setupLogo: ({ name, img, width, height, showName }: LogoType) => {
-      logo.name = name;
-      logo.img = img;
-      width ? (logo.width = width) : undefined;
-      height ? (logo.height = height) : undefined;
-      showName ? (logo.showName = showName) : undefined;
+    setupLogo: (param: LogoType) => {
+      logo.name = param.name;
+      logo.img = param.img;
+      param.width ? (logo.width = param.width) : undefined;
+      param.height ? (logo.height = param.height) : undefined;
+      param.showName ? (logo.showName = param.showName) : undefined;
     },
     switchShowName() {
       logo.showName = !logo.showName;
