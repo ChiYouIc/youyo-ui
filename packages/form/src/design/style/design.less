@@ -1,0 +1,44 @@
+.form-design {
+  flex: 3;
+  min-width: 600px;
+  box-shadow: 6px 0 10px -5px #8888, -6px 0 10px -5px #8888;
+
+  & > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  & > ul > li {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+    align-content: center;
+    align-items: center;
+
+    .marker-required::before {
+      display: inline;
+      margin-inline-end: 4px;
+      color: #ff4d4f;
+      font-size: 14px;
+      content: "*";
+    }
+
+    label::after {
+      content: ":";
+      position: relative;
+      margin-block: 0;
+      margin-inline-start: 2px;
+      margin-inline-end: 8px;
+    }
+  }
+
+  .design-item {
+    border: 1px dashed #d9d9d9;
+
+    &:hover {
+      border-color: #0070f4;
+    }
+  }
+}
