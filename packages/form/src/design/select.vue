@@ -17,37 +17,34 @@ import './style/select.less';
 import { ref } from 'vue';
 import { uuid } from 'vue-uuid';
 import DraggableComponent from 'vuedraggable';
-import { FormComponentType, FormItemType } from '../types';
+import { ComponentSelectType } from '../types';
+import useFormHook from '../hooks/useFormHook';
+import AbstractComponent from '../core/AbstractComponent';
 
-const selectOptions = ref<Array<FormComponentType>>([
-  { id: 0, name: 'input', desc: '输入框', component: 'a-input' },
-  { id: 1, name: 'select', desc: '输入框', component: 'a-select' },
-  { id: 2, name: 'input number', desc: '输入框', component: 'a-input-number' },
-  { id: 3, name: 'radio', desc: '输入框', component: 'a-radio' },
-  { id: 4, name: 'rate', desc: '输入框', component: 'a-rate' },
-  { id: 5, name: 'switch', desc: '输入框', component: 'a-switch' },
-  { id: 6, name: 'time picker', desc: '输入框', component: 'a-time-picker' },
-  { id: 7, name: 'date picker', desc: '输入框', component: 'a-date-picker' },
-  { id: 7, name: 'upload', desc: '输入框', component: 'a-upload' },
+const selectOptions = ref<Array<ComponentSelectType>>([
+  { id: 0, name: 'Input', desc: '输入框', component: 'a-input' },
+  { id: 1, name: 'Select', desc: '输入框', component: 'a-select' },
+  { id: 2, name: 'InputNumber', desc: '输入框', component: 'a-input-number' },
+  { id: 3, name: 'Radio', desc: '输入框', component: 'a-radio' },
+  { id: 4, name: 'Rate', desc: '输入框', component: 'a-rate' },
+  { id: 5, name: 'Switch', desc: '输入框', component: 'a-switch' },
+  { id: 6, name: 'TimePicker', desc: '输入框', component: 'a-time-picker' },
+  { id: 7, name: 'DatePicker', desc: '输入框', component: 'a-date-picker' },
+  { id: 7, name: 'Upload', desc: '输入框', component: 'a-upload' },
 ]);
 
 function onMove(obj) {
   return obj.from !== obj.to;
 }
 
-function onClone(obj: FormComponentType): FormItemType {
-  return {
+function onClone(obj: ComponentSelectType): AbstractComponent {
+  const { save } = useFormHook();
+
+  return save({
     id: uuid.v1(),
     name: obj.name,
     component: obj.component,
-    config: {
-      defaultValue: undefined,
-      required: false,
-      rule: '',
-      disabled: false,
-      placeholder: 'hahah',
-    },
-  };
+  });
 }
 </script>
 

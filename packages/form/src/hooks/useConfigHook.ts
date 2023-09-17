@@ -1,7 +1,7 @@
-import { FormItemType } from '../types';
+import { AbstractComponent } from '../types';
 
 interface FormConfigAction {
-  changed: Array<(item: FormItemType) => void>;
+  changed: Array<(item: AbstractComponent) => void>;
 }
 
 const action: FormConfigAction = {
@@ -10,10 +10,10 @@ const action: FormConfigAction = {
 
 export default function useConfigHook() {
   return {
-    setValue: (item: FormItemType) => {
+    setValue: (item: AbstractComponent) => {
       action.changed.forEach(v => v(item));
     },
-    onChanged(callback: (item: FormItemType) => void) {
+    onChanged(callback: (item: AbstractComponent) => void) {
       action.changed.push(callback);
     },
   };

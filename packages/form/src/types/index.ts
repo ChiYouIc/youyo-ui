@@ -1,37 +1,29 @@
 /**
- * 组件选择
+ * 组件选择类型
  */
-export type FormComponentType = {
+export type ComponentSelectType = {
   id: number;
-  name: string;
+  name: ComponentModeType;
   desc: string;
   component: string;
 };
 
-/**
- * 表单设计
- */
-
-export type FormType = {
-  name: string;
-  author: string;
-  type: string;
-  description: string;
-  items: Array<FormItemType>;
-};
-
-export type FormItemType = {
+export type ComponentOption = Pick<ComponentSelectType, 'name' | 'component'> & {
   id: string;
-  name: string;
-  component: string;
-  value: any;
-  config: FormItemConfigType;
 };
 
-export type FormItemConfigType = {
-  defaultValue: any;
-  required: boolean; // 是否必填
-  rule: string; // 校验规则
-  disabled: boolean; // 是否禁用
-  placeholder: string; // 占位符
-};
+export enum ComponentMode {
+  Input,
+  DatePicker,
+  InputNumber,
+  Radio,
+  Rate,
+  Select,
+  Slider,
+  Switch,
+  Table,
+  TimePicker,
+  Upload,
+}
+
+export type ComponentModeType = keyof typeof ComponentMode;

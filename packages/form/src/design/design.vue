@@ -6,27 +6,29 @@
       </template>
       <template #item="{ element }">
         <li class="design-item" @click="onClick(element)">
-          <label :class="{ 'marker-required': element.config.required }">{{ element.name }}</label>
-          <component v-if="element.name === 'switch'" v-model:checked="element.config.defaultValue" :is="element.component" :disabled="element.config.disabled" :placeholder="element.config.placeholder" />
-          <component v-else v-model:value="element.config.defaultValue" :is="element.component" :disabled="element.config.disabled" :placeholder="element.config.placeholder" />
+          <label :class="{ 'marker-required': element.required }">{{ element.name }}</label>
+          <component v-model:key="element.id" :is="element.component" v-bind="element" v-model:value="element.value" v-model:checked="element.value" />
         </li>
       </template>
     </draggable-component>
-    {{ currItem }}
+    <vue-json-pretty :showIcon="true" :data="JSON.parse(JSON.stringify(currItem || {}))"></vue-json-pretty>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="form-design">
 import './style/design.less';
+
 import DraggableComponent from 'vuedraggable';
 import { ref } from 'vue';
-import { FormItemType } from '../types';
 import useConfigHook from '../hooks/useConfigHook';
+import VueJsonPretty from 'vue-json-pretty';
+import 'vue-json-pretty/lib/styles.css';
+import AbstractComponent from '../core/AbstractComponent';
 
 const { setValue } = useConfigHook();
 
-const designList = ref<Array<FormItemType>>([]);
-const currItem = ref<FormItemType>();
+const designList = ref<Array<AbstractComponent>>([]);
+const currItem = ref<AbstractComponent>();
 
 function onChange(e) {
   const added = e?.added;
@@ -35,7 +37,8 @@ function onChange(e) {
   }
 }
 
-function onClick(item: FormItemType): void {
+function onClick(item: AbstractComponent): void {
+  console.log(item);
   currItem.value = item;
   setValue(item);
 }

@@ -28,11 +28,11 @@
     "typescript": "^5.1.6",
     "vite": "^4.4.4",
     "vite-plugin-dts": "^3.3.0",
-    "vue": "^3.2.36",
+    "vue": "^3.3.0",
     "vue-router": "^4.0.3",
     "vue-i18n": "^9.1.10",
     "@ant-design/icons-vue": "^6.1.0",
     "ant-design-vue": "^3.2.7",
-    "pinia": "^2.1.4"
+    "pinia": "^2.1.6"
   }
 }
