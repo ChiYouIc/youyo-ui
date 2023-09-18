@@ -13,6 +13,7 @@ export type ComponentOption = Pick<ComponentSelectType, 'name' | 'component'> & 
 };
 
 export enum ComponentMode {
+  Empty,
   Input,
   DatePicker,
   InputNumber,

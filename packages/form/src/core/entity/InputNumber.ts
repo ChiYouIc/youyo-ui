@@ -3,13 +3,15 @@ import AbstractComponent from '../AbstractComponent';
 import { ComponentOption } from '../../types';
 
 class InputNumber extends AbstractComponent {
-  public value: string = undefined;
-  public placeholder: string = undefined;
+  public value: number | undefined = undefined;
+  public min: number = -1000;
+  public max: number = 1000;
+  public placeholder: string = '请输入数值';
 
   constructor(option: ComponentOption) {
     super(option);
   }
-  init(config: AbstractComponentConfig): void {}
+  init(_: AbstractComponentConfig): void {}
 }
 
 export default InputNumber;

@@ -1,7 +1,7 @@
 <template>
   <div class="form-config">
-    <template v-if="form">
-      <component :is="`${form.name}Config`" v-model:form="form" />
+    <template v-if="component">
+      <component :is="`${component.name}Config`" v-model:form="component" />
     </template>
   </div>
 </template>
@@ -12,16 +12,20 @@ import { defineComponent, ref } from 'vue';
 import AbstractComponent from '../core/AbstractComponent';
 import InputConfig from './config/Input.vue';
 import SwitchConfig from './config/Switch.vue';
+import SelectConfig from './config/Select.vue';
+import InputNumberConfig from './config/InputNumber.vue';
+import RadioConfig from './config/Radio.vue';
+
 export default defineComponent({
   name: 'form-config',
-  components: { InputConfig, SwitchConfig },
+  components: { InputConfig, SwitchConfig, SelectConfig, InputNumberConfig, RadioConfig },
   setup() {
-    const form = ref<AbstractComponent>();
+    const component = ref<AbstractComponent>();
 
     const { onChanged } = useConfigHook();
-    onChanged(item => (form.value = item));
+    onChanged(item => (component.value = item));
     return {
-      form,
+      component,
     };
   },
 });

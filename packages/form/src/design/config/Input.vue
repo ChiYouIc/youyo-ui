@@ -1,5 +1,8 @@
 <template>
   <a-form :model="form">
+    <a-form-item label="标签" name="label">
+      <a-input v-model:value="form!.label" />
+    </a-form-item>
     <a-form-item label="默认值" name="defaultValue">
       <a-input v-model:value="form!.value" />
     </a-form-item>
@@ -20,6 +23,7 @@
 <script setup lang="ts" name="input">
 type InputConfigProps = {
   form: {
+    label: string;
     value: string;
     required: boolean;
     disabled: boolean;

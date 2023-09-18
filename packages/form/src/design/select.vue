@@ -18,8 +18,8 @@ import { ref } from 'vue';
 import { uuid } from 'vue-uuid';
 import DraggableComponent from 'vuedraggable';
 import { ComponentSelectType } from '../types';
-import useFormHook from '../hooks/useFormHook';
 import AbstractComponent from '../core/AbstractComponent';
+import componentFactory from '../core/componentFactory';
 
 const selectOptions = ref<Array<ComponentSelectType>>([
   { id: 0, name: 'Input', desc: '输入框', component: 'a-input' },
@@ -38,13 +38,7 @@ function onMove(obj) {
 }
 
 function onClone(obj: ComponentSelectType): AbstractComponent {
-  const { save } = useFormHook();
-
-  return save({
-    id: uuid.v1(),
-    name: obj.name,
-    component: obj.component,
-  });
+  return componentFactory.creator({ id: uuid.v1(), name: obj.name, component: obj.component });
 }
 </script>
 

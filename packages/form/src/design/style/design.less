@@ -2,6 +2,60 @@
   flex: 3;
   min-width: 600px;
   box-shadow: 6px 0 10px -5px #8888, -6px 0 10px -5px #8888;
+  overflow: inherit;
+  padding: 5px;
+
+  .form-design-draggable {
+    min-height: 120px;
+    outline: 1px dashed;
+
+    .draggable-item {
+      position: relative;
+      border: 1px dashed #d9d9d9;
+
+      & > .empty {
+        margin: 0 auto;
+      }
+
+      &:hover {
+        border-color: #0070f4;
+      }
+
+      .draggable-item-close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        cursor: pointer;
+      }
+
+    }
+
+
+
+  }
+
+  .empty-draggable::after {
+    content: '请将组件拖拽到此处';
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    line-height: 70px;
+    color: #86909c;
+  }
+
+  .draggable-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
+    padding: 5px;
+    cursor: pointer;
+
+    & > .title {
+      font-size: 24px;
+      text-align: center;
+    }
+  }
 
   & > ul {
     list-style: none;
@@ -34,11 +88,4 @@
     }
   }
 
-  .design-item {
-    border: 1px dashed #d9d9d9;
-
-    &:hover {
-      border-color: #0070f4;
-    }
-  }
 }
