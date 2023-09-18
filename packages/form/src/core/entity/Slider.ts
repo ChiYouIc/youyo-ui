@@ -1,17 +1,25 @@
-import AbstractComponentConfig from '../AbstractComponentConfig';
 import AbstractComponent from '../AbstractComponent';
-import { ComponentOption } from '../../types';
+import { AbstractComponentConstructorOption, AbstractComponentInitOption } from '../../types';
+import { Slider as AntSlider, SliderProps } from 'ant-design-vue';
+import { h, VNode } from 'vue';
+
+type SliderInitOption = AbstractComponentInitOption & {};
 
 class Slider extends AbstractComponent {
-  public value: string = undefined;
-  public placeholder: string = undefined;
+  public value: number | undefined = undefined;
+  public placeholder: string | undefined = undefined;
 
-  constructor(option: ComponentOption) {
+  constructor(option: AbstractComponentConstructorOption) {
     super(option);
   }
 
-  init(config: AbstractComponentConfig): void {
-    console.log(config);
+  init(_: SliderInitOption): void {}
+
+  node(): VNode {
+    return h<SliderProps>(AntSlider, {
+      value: this.value,
+      'onUpdate:value': (val: number) => (this.value = val),
+    });
   }
 }
 

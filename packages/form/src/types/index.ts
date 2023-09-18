@@ -8,9 +8,20 @@ export type ComponentSelectType = {
   component: string;
 };
 
-export type ComponentOption = Pick<ComponentSelectType, 'name' | 'component'> & {
+/**
+ * 抽象组件构造方法option
+ */
+export type AbstractComponentConstructorOption = Pick<ComponentSelectType, 'name' | 'component'> & {
   id: string;
+  label?: string;
+  required?: boolean;
+  disabled?: boolean;
 };
+
+/**
+ * 组件初始化 option
+ */
+export type AbstractComponentInitOption = {};
 
 export enum ComponentMode {
   Empty,
@@ -28,3 +39,11 @@ export enum ComponentMode {
 }
 
 export type ComponentModeType = keyof typeof ComponentMode;
+
+export type DateType = {
+  date: string;
+  year: string;
+  month: string;
+  week: string;
+  quarter: string;
+};

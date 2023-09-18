@@ -1,16 +1,54 @@
-import AbstractComponentConfig from '../AbstractComponentConfig';
 import AbstractComponent from '../AbstractComponent';
-import { ComponentOption } from '../../types';
+import { AbstractComponentConstructorOption, AbstractComponentInitOption, DateType } from '../../types';
+import { h, VNode } from 'vue';
+import { DatePicker as AntDatePicker, DatePickerProps } from 'ant-design-vue';
+import dayjs, { Dayjs } from 'dayjs';
+
+type DatePickerInitOption = AbstractComponentInitOption & {
+  value: DateType | undefined;
+  placeholder: string;
+  picker: 'date' | 'week' | 'month' | 'quarter' | 'year';
+};
 
 class DatePicker extends AbstractComponent {
-  public value: string = undefined;
-  public placeholder: string = undefined;
+  public value: DateType | undefined = undefined;
+  public placeholder: string = '请选择日期';
+  public picker: 'date' | 'week' | 'month' | 'quarter' | 'year' = 'date';
 
-  constructor(option: ComponentOption) {
+  constructor(option: AbstractComponentConstructorOption) {
     super(option);
   }
 
-  init(config: AbstractComponentConfig): void {}
+  init({ value, placeholder, picker }: DatePickerInitOption): void {
+    this.value = value;
+    this.placeholder = placeholder;
+    this.picker = picker;
+  }
+
+  fetchValue(val: Dayjs) {
+    let v: typeof this.value;
+    if (val) {
+      const day = dayjs(val);
+      v = {
+        date: day.format('YYYY-MM-DD'),
+        year: day.format('YYYY'),
+        month: day.format('YYYY-MM'),
+        week: day.format('ww'),
+        quarter: day.format('Q'),
+      };
+    }
+    this.value = v;
+  }
+
+  node(): VNode {
+    return h<DatePickerProps>(AntDatePicker, {
+      value: this.value ? dayjs(this.value?.date) : undefined,
+      'onUpdate:value': (val: Dayjs) => this.fetchValue(val),
+      picker: this.picker,
+      disabled: this.disabled,
+      placeholder: this.placeholder,
+    });
+  }
 }
 
 export default DatePicker;

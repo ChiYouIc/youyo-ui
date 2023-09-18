@@ -25,12 +25,13 @@ const selectOptions = ref<Array<ComponentSelectType>>([
   { id: 0, name: 'Input', desc: '输入框', component: 'a-input' },
   { id: 1, name: 'Select', desc: '输入框', component: 'a-select' },
   { id: 2, name: 'InputNumber', desc: '输入框', component: 'a-input-number' },
-  { id: 3, name: 'Radio', desc: '输入框', component: 'a-radio' },
+  { id: 3, name: 'Radio', desc: '输入框', component: 'a-radio-group' },
   { id: 4, name: 'Rate', desc: '输入框', component: 'a-rate' },
   { id: 5, name: 'Switch', desc: '输入框', component: 'a-switch' },
   { id: 6, name: 'TimePicker', desc: '输入框', component: 'a-time-picker' },
-  { id: 7, name: 'DatePicker', desc: '输入框', component: 'a-date-picker' },
-  { id: 7, name: 'Upload', desc: '输入框', component: 'a-upload' },
+  { id: 7, name: 'DatePicker', desc: '输入框', component: 'date-picker' },
+  { id: 8, name: 'Upload', desc: '输入框', component: 'a-upload' },
+  { id: 9, name: 'Table', desc: '输入框', component: 'a-upload' },
 ]);
 
 function onMove(obj) {

@@ -12,6 +12,16 @@
     .draggable-item {
       position: relative;
       border: 1px dashed #d9d9d9;
+      height: 100%;
+      padding: 10px 0;
+
+      & > div:first-child {
+        white-space: nowrap;
+      }
+
+      & > div:nth-child(2) {
+        width: 100%;
+      }
 
       & > .empty {
         margin: 0 auto;
@@ -29,9 +39,6 @@
       }
 
     }
-
-
-
   }
 
   .empty-draggable::after {
@@ -79,7 +86,7 @@
       content: "*";
     }
 
-    label::after {
+    & > div:first-child > label::after {
       content: ":";
       position: relative;
       margin-block: 0;

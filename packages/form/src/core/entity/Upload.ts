@@ -1,16 +1,21 @@
-import AbstractComponentConfig from '../AbstractComponentConfig';
 import AbstractComponent from '../AbstractComponent';
-import { ComponentOption } from '../../types';
+import { AbstractComponentConstructorOption, AbstractComponentInitOption } from '../../types';
+import { h, VNode } from 'vue';
+
+type UploadInitOption = AbstractComponentInitOption & {};
 
 class Upload extends AbstractComponent {
-  public value: string = undefined;
-  public placeholder: string = undefined;
+  public value: string | undefined = undefined;
 
-  constructor(option: ComponentOption) {
+  constructor(option: AbstractComponentConstructorOption) {
     super(option);
   }
 
-  init(config: AbstractComponentConfig): void {}
+  init(_: UploadInitOption): void {}
+
+  node(): VNode {
+    return h('div');
+  }
 }
 
 export default Upload;

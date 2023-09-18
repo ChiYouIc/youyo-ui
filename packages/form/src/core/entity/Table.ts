@@ -1,16 +1,27 @@
-import AbstractComponentConfig from '../AbstractComponentConfig';
 import AbstractComponent from '../AbstractComponent';
-import { ComponentOption } from '../../types';
+import { AbstractComponentConstructorOption, AbstractComponentInitOption } from '../../types';
+import { h, VNode } from 'vue';
+import { Table as AntTable, TableColumnType, TableProps } from 'ant-design-vue';
 
-class Table extends AbstractComponent {
-  public value: string = undefined;
-  public placeholder: string = undefined;
+type TableInitOption = AbstractComponentInitOption & {};
 
-  constructor(option: ComponentOption) {
+class Table<T> extends AbstractComponent {
+  public value: T[] = [];
+  public columns: TableColumnType[] = [];
+
+  constructor(option: AbstractComponentConstructorOption) {
     super(option);
   }
 
-  init(config: AbstractComponentConfig): void {}
+  init(_: TableInitOption): void {}
+
+  node(): VNode {
+    return h<TableProps>(AntTable, {
+      dataSource: this.value,
+      columns: this.columns,
+      style: { width: '100%' },
+    });
+  }
 }
 
 export default Table;

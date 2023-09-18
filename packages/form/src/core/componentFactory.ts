@@ -1,5 +1,5 @@
 import AbstractComponent from './AbstractComponent';
-import { ComponentModeType, ComponentOption } from '../types';
+import { AbstractComponentConstructorOption, ComponentModeType } from '../types';
 import InputNumber from './entity/InputNumber';
 import Input from './entity/Input';
 import Radio from './entity/Radio';
@@ -16,7 +16,7 @@ import Upload from './entity/Upload';
  * 抽象工厂
  */
 interface AbstractFactory {
-  creator: (c: ComponentOption) => AbstractComponent;
+  creator: (c: AbstractComponentConstructorOption) => AbstractComponent;
 }
 
 const InputFactory: AbstractFactory = { creator: c => new Input(c) };
@@ -48,7 +48,7 @@ class ComponentFactory {
     this._cache.set('Upload', UploadFactory);
   }
 
-  public creator(option: ComponentOption): AbstractComponent {
+  public creator(option: AbstractComponentConstructorOption): AbstractComponent {
     const factory = this._cache.get(option.name);
     if (factory === undefined) {
       throw new Error(`No constructor found for ${option.name}`);

@@ -12,24 +12,37 @@
     <a-form-item label="禁用" name="disabled">
       <a-switch v-model:checked="form.disabled" />
     </a-form-item>
+    <a-form-item label="按钮类型" name="disabled">
+      <a-select v-model:value="form.optionType">
+        <a-select-option value="default">Default</a-select-option>
+        <a-select-option value="button">Button</a-select-option>
+      </a-select>
+    </a-form-item>
     <a-form-item label="候选项" name="options">
-      <template v-for="option in form.options">
-        <a-row :gutter="10" style="align-items: center; margin-bottom: 10px">
-          <a-col :span="11">
-            <a-input v-model:value="option.label" placeholder="请输入label" />
-          </a-col>
-          <a-col :span="11">
-            <a-input v-model:value="option.value" placeholder="请输入value" />
-          </a-col>
-          <a-col :span="2">
-            <minus-circle-outlined />
-          </a-col>
-        </a-row>
-      </template>
-      <a-button type="dashed" block @click="onAddOption">
-        <plus-outlined />
-        新增
-      </a-button>
+      <a-form-item label="候选项" name="options">
+        <a-form :model="form.options">
+          <template v-for="(option, index) in form.options" :key="index">
+            <a-row :gutter="5">
+              <a-col :span="11">
+                <a-form-item style="margin-bottom: 5px">
+                  <a-input v-model:value="option.label" placeholder="请输入label" />
+                </a-form-item>
+              </a-col>
+              <a-col :span="11">
+                <a-form-item style="margin-bottom: 5px">
+                  <a-input v-model:value="option.value" placeholder="请输入value" />
+                </a-form-item>
+              </a-col>
+              <a-col :span="2">
+                <a-form-item style="margin-bottom: 5px">
+                  <minus-circle-outlined @click="onRemoveOption(option, index)" style="cursor: pointer" />
+                </a-form-item>
+              </a-col>
+            </a-row>
+          </template>
+        </a-form>
+        <a-button type="dashed" block @click="onAddOption"><plus-outlined />新增</a-button>
+      </a-form-item>
     </a-form-item>
   </a-form>
 </template>
@@ -43,6 +56,7 @@ interface RadioProps {
     value: string;
     required: boolean;
     disabled: boolean;
+    optionType: 'button' | 'default';
     options: Array<{ label: string; value: string; disabled?: boolean }>;
   };
 }
@@ -50,6 +64,10 @@ interface RadioProps {
 const props = defineProps<RadioProps>();
 function onAddOption() {
   props.form.options.push({ label: '', value: '' });
+}
+
+function onRemoveOption(_: { label: string; value: string }, index: number) {
+  props.form.options.splice(index, 1);
 }
 </script>
 

@@ -15,13 +15,16 @@ import SwitchConfig from './config/Switch.vue';
 import SelectConfig from './config/Select.vue';
 import InputNumberConfig from './config/InputNumber.vue';
 import RadioConfig from './config/Radio.vue';
+import RateConfig from './config/Rate.vue';
+import TimePickerConfig from './config/TimePicker.vue';
+import DatePickerConfig from './config/DatePicker.vue';
+import TableConfig from './config/Table.vue';
 
 export default defineComponent({
   name: 'form-config',
-  components: { InputConfig, SwitchConfig, SelectConfig, InputNumberConfig, RadioConfig },
+  components: { InputConfig, SwitchConfig, SelectConfig, InputNumberConfig, RadioConfig, RateConfig, TimePickerConfig, DatePickerConfig, TableConfig },
   setup() {
     const component = ref<AbstractComponent>();
-
     const { onChanged } = useConfigHook();
     onChanged(item => (component.value = item));
     return {

@@ -1,15 +1,25 @@
-import AbstractComponentConfig from '../AbstractComponentConfig';
 import AbstractComponent from '../AbstractComponent';
-import { ComponentOption } from '../../types';
+import { AbstractComponentConstructorOption, AbstractComponentInitOption } from '../../types';
+import { Switch as AntSwitch, SwitchProps } from 'ant-design-vue';
+import { h, VNode } from 'vue';
+
+type SwitchInitOption = AbstractComponentInitOption & {};
 
 class Switch extends AbstractComponent {
   public value: boolean = false;
 
-  constructor(option: ComponentOption) {
+  constructor(option: AbstractComponentConstructorOption) {
     super(option);
   }
 
-  init(config: AbstractComponentConfig): void {}
+  init(_: SwitchInitOption): void {}
+
+  node(): VNode {
+    return h<SwitchProps>(AntSwitch, {
+      checked: this.value,
+      'onUpdate:checked': (val: boolean) => (this.value = val),
+    });
+  }
 }
 
 export default Switch;
