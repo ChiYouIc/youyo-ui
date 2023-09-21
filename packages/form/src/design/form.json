@@ -1,0 +1,99 @@
+{
+  "id": "e7ee2f90-5862-11ee-ad5d-15a7bcf84b58",
+  "name": "手机信息收集单表v1",
+  "description": "这是一个手机信息手机表单",
+  "version": "1.0.0",
+  "components": [
+    {
+      "id": "07e1a8e0-5863-11ee-ad5d-15a7bcf84b58",
+      "name": "Radio",
+      "component": "a-radio-group",
+      "value": "512",
+      "label": "内存",
+      "required": true,
+      "disabled": false,
+      "optionType": "default",
+      "options": [
+        {
+          "label": "128G",
+          "value": "128"
+        },
+        {
+          "label": "256G",
+          "value": "256"
+        },
+        {
+          "label": "512G",
+          "value": "512"
+        }
+      ]
+    },
+    {
+      "id": "079361d0-5863-11ee-ad5d-15a7bcf84b58",
+      "name": "Select",
+      "value": "小米",
+      "component": "a-select",
+      "label": "手机",
+      "required": false,
+      "disabled": false,
+      "placeholder": "请选择手机",
+      "options": [
+        {
+          "label": "iPhone",
+          "value": "iPhone"
+        },
+        {
+          "label": "小米",
+          "value": "小米"
+        },
+        {
+          "label": "华为",
+          "value": "华为"
+        },
+        {
+          "label": "Vivo",
+          "value": "Vivo"
+        },
+        {
+          "label": "Oppo",
+          "value": "Oppo"
+        }
+      ]
+    },
+    {
+      "id": "48b1c300-5863-11ee-ad5d-15a7bcf84b58",
+      "name": "Input",
+      "component": "a-input",
+      "label": "手机",
+      "required": false,
+      "disabled": false,
+      "value": "18325201758",
+      "placeholder": "请输入手机号码",
+      "maxlength": 500
+    },
+    {
+      "id": "5a8e0ed0-5863-11ee-ad5d-15a7bcf84b58",
+      "name": "DatePicker",
+      "component": "date-picker",
+      "value": "2023-09-21",
+      "label": "配送日期",
+      "required": false,
+      "disabled": false,
+      "placeholder": "请选择配送日期",
+      "picker": "date"
+    },
+    {
+      "id": "63fb1530-5863-11ee-ad5d-15a7bcf84b58",
+      "name": "TimePicker",
+      "component": "a-time-picker",
+      "value": "12:00:00",
+      "label": "配送时间",
+      "required": false,
+      "disabled": false,
+      "placeholder": "请选择配送时间",
+      "hourStep": 1,
+      "minuteStep": 30,
+      "secondStep": 30
+    }
+  ]
+}
