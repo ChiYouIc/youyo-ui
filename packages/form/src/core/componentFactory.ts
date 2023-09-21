@@ -11,12 +11,13 @@ import Table from './entity/Table';
 import TimePicker from './entity/TimePicker';
 import DatePicker from './entity/DatePicker';
 import Upload from './entity/Upload';
+import Fence from './entity/Fence';
 
 /**
  * 抽象工厂
  */
 interface AbstractFactory {
-  creator: (c: AbstractComponentConstructorOption) => AbstractComponent;
+  creator: (c: AbstractComponentConstructorOption) => AbstractComponent<any>;
 }
 
 const InputFactory: AbstractFactory = { creator: c => new Input(c) };
@@ -30,6 +31,7 @@ const SwitchFactory: AbstractFactory = { creator: c => new Switch(c) };
 const TableFactory: AbstractFactory = { creator: c => new Table(c) };
 const TimePickerFactory: AbstractFactory = { creator: c => new TimePicker(c) };
 const UploadFactory: AbstractFactory = { creator: c => new Upload(c) };
+const FenceFactory: AbstractFactory = { creator: c => new Fence(c) };
 
 class ComponentFactory {
   private _cache: Map<ComponentModeType, AbstractFactory> = new Map<ComponentModeType, AbstractFactory>();
@@ -46,12 +48,13 @@ class ComponentFactory {
     this._cache.set('Table', TableFactory);
     this._cache.set('TimePicker', TimePickerFactory);
     this._cache.set('Upload', UploadFactory);
+    this._cache.set('Fence', FenceFactory);
   }
 
-  public creator(option: AbstractComponentConstructorOption): AbstractComponent {
-    const factory = this._cache.get(option.name);
+  public creator(option: AbstractComponentConstructorOption): AbstractComponent<any> {
+    const factory = this._cache.get(option.component);
     if (factory === undefined) {
-      throw new Error(`No constructor found for ${option.name}`);
+      throw new Error(`No constructor found for ${option.component}`);
     }
     return factory.creator(option);
   }

@@ -4,14 +4,13 @@ import { h, VNode } from 'vue';
 import { DatePicker as AntDatePicker, DatePickerProps } from 'ant-design-vue';
 import dayjs, { Dayjs } from 'dayjs';
 
-type DatePickerInitOption = AbstractComponentInitOption & {
-  value: DateType | undefined;
+type DatePickerInitOption = AbstractComponentInitOption<DateType> & {
+  value: string;
   placeholder: string;
   picker: 'date' | 'week' | 'month' | 'quarter' | 'year';
 };
 
-class DatePicker extends AbstractComponent {
-  public value: DateType | undefined = undefined;
+class DatePicker extends AbstractComponent<DateType> {
   public placeholder: string = '请选择日期';
   public picker: 'date' | 'week' | 'month' | 'quarter' | 'year' = 'date';
 
@@ -20,7 +19,14 @@ class DatePicker extends AbstractComponent {
   }
 
   init({ value, placeholder, picker }: DatePickerInitOption): void {
-    this.value = value;
+    const day = dayjs(value);
+    this.value = {
+      date: day.format('YYYY-MM-DD'),
+      year: day.format('YYYY'),
+      month: day.format('YYYY-MM'),
+      week: day.format('ww'),
+      quarter: day.format('Q'),
+    };
     this.placeholder = placeholder;
     this.picker = picker;
   }
@@ -42,6 +48,7 @@ class DatePicker extends AbstractComponent {
 
   node(): VNode {
     return h<DatePickerProps>(AntDatePicker, {
+      id: this.id,
       value: this.value ? dayjs(this.value?.date) : undefined,
       'onUpdate:value': (val: Dayjs) => this.fetchValue(val),
       picker: this.picker,

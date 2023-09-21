@@ -1,5 +1,11 @@
 <template>
   <a-form :model="form">
+    <a-form-item label="标签" name="label">
+      <a-input v-model:value="form!.label" />
+    </a-form-item>
+    <a-form-item label="名称" name="name">
+      <a-input v-model:value="form.name" />
+    </a-form-item>
     <a-form-item label="自定义列" name="options">
       <a-form :model="form.columns">
         <template v-for="(option, index) in form.columns" :key="index">
@@ -32,6 +38,8 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
 
 type TableProps = {
   form: {
+    label: string;
+    name: string;
     columns: TableColumnType[];
   };
 };

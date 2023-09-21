@@ -3,6 +3,9 @@
     <a-form-item label="标签" name="label">
       <a-input v-model:value="form!.label" />
     </a-form-item>
+    <a-form-item label="名称" name="name">
+      <a-input v-model:value="form.name" />
+    </a-form-item>
     <a-form-item label="默认值" name="defaultValue">
       <a-input v-model:value="form!.value" />
     </a-form-item>
@@ -24,6 +27,7 @@
 type InputConfigProps = {
   form: {
     label: string;
+    name: string;
     value: string;
     required: boolean;
     disabled: boolean;

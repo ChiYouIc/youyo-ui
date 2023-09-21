@@ -3,6 +3,9 @@
     <a-form-item label="标签" name="label">
       <a-input v-model:value="form.label" />
     </a-form-item>
+    <a-form-item label="名称" name="name">
+      <a-input v-model:value="form.name" />
+    </a-form-item>
     <a-form-item label="默认值" name="value">
       <a-select v-model:value="form.value" placeholder="请选择默认值" :options="form.options" />
     </a-form-item>
@@ -53,6 +56,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
 interface RadioProps {
   form: {
     label: string;
+    name: string;
     value: string;
     required: boolean;
     disabled: boolean;

@@ -15,12 +15,14 @@
     flex-wrap: wrap;
 
     & > li {
+      position: relative;
       width: calc((100% - 10px) / 2);
-      height: 85px;
+      height: 70px;
       min-width: calc((300px - 10px) / 2);
       border-radius: 4px;
       border: 1px solid #69b1ff;
       padding: 5px;
+      cursor: pointer;
 
       &:hover {
         box-shadow: 0 0 3px #69b1ff;
@@ -33,6 +35,16 @@
       &:first-child {
         font-size: 18px;
         font-weight: bold;
+      }
+
+      &:last-child {
+        position: absolute;
+        right: 3px;
+        top: 0;
+      }
+
+      &:last-child:hover {
+        color: #69b1ff;
       }
 
     }

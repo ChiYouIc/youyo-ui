@@ -5,9 +5,24 @@
   "version": "1.0.0",
   "components": [
     {
+      "id": "48cf2a70-5931-11ee-ae2e-298537dbde9a",
+      "label": "栅栏",
+      "name": "filed1",
+      "component": "Fence",
+      "required": false,
+      "disabled": false,
+      "row": 3,
+      "col": 3,
+      "list": [
+        [],
+        [],
+        []
+      ]
+    },
+    {
       "id": "07e1a8e0-5863-11ee-ad5d-15a7bcf84b58",
-      "name": "Radio",
-      "component": "a-radio-group",
+      "name": "memory",
+      "component": "Radio",
       "value": "512",
       "label": "内存",
       "required": true,
@@ -30,9 +45,9 @@
     },
     {
       "id": "079361d0-5863-11ee-ad5d-15a7bcf84b58",
-      "name": "Select",
+      "name": "brand",
       "value": "小米",
-      "component": "a-select",
+      "component": "Select",
       "label": "手机",
       "required": false,
       "disabled": false,
@@ -62,8 +77,8 @@
     },
     {
       "id": "48b1c300-5863-11ee-ad5d-15a7bcf84b58",
-      "name": "Input",
-      "component": "a-input",
+      "name": "phoneNumber",
+      "component": "Input",
       "label": "手机",
       "required": false,
       "disabled": false,
@@ -73,8 +88,8 @@
     },
     {
       "id": "5a8e0ed0-5863-11ee-ad5d-15a7bcf84b58",
-      "name": "DatePicker",
-      "component": "date-picker",
+      "name": "deliveryDate",
+      "component": "DatePicker",
       "value": "2023-09-21",
       "label": "配送日期",
       "required": false,
@@ -84,8 +99,8 @@
     },
     {
       "id": "63fb1530-5863-11ee-ad5d-15a7bcf84b58",
-      "name": "TimePicker",
-      "component": "a-time-picker",
+      "name": "deliveryTime",
+      "component": "TimePicker",
       "value": "12:00:00",
       "label": "配送时间",
       "required": false,

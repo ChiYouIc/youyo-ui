@@ -3,10 +3,9 @@ import { AbstractComponentConstructorOption, AbstractComponentInitOption } from 
 import { h, VNode } from 'vue';
 import { Table as AntTable, TableColumnType, TableProps } from 'ant-design-vue';
 
-type TableInitOption = AbstractComponentInitOption & {};
+type TableInitOption = AbstractComponentInitOption<any[]> & {};
 
-class Table<T> extends AbstractComponent {
-  public value: T[] = [];
+class Table<T> extends AbstractComponent<T[]> {
   public columns: TableColumnType[] = [];
 
   constructor(option: AbstractComponentConstructorOption) {
@@ -17,6 +16,7 @@ class Table<T> extends AbstractComponent {
 
   node(): VNode {
     return h<TableProps>(AntTable, {
+      id: this.id,
       dataSource: this.value,
       columns: this.columns,
       style: { width: '100%' },

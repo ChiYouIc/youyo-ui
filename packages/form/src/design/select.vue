@@ -1,14 +1,20 @@
 <template>
   <div class="form-select">
+    <a-divider orientation="left">组件</a-divider>
     <draggable-component v-model:list="selectOptions" tag="ul" :group="{ name: 'design', pull: 'clone', put: false }" item-key="id" :move="onMove" :clone="onClone">
       <template #item="{ element }">
         <li class="component-item">
-          <span>{{ element.name }}</span>
-          <span>{{ element.desc }}</span>
           <span>{{ element.component }}</span>
+          <span>{{ element.name }}</span>
+          <span>
+            <a-tooltip :title="element.description">
+              <question-circle-outlined />
+            </a-tooltip>
+          </span>
         </li>
       </template>
     </draggable-component>
+    <a-divider orientation="left">套件</a-divider>
   </div>
 </template>
 
@@ -20,26 +26,35 @@ import DraggableComponent from 'vuedraggable';
 import { ComponentSelectType } from '../types';
 import AbstractComponent from '../core/AbstractComponent';
 import componentFactory from '../core/componentFactory';
+import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 
 const selectOptions = ref<Array<ComponentSelectType>>([
-  { id: 0, name: 'Input', desc: '输入框', component: 'a-input' },
-  { id: 1, name: 'Select', desc: '输入框', component: 'a-select' },
-  { id: 2, name: 'InputNumber', desc: '输入框', component: 'a-input-number' },
-  { id: 3, name: 'Radio', desc: '输入框', component: 'a-radio-group' },
-  { id: 4, name: 'Rate', desc: '输入框', component: 'a-rate' },
-  { id: 5, name: 'Switch', desc: '输入框', component: 'a-switch' },
-  { id: 6, name: 'TimePicker', desc: '输入框', component: 'a-time-picker' },
-  { id: 7, name: 'DatePicker', desc: '输入框', component: 'date-picker' },
-  { id: 8, name: 'Upload', desc: '输入框', component: 'a-upload' },
-  { id: 9, name: 'Table', desc: '输入框', component: 'a-upload' },
+  { name: '输入框', component: 'Input', description: '输入框' },
+  { name: '选择框', component: 'Select', description: '选择框' },
+  { name: '数字输入框', component: 'InputNumber', description: '数字输入框' },
+  { name: '单选框', component: 'Radio', description: '单选框' },
+  { name: '评分', component: 'Rate', description: '评分' },
+  { name: '开关', component: 'Switch', description: '开关' },
+  { name: '时间选择框', component: 'TimePicker', description: '时间选择框' },
+  { name: '日期选择框', component: 'DatePicker', description: '日期选择框' },
+  { name: '上传', component: 'Upload', description: '上传' },
+  { name: '表格', component: 'Table', description: '表格' },
+  { name: '栅栏', component: 'Fence', description: '栅栏' },
 ]);
 
 function onMove(obj) {
   return obj.from !== obj.to;
 }
 
-function onClone(obj: ComponentSelectType): AbstractComponent {
-  return componentFactory.creator({ id: uuid.v1(), name: obj.name, component: obj.component });
+const count = ref<number>(1);
+
+function onClone(obj: ComponentSelectType): AbstractComponent<any> {
+  return componentFactory.creator({
+    id: uuid.v1(),
+    label: obj.name,
+    name: `filed${count.value++}`,
+    component: obj.component,
+  });
 }
 </script>
 

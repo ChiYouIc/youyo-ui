@@ -3,6 +3,9 @@
     <a-form-item label="标签" name="label">
       <a-input v-model:value="form.label" />
     </a-form-item>
+    <a-form-item label="名称" name="name">
+      <a-input v-model:value="form.name" />
+    </a-form-item>
     <a-form-item label="默认值" name="value">
       <a-input-number v-model:value="form.value" placeholder="请选择默认值" :min="0" :max="form.count" />
     </a-form-item>
@@ -24,6 +27,7 @@
 type RateConfigProps = {
   form: {
     label: string;
+    name: string;
     value: string;
     required: boolean;
     disabled: boolean;

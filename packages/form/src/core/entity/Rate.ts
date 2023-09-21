@@ -3,21 +3,22 @@ import { AbstractComponentConstructorOption, AbstractComponentInitOption } from 
 import { h, VNode } from 'vue';
 import { Rate as AntRate, RateProps } from 'ant-design-vue';
 
-type RateInitOption = AbstractComponentInitOption & {};
+type RateInitOption = AbstractComponentInitOption<number> & {};
 
-class Rate extends AbstractComponent {
-  public value: number = 0;
+class Rate extends AbstractComponent<number> {
   public count: number = 5;
   public allowHalf: boolean = false;
 
   constructor(option: AbstractComponentConstructorOption) {
     super(option);
+    this.value = 0;
   }
 
   init(_: RateInitOption): void {}
 
   node(): VNode {
     return h<RateProps>(AntRate, {
+      id: this.id,
       value: this.value,
       'onUpdate:value': (val: number) => (this.value = val),
       count: this.count,

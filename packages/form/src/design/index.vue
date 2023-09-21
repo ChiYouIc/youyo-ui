@@ -1,8 +1,5 @@
 <template>
   <div class="youyo-form-design">
-    <div class="header">
-      <h1>Youyo Dynamic Form Design</h1>
-    </div>
     <div class="content">
       <form-select />
       <form-design />

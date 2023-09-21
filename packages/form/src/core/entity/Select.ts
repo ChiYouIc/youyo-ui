@@ -3,14 +3,12 @@ import { AbstractComponentConstructorOption, AbstractComponentInitOption } from 
 import { h, VNode } from 'vue';
 import { Select as AntSelect, SelectProps } from 'ant-design-vue';
 
-type SelectInitOption = AbstractComponentInitOption & {
-  value: string | undefined;
+type SelectInitOption = AbstractComponentInitOption<string> & {
   placeholder: string;
   options: Array<{ label: string; value: string }>;
 };
 
-class Select extends AbstractComponent {
-  public value: string | undefined = undefined;
+class Select extends AbstractComponent<string> {
   public placeholder: string = '';
   public options: Array<{ label: string; value: string }> = [];
 
@@ -26,6 +24,7 @@ class Select extends AbstractComponent {
 
   node(): VNode {
     return h<SelectProps>(AntSelect, {
+      id: this.id,
       value: this.value,
       'onUpdate:value': (val: string) => (this.value = val),
       placeholder: this.placeholder,

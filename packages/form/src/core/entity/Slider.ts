@@ -3,10 +3,9 @@ import { AbstractComponentConstructorOption, AbstractComponentInitOption } from 
 import { Slider as AntSlider, SliderProps } from 'ant-design-vue';
 import { h, VNode } from 'vue';
 
-type SliderInitOption = AbstractComponentInitOption & {};
+type SliderInitOption = AbstractComponentInitOption<number> & {};
 
-class Slider extends AbstractComponent {
-  public value: number | undefined = undefined;
+class Slider extends AbstractComponent<number> {
   public placeholder: string | undefined = undefined;
 
   constructor(option: AbstractComponentConstructorOption) {
@@ -16,10 +15,7 @@ class Slider extends AbstractComponent {
   init(_: SliderInitOption): void {}
 
   node(): VNode {
-    return h<SliderProps>(AntSlider, {
-      value: this.value,
-      'onUpdate:value': (val: number) => (this.value = val),
-    });
+    return h<SliderProps>(AntSlider, { id: this.id, value: this.value, 'onUpdate:value': (val: number) => (this.value = val) });
   }
 }
 

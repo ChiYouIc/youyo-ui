@@ -2,17 +2,18 @@
  * 组件选择类型
  */
 export type ComponentSelectType = {
-  id: number;
-  name: ComponentModeType;
-  desc: string;
-  component: string;
+  name: string;
+  component: ComponentModeType;
+  description: string;
 };
 
 /**
  * 抽象组件构造方法option
  */
-export type AbstractComponentConstructorOption = Pick<ComponentSelectType, 'name' | 'component'> & {
+export type AbstractComponentConstructorOption = {
   id: string;
+  name: string;
+  component: ComponentModeType;
   label?: string;
   required?: boolean;
   disabled?: boolean;
@@ -21,7 +22,9 @@ export type AbstractComponentConstructorOption = Pick<ComponentSelectType, 'name
 /**
  * 组件初始化 option
  */
-export type AbstractComponentInitOption = {};
+export type AbstractComponentInitOption<Value> = {
+  value: Value;
+};
 
 export enum ComponentMode {
   Empty,
@@ -36,6 +39,7 @@ export enum ComponentMode {
   Table,
   TimePicker,
   Upload,
+  Fence,
 }
 
 export type ComponentModeType = keyof typeof ComponentMode;

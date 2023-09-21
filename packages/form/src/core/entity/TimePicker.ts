@@ -3,16 +3,15 @@ import { AbstractComponentConstructorOption, AbstractComponentInitOption } from 
 import { h, VNode } from 'vue';
 import { TimePicker as AntTimePicker, TimePickerProps } from 'ant-design-vue';
 
-type TimePickerInitOption = AbstractComponentInitOption & {
-  value: string | undefined;
+type TimePickerInitOption = AbstractComponentInitOption<string> & {
+  value: string;
   placeholder: string;
   hourStep: number;
   minuteStep: number;
   secondStep: number;
 };
 
-class TimePicker extends AbstractComponent {
-  public value: string | undefined = undefined;
+class TimePicker extends AbstractComponent<string> {
   public placeholder: string = '';
   /** 小时选项间隔 */
   public hourStep: number = 1;
@@ -35,6 +34,7 @@ class TimePicker extends AbstractComponent {
 
   node(): VNode {
     return h<TimePickerProps>(AntTimePicker, {
+      id: this.id,
       value: this.value,
       'onUpdate:value': (val: string) => (this.value = val),
       placeholder: this.placeholder,

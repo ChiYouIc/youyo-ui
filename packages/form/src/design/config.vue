@@ -1,7 +1,7 @@
 <template>
   <div class="form-config">
     <template v-if="component">
-      <component :is="`${component.name}Config`" v-model:form="component" />
+      <component :is="`${component.component}Config`" v-model:form="component" />
     </template>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default defineComponent({
   name: 'form-config',
   components: { InputConfig, SwitchConfig, SelectConfig, InputNumberConfig, RadioConfig, RateConfig, TimePickerConfig, DatePickerConfig, TableConfig },
   setup() {
-    const component = ref<AbstractComponent>();
+    const component = ref<AbstractComponent<any>>();
     const { onChanged } = useConfigHook();
     onChanged(item => (component.value = item));
     return {

@@ -3,14 +3,12 @@ import { AbstractComponentConstructorOption, AbstractComponentInitOption } from 
 import { h, VNode } from 'vue';
 import { Input as AntInput, InputProps } from 'ant-design-vue';
 
-type InputInitOption = AbstractComponentInitOption & {
-  value: string;
+type InputInitOption = AbstractComponentInitOption<string> & {
   placeholder: string;
   maxlength: number;
 };
 
-class Input extends AbstractComponent {
-  public value: string = '';
+class Input extends AbstractComponent<string> {
   public placeholder: string = '请输入内容';
   public maxlength: number = 500;
 
@@ -26,6 +24,7 @@ class Input extends AbstractComponent {
 
   node(): VNode {
     return h<InputProps>(AntInput, {
+      id: this.id,
       value: this.value,
       'onUpdate:value': (val: string) => (this.value = val),
       placeholder: this.placeholder,

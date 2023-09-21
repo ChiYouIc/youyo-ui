@@ -1,6 +1,13 @@
 <template>
   <div class="form-design">
-    <draggable-component :class="['form-design-draggable', form.components.length === 0 ? 'empty-draggable' : '']" v-model:list="form.components" tag="ul" group="design" item-key="id" @change="onChange">
+    <draggable-component
+      :class="['form-design-draggable', form.components.length === 0 ? 'empty-draggable' : '']"
+      v-model:list="form.components"
+      tag="ul"
+      group="design"
+      item-key="id"
+      @change="onChange"
+    >
       <template #header>
         <div class="draggable-header">
           <span class="title">{{ form.name }}</span>
@@ -19,11 +26,10 @@
       </template>
       <template #item="{ element }">
         <li class="draggable-item" @click="onClick(element)">
-          <div>
+          <div class="draggable-item-label" v-if="element.component !== 'Fence'">
             <label :class="{ 'marker-required': element.required }">{{ element.label }}</label>
           </div>
-          <div>
-            <!--            <component :key="element.id" :is="element.component" v-bind="element" v-model:value="element.value" v-model:checked="element.value" />-->
+          <div class="draggable-item-content">
             <factory :el="element" />
           </div>
           <div class="draggable-item-close">
@@ -41,13 +47,16 @@
       </a-col>
     </a-row>
   </div>
+  <a-modal v-model:visible="previewVisible" title="预览">
+    <preview />
+  </a-modal>
 </template>
 
-<script lang="ts">
+<script setup lang="ts" name="form-design">
 import './style/design.less';
 
 import DraggableComponent from 'vuedraggable';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, ref } from 'vue';
 import useConfigHook from '../hooks/useConfigHook';
 import VueJsonPretty from 'vue-json-pretty';
 import 'vue-json-pretty/lib/styles.css';
@@ -55,50 +64,34 @@ import AbstractComponent from '../core/AbstractComponent';
 import Form from '../core/entity/Form';
 import { CloseOutlined, QuestionCircleOutlined } from '@ant-design/icons-vue';
 import Factory from '../factory/index.vue';
+import Preview from '../preview/index.vue';
 import sfj from './form.json';
 
-export default defineComponent({
-  name: 'form-design',
-  components: {
-    Factory,
-    DraggableComponent,
-    VueJsonPretty,
-    QuestionCircleOutlined,
-    CloseOutlined,
-  },
-  setup() {
-    const { setValue } = useConfigHook();
-    const form = ref<Form>(new Form(sfj.id, sfj.name, sfj.version, sfj.description, sfj.components));
-    // const form = ref<Form>(new Form(uuid.v1(), '表单v1', '1.0.0', '这事一个测试表单'));
-    const currItem = ref<AbstractComponent>();
+const previewVisible = ref<boolean>(false);
+const { setValue } = useConfigHook();
+const form = ref<Form>(new Form(sfj.id, sfj.name, sfj.version, sfj.description, sfj.components));
+// const form = ref<Form>(new Form(uuid.v1(), '表单v1', '1.0.0', '这事一个测试表单'));
+const currItem = ref<AbstractComponent<any>>();
 
-    const formJson = computed(() => JSON.parse(JSON.stringify(form.value)));
-    const currComponentJson = computed(() => JSON.parse(JSON.stringify(currItem.value || {})));
+const formJson = computed(() => JSON.parse(JSON.stringify(form.value)));
+const currComponentJson = computed(() => JSON.parse(JSON.stringify(currItem.value || {})));
 
-    function onChange(e) {
-      const added = e?.added;
-      if (added) {
-        console.log(added);
-      }
-    }
+function onChange(e) {
+  const added = e?.added;
+  if (added) {
+    console.log(added);
+  }
+}
 
-    function onClick(item: AbstractComponent): void {
-      console.log(item);
-      currItem.value = item;
-      setValue(item);
-    }
+function onClick(item: AbstractComponent<any>): void {
+  console.log(item);
+  currItem.value = item;
+  setValue(item);
+}
 
-    function onPreview() {}
-
-    return {
-      form,
-      formJson,
-      currComponentJson,
-      onChange,
-      onClick,
-    };
-  },
-});
+function onPreview() {
+  previewVisible.value = !previewVisible.value;
+}
 </script>
 
 <style scoped></style>

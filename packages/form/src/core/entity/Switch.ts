@@ -3,19 +3,21 @@ import { AbstractComponentConstructorOption, AbstractComponentInitOption } from 
 import { Switch as AntSwitch, SwitchProps } from 'ant-design-vue';
 import { h, VNode } from 'vue';
 
-type SwitchInitOption = AbstractComponentInitOption & {};
+type SwitchInitOption = AbstractComponentInitOption<boolean> & {};
 
-class Switch extends AbstractComponent {
-  public value: boolean = false;
-
+class Switch extends AbstractComponent<boolean> {
   constructor(option: AbstractComponentConstructorOption) {
     super(option);
+    this.value = false;
   }
 
-  init(_: SwitchInitOption): void {}
+  init({ value }: SwitchInitOption): void {
+    this.value = value;
+  }
 
   node(): VNode {
     return h<SwitchProps>(AntSwitch, {
+      id: this.id,
       checked: this.value,
       'onUpdate:checked': (val: boolean) => (this.value = val),
     });

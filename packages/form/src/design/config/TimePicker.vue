@@ -3,6 +3,9 @@
     <a-form-item label="标签" name="label">
       <a-input v-model:value="form.label" />
     </a-form-item>
+    <a-form-item label="名称" name="name">
+      <a-input v-model:value="form.name" />
+    </a-form-item>
     <a-form-item label="必填" name="required">
       <a-switch v-model:checked="form.required" />
     </a-form-item>
@@ -38,6 +41,7 @@ import { Dayjs } from 'dayjs';
 type TimePickerProps = {
   form: {
     label: string;
+    name: string;
     value: Dayjs | undefined;
     required: boolean;
     placeholder: string;

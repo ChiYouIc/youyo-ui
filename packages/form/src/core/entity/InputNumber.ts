@@ -3,10 +3,9 @@ import { AbstractComponentConstructorOption, AbstractComponentInitOption } from 
 import { h, VNode } from 'vue';
 import { InputNumber as AntInputNumber, InputNumberProps } from 'ant-design-vue';
 
-type InputNumberInitOption = AbstractComponentInitOption & {};
+type InputNumberInitOption = AbstractComponentInitOption<number> & {};
 
-class InputNumber extends AbstractComponent {
-  public value: number | undefined = undefined;
+class InputNumber extends AbstractComponent<number> {
   public min: number = -1000;
   public max: number = 1000;
   public placeholder: string = '请输入数值';
@@ -19,6 +18,7 @@ class InputNumber extends AbstractComponent {
 
   node(): VNode {
     return h<InputNumberProps>(AntInputNumber, {
+      id: this.id,
       value: this.value,
       'onUpdate:value': (val: number) => (this.value = val),
       placeholder: this.placeholder,

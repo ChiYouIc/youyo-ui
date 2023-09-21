@@ -3,14 +3,12 @@ import { AbstractComponentConstructorOption, AbstractComponentInitOption } from 
 import { h, VNode } from 'vue';
 import { RadioGroup as AntRadioGroup, RadioGroupProps } from 'ant-design-vue';
 
-type RadioInitOption = AbstractComponentInitOption & {
-  value: string | undefined;
+type RadioInitOption = AbstractComponentInitOption<string> & {
   optionType: 'button' | 'default';
   options: Array<{ label: string; value: string; disabled?: boolean }>;
 };
 
-class Radio extends AbstractComponent {
-  public value: string | undefined = undefined;
+class Radio extends AbstractComponent<string> {
   public optionType: 'button' | 'default' = 'default';
   public options: Array<{ label: string; value: string; disabled?: boolean }> = [];
 
@@ -26,6 +24,7 @@ class Radio extends AbstractComponent {
 
   node(): VNode {
     return h<RadioGroupProps>(AntRadioGroup, {
+      id: this.id,
       value: this.value,
       'onUpdate:value': (val: string) => (this.value = val),
       disabled: this.disabled,
