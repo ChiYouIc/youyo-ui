@@ -20,6 +20,7 @@ class DatePicker extends AbstractComponent<DateType> {
 
   init({ value, placeholder, picker }: DatePickerInitOption): void {
     const day = dayjs(value);
+
     this.value = {
       date: day.format('YYYY-MM-DD'),
       year: day.format('YYYY'),
@@ -44,6 +45,12 @@ class DatePicker extends AbstractComponent<DateType> {
       };
     }
     this.value = v;
+  }
+
+  val(): Record<string, string> {
+    const res: Record<string, string> = {};
+    res[this.name] = this.value.date;
+    return res;
   }
 
   node(): VNode {

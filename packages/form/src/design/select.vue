@@ -1,7 +1,7 @@
 <template>
   <div class="form-select">
     <a-divider orientation="left">组件</a-divider>
-    <draggable-component v-model:list="selectOptions" tag="ul" :group="{ name: 'design', pull: 'clone', put: false }" item-key="id" :move="onMove" :clone="onClone">
+    <draggable-component id="design" v-model:list="selectOptions" tag="ul" :group="{ name: 'design', pull: 'clone', put: false }" item-key="id" :move="onMove" :clone="onClone">
       <template #item="{ element }">
         <li class="component-item">
           <span>{{ element.component }}</span>
@@ -27,6 +27,7 @@ import { ComponentSelectType } from '../types';
 import AbstractComponent from '../core/AbstractComponent';
 import componentFactory from '../core/componentFactory';
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
+import useDraggableHook from '../hooks/useDraggableHook';
 
 const selectOptions = ref<Array<ComponentSelectType>>([
   { name: '输入框', component: 'Input', description: '输入框' },
@@ -43,7 +44,8 @@ const selectOptions = ref<Array<ComponentSelectType>>([
 ]);
 
 function onMove(obj) {
-  return obj.from !== obj.to;
+  const { draggableMove } = useDraggableHook();
+  return draggableMove(obj);
 }
 
 const count = ref<number>(1);

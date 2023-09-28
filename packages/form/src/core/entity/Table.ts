@@ -3,7 +3,10 @@ import { AbstractComponentConstructorOption, AbstractComponentInitOption } from 
 import { h, VNode } from 'vue';
 import { Table as AntTable, TableColumnType, TableProps } from 'ant-design-vue';
 
-type TableInitOption = AbstractComponentInitOption<any[]> & {};
+type TableInitOption<T> = AbstractComponentInitOption<T[]> & {
+  columns: TableColumnType[];
+  data: T[];
+};
 
 class Table<T> extends AbstractComponent<T[]> {
   public columns: TableColumnType[] = [];
@@ -12,7 +15,16 @@ class Table<T> extends AbstractComponent<T[]> {
     super(option);
   }
 
-  init(_: TableInitOption): void {}
+  val(): Record<string, Array<T>> {
+    const res: Record<string, Array<T>> = {};
+    res[this.name] = this.value;
+    return res;
+  }
+
+  init({ value, columns }: TableInitOption<T>): void {
+    this.columns = columns;
+    this.value = value;
+  }
 
   node(): VNode {
     return h<TableProps>(AntTable, {

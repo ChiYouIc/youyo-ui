@@ -39,6 +39,12 @@ abstract class AbstractComponent<Value> {
    * 获取节点
    */
   public abstract node(): VNode;
+
+  public val(): Record<string, any> {
+    const res: Record<string, any> = {};
+    res[this.name] = this.value;
+    return res;
+  }
 }
 
 export default AbstractComponent;

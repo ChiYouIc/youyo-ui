@@ -53,14 +53,14 @@ class Form {
   }
 
   public formValue(): Record<string, any> {
-    const form: Record<string, any> = {};
+    let form: Record<string, any> = {};
 
     if (this.components === undefined || this.components.length === 0) {
       return form;
     }
 
     for (const item of this.components) {
-      form[item.name] = item.value;
+      form = Object.assign(form, item.val());
     }
 
     return form;
