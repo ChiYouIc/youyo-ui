@@ -1,32 +1,9 @@
-<template>
-  <div class="condition-group">
-    <div class="condition-group-node">
-      <div class="add-condition-button-box">
-        <button>添加条件</button>
-      </div>
-      <condition-node cover="left" />
-      <condition-node />
-      <condition-node />
-      <condition-node />
-      <condition-node />
-      <condition-node cover="right" />
-    </div>
-    <add-node-button />
-  </div>
-</template>
-
-<script setup lang="ts">
-import ConditionNode from './conditionNode.vue';
-import AddNodeButton from '../addNodeButton.vue';
-</script>
-
-<style scoped lang="less">
-.condition-group {
+.node-group {
   display: flex;
   flex-direction: column;
 }
 
-.condition-group-node {
+.node-group-node {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -44,6 +21,7 @@ import AddNodeButton from '../addNodeButton.vue';
 .add-condition-button-box {
   position: absolute;
   left: 50%;
+  z-index: 99;
   transform: translate(-50%, -50%);
 
   button {
@@ -59,4 +37,3 @@ import AddNodeButton from '../addNodeButton.vue';
     background-color: rgb(255, 255, 255);
   }
 }
-</style>

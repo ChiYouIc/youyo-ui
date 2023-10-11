@@ -3,6 +3,7 @@ packages:
   - 'packages/components'
   - 'packages/layout'
   - 'packages/utils'
+  - 'packages/flow'
   - 'packages/form'
   - 'packages/plugins'
   - 'packages/builds'
