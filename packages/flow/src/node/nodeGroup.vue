@@ -20,13 +20,25 @@
 <script setup lang="ts" name="y-flow-node-group">
 import './style/nodeGroup.less';
 import YFlowNode from './index.vue';
-import AddNodeButton from './addNodeButton.vue';
+import AddNodeButton from './add/index.vue';
 import { NodeMode, NodeType } from '../types.ts';
+
+interface NodeGroupEmits {
+  (event: 'remove'): void;
+}
 
 defineProps<{ node: NodeType }>();
 
+const emits = defineEmits<NodeGroupEmits>();
+
 function onRemove(node: NodeType, index: number) {
-  node.groupList?.splice(index, 1);
+  if (node.groupList) {
+    if (node.groupList.length <= 2) {
+      emits('remove');
+    } else {
+      node.groupList.splice(index, 1);
+    }
+  }
 }
 
 /**
@@ -37,7 +49,7 @@ function addConditionNode(node: NodeType) {
     title: 'xxx',
     icon: 'xxx',
     text: 'xxxx',
-    type: NodeMode.CONDITION,
+    type: NodeMode.NODE,
   });
 }
 </script>

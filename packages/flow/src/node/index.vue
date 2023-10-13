@@ -1,21 +1,26 @@
 <template>
-  <div :class="['flow-node', isConditionNode(node) ? 'condition-node' : null]">
+  <div :class="['flow-node', clsMap[node.type]]">
     <template v-if="cover">
       <div :class="[cover, 'top', 'cover']"></div>
     </template>
+    <!--  当前节点  -->
     <div class="node-box">
       <div :class="['node-content']" @click="nodeSettingBind.onOpen()">
-        <div class="title">{{ node.title }}</div>
+        <div class="title">
+          <span>{{ node.title }}</span>
+          <span>{{ node.title }}</span>
+        </div>
         <div class="text">{{ node.text }} - {{ cover }}</div>
         <div class="closed">
-          <CloseCircleOutlined @click.stop="$emit('remove')" />
+          <CloseOutlined @click.stop="$emit('remove')" />
         </div>
       </div>
-      <add-node-button v-if="!isEndNode(node)" :node="node" />
+      <y-flow-add-button v-if="!isEndNode(node)" :node="node" />
     </div>
+    <!--  下一个节点  -->
     <template v-if="node.next && !isEndNode(node)">
       <template v-if="isGroupNode(node.next)">
-        <y-flow-node-group :node="node.next" />
+        <y-flow-node-group :node="node.next" @remove="onRemove" />
       </template>
       <template v-else>
         <y-flow-node :node="node.next" @remove="onRemove" />
@@ -34,10 +39,10 @@ import YFlowNode from './index.vue';
 import YFlowNodeGroup from './nodeGroup.vue';
 import YFlowNodeSetting from './setting/nodeSetting.vue';
 import useNodeSetting from './setting/useNodeSetting.ts';
-import AddNodeButton from './addNodeButton.vue';
-import { NodeType } from '../types.ts';
-import { CloseCircleOutlined } from '@ant-design/icons-vue';
-import { isConditionNode, isEndNode, isGroupNode } from '../utils.ts';
+import YFlowAddButton from './add/index.vue';
+import { NodeMode, NodeType } from '../types.ts';
+import { CloseOutlined } from '@ant-design/icons-vue';
+import { isEndNode, isGroupNode } from '../utils.ts';
 
 type NodeProps = {
   node: NodeType;
@@ -56,4 +61,12 @@ const nodeSettingBind = useNodeSetting();
 function onRemove() {
   props.node!.next = props.node!.next!.next;
 }
+
+const clsMap = {
+  [NodeMode.START]: 'start-node',
+  [NodeMode.END]: 'end-node',
+  [NodeMode.NODE]: 'normal-node',
+  [NodeMode.CONDITION]: 'condition-node',
+  [NodeMode.GROUP]: 'group-node',
+};
 </script>

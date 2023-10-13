@@ -6,24 +6,23 @@
 
 <script setup lang="ts">
 import YouyoNode from '../../packages/flow/src/node/index.vue';
-// import EndNode from './endNode.vue';
 import { ref } from 'vue';
 import { NodeMode, NodeType } from '../../packages/flow/src/types.ts';
 
 const node = ref<NodeType>({
-  title: 'xxx',
-  text: 'xxxx',
+  title: '流程开始',
+  text: '开始节点',
   icon: 'xx',
   type: NodeMode.START,
   next: {
     type: NodeMode.GROUP,
     groupList: [
-      { title: '1', type: NodeMode.CONDITION },
-      { title: '2', type: NodeMode.CONDITION },
-      { title: '3', type: NodeMode.CONDITION },
+      { title: '条件1', type: NodeMode.CONDITION },
+      { title: '条件2', type: NodeMode.CONDITION },
+      { title: '条件3', type: NodeMode.CONDITION },
     ],
     next: {
-      title: 'end',
+      title: '流程结束',
       type: NodeMode.END,
     },
   },

@@ -16,4 +16,15 @@ function isEndNode(node: NodeType) {
   return node.type === NodeMode.END;
 }
 
-export { addNode, removeNode, isConditionNode, isGroupNode, isEndNode };
+function isMode(n: NodeType, mode: NodeMode): boolean {
+  const s = Number(n.type).toString(2).split('');
+  for (let i = 0; i < s.length; i++) {
+    if (mode === 1 << i) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+export { addNode, removeNode, isConditionNode, isGroupNode, isEndNode, isMode };
