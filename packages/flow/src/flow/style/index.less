@@ -1,0 +1,62 @@
+.youyo-flow {
+  position: relative;
+  width: 100%;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  background-color: #F5F5F7;
+
+  .flow-options {
+    width: 100%;
+    background-color: white;
+
+    & > div {
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      column-gap: 10px;
+      padding: 0 20px;
+
+      .title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .splitter {
+          margin-left: 10px;
+          height: 16px;
+          width: 1px;
+          background-color: rgba(126, 134, 142, 0.24);
+        }
+      }
+
+      .action {
+        flex: 1;
+      }
+
+      .transform {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        & > svg {
+          cursor: pointer;
+        }
+
+        span {
+          display: inline-block;
+          width: 70px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .flow-view {
+    padding: 50px 0;
+    transform-origin: 50% 0 0;
+
+  }
+}

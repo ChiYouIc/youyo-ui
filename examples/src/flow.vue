@@ -1,13 +1,19 @@
 <template>
-  <div class="youyo-flow">
-    <youyo-node :node="node" />
+  <div class="flow">
+    <div>
+      <vue-json-pretty :showIcon="true" :data="node" />
+    </div>
+    <y-flow-view :node="node" />
   </div>
 </template>
 
 <script setup lang="ts">
-import YouyoNode from '../../packages/flow/src/node/index.vue';
-import { ref } from 'vue';
+import 'vue-json-pretty/lib/styles.css';
+
+import YFlowView from '../../packages/flow/src/flow/index.vue';
 import { NodeMode, NodeType } from '../../packages/flow/src/types.ts';
+import { ref, watchEffect } from 'vue';
+import VueJsonPretty from 'vue-json-pretty';
 
 const node = ref<NodeType>({
   title: '流程开始',
@@ -15,6 +21,7 @@ const node = ref<NodeType>({
   icon: 'xx',
   type: NodeMode.START,
   next: {
+    title: '组节点',
     type: NodeMode.GROUP,
     groupList: [
       { title: '条件1', type: NodeMode.CONDITION },
@@ -27,13 +34,17 @@ const node = ref<NodeType>({
     },
   },
 });
+
+watchEffect(() => console.log(node.value), { flush: 'post' });
 </script>
 
 <style scoped lang="less">
-.youyo-flow {
+.flow {
+  //width: 100vw;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  //justify-content: center;
+  //align-items: center;
 }
 </style>

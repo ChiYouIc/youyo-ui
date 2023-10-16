@@ -1,9 +1,9 @@
-.flow-node {
+.youyo-node {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-flow: column wrap;
-  position: relative;
+  background-color: #F5F5F7;
 
   .node-box {
     display: flex;
@@ -112,18 +112,18 @@
     content: '';
     position: absolute;
     inset: 0;
-    z-index: -10;
+    //z-index: -10;
     margin: auto;
     width: 2px;
     height: 100%;
-    background-color: rgb(202, 202, 202);
+    background-color: #CACACA;
   }
 
   .cover {
     position: absolute;
     width: 50%;
-    height: 2px;
-    background-color: white;
+    height: 5px;
+    background-color: #F5F5F7;
   }
 
   .left {
@@ -135,17 +135,17 @@
   }
 
   .top {
-    top: -2px;
+    top: -3px;
   }
 
   .bottom {
-    bottom: -2px;
+    bottom: -4px;
   }
 
   & > .node-box {
     padding-top: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
 
     & > .node-content {
       &::before {
@@ -159,7 +159,6 @@
         border-style: solid;
         border-width: 8px 6px 4px;
         border-color: rgb(202, 202, 202) transparent transparent;
-        //background: rgb(245, 245, 247);
       }
 
       .title {

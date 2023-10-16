@@ -1,5 +1,5 @@
 <template>
-  <div :class="['flow-node', clsMap[node.type]]">
+  <div :class="['youyo-node', clsMap[node.type]]">
     <template v-if="cover">
       <div :class="[cover, 'top', 'cover']"></div>
     </template>
@@ -19,12 +19,8 @@
     </div>
     <!--  下一个节点  -->
     <template v-if="node.next && !isEndNode(node)">
-      <template v-if="isGroupNode(node.next)">
-        <y-flow-node-group :node="node.next" @remove="onRemove" />
-      </template>
-      <template v-else>
-        <y-flow-node :node="node.next" @remove="onRemove" />
-      </template>
+      <y-flow-node-group v-if="isGroupNode(node.next)" :node="node.next" @remove="onRemove" />
+      <y-flow-node v-else :node="node.next" @remove="onRemove" />
     </template>
     <template v-if="cover">
       <div :class="[cover, 'bottom', 'cover']"></div>
@@ -36,12 +32,12 @@
 <script setup lang="ts" name="y-flow-node">
 import './style/index.less';
 import YFlowNode from './index.vue';
-import YFlowNodeGroup from './nodeGroup.vue';
-import YFlowNodeSetting from './setting/nodeSetting.vue';
-import useNodeSetting from './setting/useNodeSetting.ts';
-import YFlowAddButton from './add/index.vue';
-import { NodeMode, NodeType } from '../types.ts';
+import YFlowNodeGroup from '../group/index.vue';
+import YFlowNodeSetting from '../setting/index.vue';
+import YFlowAddButton from '../add/index.vue';
 import { CloseOutlined } from '@ant-design/icons-vue';
+import { NodeMode, NodeType } from '../types.ts';
+import { useNodeSetting } from '../hooks/index';
 import { isEndNode, isGroupNode } from '../utils.ts';
 
 type NodeProps = {
@@ -56,7 +52,7 @@ interface NodeEmits {
 const props = defineProps<NodeProps>();
 defineEmits<NodeEmits>();
 
-const nodeSettingBind = useNodeSetting();
+const nodeSettingBind = useNodeSetting(props.node);
 
 function onRemove() {
   props.node!.next = props.node!.next!.next;

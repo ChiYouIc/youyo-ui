@@ -12,5 +12,3 @@ const props = defineProps<NodeSettingProps>();
 
 console.log(props);
 </script>
-
-<style scoped></style>

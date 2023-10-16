@@ -1,21 +1,28 @@
-.node-group {
+.flow-group {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  background-color: #F5F5F7;
 }
 
-.node-group-node {
-  position: relative;
+.group-node {
   display: flex;
   flex-direction: row;
-  column-gap: 30px;
-  overflow: visible;
-  min-height: 180px;
-  height: auto;
-  border-bottom: 2px solid rgb(202, 202, 202);
-  border-top: 2px solid rgb(202, 202, 202);
-  border-right-color: rgb(202, 202, 202);
-  border-left-color: rgb(202, 202, 202);
-  margin-top: 10px;
+  justify-content: center;
+
+  .group-content {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    overflow: visible;
+    min-height: 180px;
+    height: auto;
+    border-bottom: 2px solid #CACACA;
+    border-top: 2px solid #CACACA;
+    border-right-color: #CACACA;
+    border-left-color: #CACACA;
+    margin-top: 10px;
+  }
 }
 
 .add-condition-button-box {
