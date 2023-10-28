@@ -14,7 +14,7 @@ export default defineConfig({
     //cssCodeSplit: true,
     rollupOptions: {
       //忽略打包vue文件
-      external: ['vue', 'store', 'ant-design-vue', 'pinia', 'vue-demi', 'vue-i18n', 'vue-router', 'vue-types', 'less'],
+      external: ['vue', 'store', 'ant-design-vue', '@ant-design/icons-vue', 'less'],
       input: ['src/index.ts'],
       output: [
         {

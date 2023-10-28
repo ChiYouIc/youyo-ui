@@ -10,6 +10,8 @@
 <script setup lang="ts">
 import 'vue-json-pretty/lib/styles.css';
 
+// import YFlowView, { NodeMode, NodeType } from 'youyo-flow';
+
 import YFlowView from '../../packages/flow/src/flow/index.vue';
 import { NodeMode, NodeType } from '../../packages/flow/src/types.ts';
 import { ref, watchEffect } from 'vue';

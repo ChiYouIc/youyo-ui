@@ -1,6 +1,6 @@
 <template>
   <div class="add-node-button-box">
-    <a-popover v-model:open="visible" title="节点类型" trigger="click" placement="right">
+    <a-popover v-model:visible="hovered" title="节点类型" trigger="click" placement="right">
       <a-button shape="circle">
         <template #icon>
           <PlusOutlined style="color: #cacaca" />
@@ -61,9 +61,11 @@ import { ref } from 'vue';
 
 const props = defineProps<{ node: NodeType }>();
 
-const visible = ref<boolean>(false);
+const hovered = ref<boolean>(false);
 
 function approval(node: NodeType) {
+  hovered.value = false;
+
   node.next = {
     title: '审批节点',
     icon: 'xxxxx',
@@ -71,7 +73,6 @@ function approval(node: NodeType) {
     type: NodeMode.NODE,
     next: node.next,
   };
-  visible.value = false;
 }
 
 function cc(node: NodeType) {
@@ -82,7 +83,8 @@ function cc(node: NodeType) {
     type: NodeMode.NODE,
     next: node.next,
   };
-  visible.value = false;
+  hovered.value = false;
+  console.log(hovered);
 }
 
 function group(node: NodeType) {
@@ -107,7 +109,7 @@ function group(node: NodeType) {
       },
     ],
   };
-  visible.value = false;
+  hovered.value = false;
 }
 
 function onAdd(node: NodeType) {
@@ -118,7 +120,7 @@ function onAdd(node: NodeType) {
     type: NodeMode.NODE,
     next: props.node.next,
   };
-  visible.value = false;
+  hovered.value = false;
 }
 </script>
 

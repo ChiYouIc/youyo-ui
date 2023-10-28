@@ -8,7 +8,5 @@ interface NodeSettingProps {
   visible: boolean;
 }
 
-const props = defineProps<NodeSettingProps>();
-
-console.log(props);
+defineProps<NodeSettingProps>();
 </script>
