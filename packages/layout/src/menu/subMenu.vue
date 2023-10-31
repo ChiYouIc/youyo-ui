@@ -1,6 +1,6 @@
 <template>
   <a-sub-menu :key="menuInfo.key">
-    <template #icon>
+    <template v-if="menuInfo.icon" #icon>
       <component :is="menuInfo.icon" />
     </template>
     <template #title>
@@ -10,14 +10,14 @@
       <template v-if="!item.hidden">
         <template v-if="item.children.length === 0">
           <a-menu-item :key="item.path">
-            <template #icon>
+            <template v-if="item.icon" #icon>
               <component :is="item.icon" />
             </template>
             <span @click="menuClick(item)">{{ item.title }}</span>
           </a-menu-item>
         </template>
         <template v-else>
-          <sub-menu :menu-info="item" :key="item.key" />
+          <sub-menu :menu-info="item" :menu-click="menuClick" :key="item.key" />
         </template>
       </template>
     </template>
@@ -25,13 +25,21 @@
 </template>
 
 <script lang="ts" name="youyo-sub-menu" setup>
-import { defineProps } from 'vue';
-import { MenuItemType } from '../hooks/useMenuHook';
-import useMenuHook from '../hooks/useMenuHook';
+export interface SubMenuProps {
+  menuInfo: SubMenuInfo;
+  menuClick: (m: SubMenuInfo) => void;
+}
 
-defineProps<{ menuInfo: MenuItemType }>();
+export interface SubMenuInfo {
+  key: string;
+  title: string;
+  path: string;
+  icon?: string;
+  hidden: boolean;
+  children: SubMenuInfo[];
+}
 
-const { menuClick } = useMenuHook();
+defineProps<SubMenuProps>();
 </script>
 
 <style scoped></style>

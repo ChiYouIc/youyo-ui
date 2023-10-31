@@ -1,17 +1,12 @@
-import { reactive, toRefs } from 'vue';
+import { reactive } from 'vue';
 
-export type FooterHookType = {
+export type FooterType = {
   content: string;
 };
 
-const footer = reactive<FooterHookType>({
-  content: 'Ant Design ©2018 Created by Ant UED',
-});
-export default function useFooterHook() {
-  return {
-    setup: (param: FooterHookType) => {
-      footer.content = param.content;
-    },
-    ...toRefs(footer),
-  };
+export default function useFooterHook(content?: string) {
+  const footer = reactive<FooterType>({
+    content: content || 'Ant Design ©2018 Created by Ant UED',
+  });
+  return { footer };
 }

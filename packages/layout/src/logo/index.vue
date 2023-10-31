@@ -7,7 +7,14 @@
 
 <script lang="ts" setup name="youyo-logo">
 import './style/index.less';
-import useLogoHook from '../hooks/useLogoHook';
 
-const { name, img, width, height, showName } = useLogoHook();
+export interface LogoProps {
+  name: string;
+  img: string;
+  width: number;
+  height: number;
+  showName: boolean;
+}
+
+defineProps<LogoProps>();
 </script>

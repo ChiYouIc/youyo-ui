@@ -4,7 +4,7 @@
       <template v-if="!menu.hidden">
         <template v-if="menu.children.length === 0">
           <a-menu-item :key="menu.path" :title="menu.title">
-            <template #icon>
+            <template v-if="menu.icon" #icon>
               <!-- 使用动态组件渲染 icon -->
               <component :is="menu.icon" />
             </template>
@@ -12,7 +12,7 @@
           </a-menu-item>
         </template>
         <template v-else>
-          <sub-menu :key="menu.key" :menu-info="menu" />
+          <sub-menu :key="menu.key" :menu-click="menuClick" :menu-info="menu" />
         </template>
       </template>
     </template>
@@ -22,9 +22,28 @@
 <script setup lang="ts" name="youyo-menu">
 import './style/index.less';
 import SubMenu from './subMenu.vue';
-import useMenuHook from '../hooks/useMenuHook';
-const { menuList, openKeys, selectedKeys, theme, model, inlineCollapsed, menuChange, menuClick } = useMenuHook();
-console.log(menuList);
+
+export interface MenuProps {
+  menuList: MenuInfo[];
+  openKeys: Array<string>;
+  selectedKeys: Array<string>;
+  inlineCollapsed: boolean;
+  theme: 'light' | 'dark';
+  model: 'vertical' | 'horizontal' | 'inline';
+  menuChange: (oKeys: string[]) => void;
+  menuClick: (item: MenuInfo) => void;
+}
+
+export interface MenuInfo {
+  key: string;
+  title: string;
+  path: string;
+  icon?: string;
+  hidden: boolean;
+  children: MenuInfo[];
+}
+
+defineProps<MenuProps>();
 </script>
 
 <style scoped></style>

@@ -2,18 +2,10 @@
   <span> {{ content }} </span>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import useFooterHook from '../hooks/useFooterHook';
+<script lang="ts" setup name="youyo-footer">
+export interface FooterProps {
+  content: string;
+}
 
-export default defineComponent({
-  name: 'youyo-footer',
-  setup() {
-    const { content } = useFooterHook();
-
-    return {
-      content,
-    };
-  },
-});
+defineProps<FooterProps>();
 </script>

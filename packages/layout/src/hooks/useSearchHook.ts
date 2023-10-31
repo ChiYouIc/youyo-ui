@@ -1,42 +1,33 @@
-import { reactive, toRefs } from 'vue';
+import { reactive } from 'vue';
 
-export interface Search {
+export type SearchType = {
   searchList: SearchItemType[];
-  /**
-   * 当搜索值被选中后的动作
-   * @param val 被选中的值
-   */
-  action: (val: string) => void;
-}
+};
 
 export type SearchItemType = {
   label: string;
   value: string;
+  path: string;
 };
 
-const search = reactive<SearchType>({
-  searchList: [],
-  action: (val: string) => console.log(val),
-});
-
-/**
- * 搜索过滤
- * @param val
- */
-function filter(val: string): SearchItemType[] {
-  if (!val) {
-    return [];
-  }
-  return search.searchList.filter(v => v.label.includes(val));
+export interface SearchAction {
+  /**
+   * 当搜索值被选中后的动作
+   * @param val 被选中的值
+   */
+  checked: (val: string) => void;
 }
 
-export default function useSearchHook() {
-  return {
-    ...toRefs(search),
-    setupSearch: (param: Search) => {
-      search.searchList = param.searchList;
-      search.action = param.action;
+export default function useSearchHook(searchList: SearchItemType[], action?: SearchAction) {
+  const search = reactive<SearchType & SearchAction>({
+    searchList: searchList,
+    checked(val: string) {
+      console.log(val);
+      action?.checked(val);
     },
-    filter,
+  });
+
+  return {
+    search,
   };
 }

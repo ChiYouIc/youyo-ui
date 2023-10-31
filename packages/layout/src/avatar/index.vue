@@ -18,7 +18,17 @@
 </template>
 
 <script lang="ts" setup name="youyo-avatar">
-import useAvatarHook from '../hooks/useAvatarHook';
 import './style/index.less';
-const { username, avatar, menuItem } = useAvatarHook();
+
+interface AvatarProps {
+  username: string;
+  avatar: string;
+  menuItem: {
+    title: string;
+    icon: string;
+    action: () => void;
+  }[];
+}
+
+defineProps<AvatarProps>();
 </script>

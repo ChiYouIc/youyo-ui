@@ -1,6 +1,6 @@
-import { reactive, toRefs } from 'vue';
+import { reactive } from 'vue';
 
-export interface Menu {
+export interface MenuType {
   menuList: MenuItemType[];
   openKeys: Array<string>;
   selectedKeys: Array<string>;
@@ -13,7 +13,7 @@ export type MenuItemType = {
   key: string;
   title: string;
   path: string;
-  icon: string;
+  icon?: string;
   hidden: boolean;
   children: MenuItemType[];
 };
@@ -23,45 +23,34 @@ export interface MenuAction {
   menuClick: (item: MenuItemType) => void;
 }
 
-const menu = reactive<Menu>({
-  menuList: [],
-  openKeys: [],
-  selectedKeys: [],
-  inlineCollapsed: true,
-  theme: 'light',
-  model: 'vertical',
-});
-
-const action: MenuAction = {
-  menuChange: (oKeys: string[]) => console.log(oKeys),
-  menuClick: (item: MenuItemType) => console.log(item),
-};
-
-export default function useMenuHook() {
-  return {
-    menu,
-    ...toRefs(menu),
-    setupMenu: (param: Menu, actionParam?: MenuAction) => {
-      menu.menuList = param.menuList;
-      menu.openKeys = param.openKeys;
-      menu.selectedKeys = param.selectedKeys;
-      menu.inlineCollapsed = param.inlineCollapsed;
-      menu.theme = param.theme;
-      menu.model = param.model;
-
-      if (actionParam !== undefined) {
-        action.menuChange = actionParam?.menuChange;
-        action.menuClick = actionParam?.menuClick;
-      }
-    },
+export default function useMenuHook(
+  menuList: MenuItemType[],
+  openKeys: Array<string>,
+  selectedKeys: Array<string>,
+  inlineCollapsed: boolean,
+  theme?: 'light' | 'dark',
+  model?: 'vertical' | 'horizontal' | 'inline',
+  action?: MenuAction,
+) {
+  const menu = reactive<MenuType & MenuAction>({
+    menuList: menuList,
+    openKeys: openKeys,
+    selectedKeys: selectedKeys,
+    inlineCollapsed: inlineCollapsed,
+    theme: theme || 'light',
+    model: model || 'vertical',
     menuChange(oKeys: string[]) {
-      action.menuChange(oKeys);
+      action?.menuChange(oKeys);
+      console.log(oKeys);
     },
     menuClick(item: MenuItemType) {
-      action.menuClick(item);
+      action?.menuClick(item);
+      console.log(item);
     },
-    switchInlineCollapsed() {
-      menu.inlineCollapsed = !menu.inlineCollapsed;
-    },
-  };
+  });
+
+  function switchInlineCollapsed() {
+    menu.inlineCollapsed = !menu.inlineCollapsed;
+  }
+  return { menu, switchInlineCollapsed };
 }

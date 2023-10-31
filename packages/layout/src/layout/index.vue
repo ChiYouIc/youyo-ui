@@ -21,12 +21,32 @@
 <script lang="ts" setup name="youyo-layout">
 import './style/index.less';
 import { computed, CSSProperties } from 'vue';
-import useLayoutHook from '../hooks/useLayoutHook';
 
-const { layout, sidebar } = useLayoutHook();
+export interface LayoutProps {
+  sidebar: {
+    minWidth: number;
+    maxWidth: number;
+    collapsible: boolean;
+  };
+  header: {
+    height: number;
+    isFixed: boolean;
+  };
+  tabs: {
+    height: number;
+    top: number;
+    isFixed: boolean;
+  };
+  footer: {
+    height: number;
+    isFixed: boolean;
+  };
+}
+
+const props = defineProps<LayoutProps>();
 
 const sidebarStyle = computed(() => {
-  let width = sidebar.value.collapsible ? `${sidebar.value.minWidth}px` : `${sidebar.value.maxWidth}px`;
+  let width = props.sidebar.collapsible ? `${props.sidebar.minWidth}px` : `${props.sidebar.maxWidth}px`;
   return {
     width,
     position: 'fixed',
@@ -38,7 +58,7 @@ const sidebarStyle = computed(() => {
 });
 
 const headerStyle = computed(() => {
-  const header = layout.header;
+  const header = props.header;
   return {
     width: header.isFixed ? '100%' : '',
     height: `${header.height}px`,
@@ -50,8 +70,8 @@ const headerStyle = computed(() => {
 });
 
 const tabsStyle = computed(() => {
-  const tabs = layout.tabs;
-  const header = layout.header;
+  const tabs = props.tabs;
+  const header = props.header;
   return {
     width: tabs.isFixed ? '100%' : '',
     height: `${tabs.height}px`,
@@ -63,9 +83,9 @@ const tabsStyle = computed(() => {
 });
 
 const contentStyle = computed(() => {
-  const header = layout.header;
-  const tabs = layout.tabs;
-  const footer = layout.footer;
+  const header = props.header;
+  const tabs = props.tabs;
+  const footer = props.footer;
   return {
     position: 'relative',
     paddingLeft: paddingLeft(),
@@ -75,7 +95,7 @@ const contentStyle = computed(() => {
 });
 
 const footerStyle = computed(() => {
-  const footer = layout.footer;
+  const footer = props.footer;
   return {
     width: footer.isFixed ? '100%' : '',
     height: `${footer.height}px`,
@@ -86,7 +106,7 @@ const footerStyle = computed(() => {
 });
 
 function paddingLeft() {
-  const sidebar = layout.sidebar;
+  const sidebar = props.sidebar;
   return `${sidebar.collapsible ? sidebar.minWidth : sidebar.maxWidth}px`;
 }
 

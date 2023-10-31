@@ -1,4 +1,4 @@
-import { reactive, toRefs } from 'vue';
+import { reactive } from 'vue';
 
 export type LayoutType = {
   sidebar: LayoutSidebarType;
@@ -26,37 +26,30 @@ export type LayoutFooterType = {
   isFixed: boolean;
 };
 
-const layout = reactive<LayoutType>({
-  sidebar: {
-    minWidth: 80,
-    maxWidth: 310,
-    collapsible: false,
-  },
-  header: {
-    height: 64,
-    isFixed: true,
-  },
-  tabs: {
-    height: 40,
-    top: 10,
-    isFixed: true,
-  },
-  footer: {
-    height: 50,
-    isFixed: true,
-  },
-});
-
-export default function useLayoutHook() {
-  return {
-    setup: (param: LayoutType) => {
-      layout.sidebar = param.sidebar;
-      layout.header = param.header;
-      layout.tab = param.tab;
-      layout.footer = param.footer;
+export default function useLayoutHook(sidebar?: LayoutSidebarType, header?: LayoutHeaderType, tabs?: LayoutTabsType, footer?: LayoutFooterType) {
+  const layout = reactive<LayoutType>({
+    sidebar: sidebar || {
+      minWidth: 80,
+      maxWidth: 310,
+      collapsible: false,
     },
+    header: header || {
+      height: 64,
+      isFixed: true,
+    },
+    tabs: tabs || {
+      height: 40,
+      top: 0,
+      isFixed: true,
+    },
+    footer: footer || {
+      height: 50,
+      isFixed: true,
+    },
+  });
+
+  return {
     layout,
-    ...toRefs(layout),
     switchCollapsible: () => {
       layout.sidebar.collapsible = !layout.sidebar.collapsible;
     },

@@ -5,3 +5,4 @@ export * from './hooks';
 export * from './layout';
 export * from './logo';
 export * from './search';
+export * from './frame';

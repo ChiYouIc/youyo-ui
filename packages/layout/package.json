@@ -1,7 +1,7 @@
 {
-  "name": "youyo-basic-layout",
+  "name": "youyocc-basic-layout",
   "version": "1.0.0",
-  "description": "",
+  "description": "youyocc basic layout",
   "main": "lib/index.js",
   "module": "es/index.js",
   "author": "Youyo",
@@ -11,10 +11,12 @@
   ],
   "files": [
     "es",
-    "lib"
+    "lib",
+    "README.md"
   ],
   "types": "lib/index.d.ts",
   "scripts": {
+    "publish": "npm publish --access public",
     "build": "vite build && esno ./build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

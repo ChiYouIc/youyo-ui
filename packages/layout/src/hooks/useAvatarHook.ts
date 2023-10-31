@@ -1,10 +1,4 @@
-import { reactive, toRefs } from 'vue';
-
-export type AvatarHookType = {
-  username: string;
-  avatar: string;
-  menuItem: AvatarMenu[];
-};
+import { reactive } from 'vue';
 
 export interface AvatarMenu {
   title: string;
@@ -12,15 +6,17 @@ export interface AvatarMenu {
   action: () => void;
 }
 
-const avatar = reactive<AvatarHookType>({});
+export type AvatarType = {
+  username: string;
+  avatar: string;
+  menuItem: AvatarMenu[];
+};
 
-export default function useAvatarHook() {
-  return {
-    setupAvatar: (param: AvatarHookType) => {
-      avatar.username = param.username;
-      avatar.avatar = param.avatar;
-      avatar.menuItem = param.menuItem;
-    },
-    ...toRefs(avatar),
-  };
+export default function useAvatarHook(username: string, avatarUrl: string, menuItem?: AvatarMenu[]) {
+  const avatar = reactive<AvatarType>({
+    username,
+    avatar: avatarUrl,
+    menuItem: menuItem || [],
+  });
+  return { avatar };
 }
