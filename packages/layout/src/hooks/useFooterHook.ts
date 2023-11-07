@@ -1,8 +1,5 @@
 import { reactive } from 'vue';
-
-export type FooterType = {
-  content: string;
-};
+import { FooterType } from '../types/footer';
 
 export default function useFooterHook(content?: string) {
   const footer = reactive<FooterType>({

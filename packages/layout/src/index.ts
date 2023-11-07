@@ -1,3 +1,4 @@
+export * from './types';
 export * from './avatar';
 export * from './backTop';
 export * from './footer';

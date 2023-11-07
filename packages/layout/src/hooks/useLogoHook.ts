@@ -1,12 +1,5 @@
 import { reactive } from 'vue';
-
-export type LogoType = {
-  name: string;
-  img: string;
-  width: number;
-  height: number;
-  showName: boolean;
-};
+import { LogoType } from '../types/logo';
 
 export default function useLogoHook(name: string, img: string, width?: number, height?: number, showName?: boolean) {
   const logo = reactive<LogoType>({

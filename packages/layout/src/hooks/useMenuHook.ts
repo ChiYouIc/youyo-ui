@@ -1,27 +1,5 @@
 import { reactive } from 'vue';
-
-export interface MenuType {
-  menuList: MenuItemType[];
-  openKeys: Array<string>;
-  selectedKeys: Array<string>;
-  inlineCollapsed: boolean;
-  theme: 'light' | 'dark';
-  model: 'vertical' | 'horizontal' | 'inline';
-}
-
-export type MenuItemType = {
-  key: string;
-  title: string;
-  path: string;
-  icon?: string;
-  hidden: boolean;
-  children: MenuItemType[];
-};
-
-export interface MenuAction {
-  menuChange: (oKeys: string[]) => void;
-  menuClick: (item: MenuItemType) => void;
-}
+import { MenuAction, MenuItemType, MenuType } from '../types/menu';
 
 export default function useMenuHook(
   menuList: MenuItemType[],
@@ -52,5 +30,6 @@ export default function useMenuHook(
   function switchInlineCollapsed() {
     menu.inlineCollapsed = !menu.inlineCollapsed;
   }
+
   return { menu, switchInlineCollapsed };
 }
