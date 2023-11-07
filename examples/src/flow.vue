@@ -1,9 +1,11 @@
 <template>
   <div class="flow">
-    <div>
+    <div class="json">
       <vue-json-pretty :showIcon="true" :data="node" />
     </div>
-    <y-flow-view :node="node" />
+    <div class="view">
+      <y-flow-view :node="node" />
+    </div>
   </div>
 </template>
 
@@ -46,6 +48,14 @@ watchEffect(() => console.log(node.value), { flush: 'post' });
   height: 100%;
   display: flex;
   flex-direction: row;
+
+  .json {
+    flex: 1;
+  }
+
+  .view {
+    flex: 3;
+  }
   //justify-content: center;
   //align-items: center;
 }

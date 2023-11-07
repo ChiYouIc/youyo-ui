@@ -1,7 +1,7 @@
-import FileProtectIcon from './fileProtectIcon.vue';
-import ConditionIcon from './conditionIcon.vue';
-import CcIcon from './ccIcon.vue';
-import ApprovalIcon from './approvalIcon.vue';
+import FileProtectIcon from './fileProtect.vue';
+import ConditionIcon from './condition.vue';
+import CcIcon from './cc.vue';
+import ApprovalIcon from './approval.vue';
 import MinusIcon from './minus.vue';
 import PlusIcon from './plus.vue';
 
