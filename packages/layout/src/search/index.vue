@@ -5,6 +5,7 @@
       <a-select
         ref="search"
         style="width: 210px"
+        v-model:value="val"
         show-search
         :show-arrow="false"
         :default-active-first-option="true"
@@ -13,7 +14,7 @@
         :filter-option="false"
         size="small"
         @focusout="focusout"
-        @change="checked"
+        @change="handleChecked"
         @search="handleSearch"
       ></a-select>
     </div>
@@ -31,16 +32,20 @@ export interface SearchProps {
   searchList: {
     label: string;
     value: string;
-    path: string;
   }[];
-  checked: (val: string) => void;
+}
+
+export interface SearchEmit {
+  (event: 'change', val: string): void;
 }
 
 const props = defineProps<SearchProps>();
+const emits = defineEmits<SearchEmit>();
 
 const search = ref<BaseSelectRef>();
 const inputWidth = ref<string>('0');
 const selectOptions = ref<SelectProps['options']>([]);
+const val = ref<string>();
 
 /**
  * 搜索过滤
@@ -51,6 +56,7 @@ function handleSearch(val: string) {
     return [];
   }
   selectOptions.value = props.searchList.filter(v => v.label.includes(val));
+  console.log(selectOptions.value);
 }
 
 const openInput = () => {
@@ -59,4 +65,8 @@ const openInput = () => {
 };
 
 const focusout = () => (inputWidth.value = '0');
+
+function handleChecked(val: string) {
+  emits('change', val);
+}
 </script>

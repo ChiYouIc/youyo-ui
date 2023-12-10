@@ -7,5 +7,6 @@ export default function useAvatarHook(username: string, avatarUrl: string, menuI
     avatar: avatarUrl,
     menuItem: menuItem || [],
   });
+
   return { avatar };
 }

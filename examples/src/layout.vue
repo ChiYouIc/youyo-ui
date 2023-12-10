@@ -1,53 +1,38 @@
 <template>
-  <youyo-base-frame v-bind="baseFrame">
+  <youyo-base-frame v-bind="baseFrame" v-model:username="baseFrame.username">
     <div>sss</div>
-    <a-input v-model:value="baseFrame.avatar.username"></a-input>
+    <a-input v-model:value="username"></a-input>
   </youyo-base-frame>
 </template>
 
 <script setup lang="ts">
 import YouyoBaseFrame from '../../packages/layout/src/frame/BaseFrame.vue';
+import { useBaseFrameHook } from '../../packages/layout/src/index.ts';
+import { ref, reactive, h } from 'vue';
+import { AppstoreOutlined, CalendarOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons-vue';
+import { ItemType } from 'ant-design-vue';
 
-import useBaseFrameHook from '../../packages/layout/src/hooks/useBaseFrameHook.ts';
+const username = ref<string>('Admin');
 
-const baseFrame = useBaseFrameHook({
-  logoName: 'Admin',
-  logoImg: 'https://next.antdv.com/assets/logo.1ef800a8.svg',
-  username: 'xxxx',
-  avatarImg: 'https://next.antdv.com/assets/logo.1ef800a8.svg',
-  menuList: [
-    {
-      key: '1',
-      title: 'nihao',
-      path: '/home',
-      hidden: false,
-      children: [
-        {
-          key: '1-1',
-          title: 'nihao1-1',
-          path: '/home',
-          icon: '',
-          hidden: false,
-          children: [],
-        },
-      ],
-    },
-    {
-      key: '2',
-      title: 'nihao',
-      path: '/home',
-      hidden: false,
-      children: [],
-    },
-    {
-      key: '3',
-      title: 'nihao',
-      path: '/home',
-      hidden: false,
-      children: [],
-    },
-  ],
-});
+function getItem(label: string, key: string, icon?: any, children?: ItemType[], type?: 'group'): ItemType {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    title: label,
+    type,
+  } as ItemType;
+}
+
+const items: ItemType[] = reactive([
+  getItem('Navigation One', '1', h(MailOutlined)),
+  getItem('Navigation Two', '2', h(CalendarOutlined)),
+  getItem('Navigation Two', 'sub1', h(AppstoreOutlined), [getItem('Option 3', '3'), getItem('Option 4', '4'), getItem('Submenu', 'sub1-2', null, [getItem('Option 5', '5'), getItem('Option 6', '6')])]),
+  getItem('Navigation Three', 'sub2', h(SettingOutlined), [getItem('Option 7', '7'), getItem('Option 8', '8'), getItem('Option 9', '9'), getItem('Option 10', '10')]),
+]);
+
+const { baseFrame } = useBaseFrameHook('1', 'xxxx', 'https://next.antdv.com/assets/logo.1ef800a8.svg', username, 'https://next.antdv.com/assets/logo.1ef800a8.svg', items);
 </script>
 
 <style></style>

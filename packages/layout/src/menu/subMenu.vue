@@ -13,11 +13,11 @@
             <template v-if="item.icon" #icon>
               <component :is="item.icon" />
             </template>
-            <span @click="menuClick(item)">{{ item.title }}</span>
+            <span>{{ item.title }}</span>
           </a-menu-item>
         </template>
         <template v-else>
-          <sub-menu :menu-info="item" :menu-click="menuClick" :key="item.key" />
+          <sub-menu :menu-info="item" :key="item.key" />
         </template>
       </template>
     </template>
@@ -27,7 +27,7 @@
 <script lang="ts" name="youyo-sub-menu" setup>
 export interface SubMenuProps {
   menuInfo: SubMenuInfo;
-  menuClick: (m: SubMenuInfo) => void;
+  // menuClick: (m: SubMenuInfo) => void;
 }
 
 export interface SubMenuInfo {

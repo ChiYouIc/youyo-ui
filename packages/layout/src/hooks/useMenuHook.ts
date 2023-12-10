@@ -1,14 +1,27 @@
 import { reactive } from 'vue';
-import { MenuAction, MenuItemType, MenuType } from '../types/menu';
+import type { ItemType } from 'ant-design-vue';
+
+export interface MenuType {
+  menuList: ItemType[];
+  openKeys: Array<string>;
+  selectedKeys: Array<string>;
+  inlineCollapsed: boolean;
+  theme: 'light' | 'dark';
+  model: 'vertical' | 'horizontal' | 'inline';
+}
+
+export interface MenuAction {
+  modifyOpenKeys: (keys: string[]) => void;
+  modifySelectKeys: (keys: string[]) => void;
+}
 
 export default function useMenuHook(
-  menuList: MenuItemType[],
+  menuList: ItemType[],
   openKeys: Array<string>,
   selectedKeys: Array<string>,
   inlineCollapsed: boolean,
   theme?: 'light' | 'dark',
   model?: 'vertical' | 'horizontal' | 'inline',
-  action?: MenuAction,
 ) {
   const menu = reactive<MenuType & MenuAction>({
     menuList: menuList,
@@ -17,19 +30,18 @@ export default function useMenuHook(
     inlineCollapsed: inlineCollapsed,
     theme: theme || 'light',
     model: model || 'vertical',
-    menuChange(oKeys: string[]) {
-      action?.menuChange(oKeys);
-      console.log(oKeys);
-    },
-    menuClick(item: MenuItemType) {
-      action?.menuClick(item);
-      console.log(item);
-    },
+    modifyOpenKeys,
+    modifySelectKeys,
   });
 
-  function switchInlineCollapsed() {
-    menu.inlineCollapsed = !menu.inlineCollapsed;
+  function modifyOpenKeys(keys: string[]) {
+    menu.openKeys = keys;
   }
+  function modifySelectKeys(keys: string[]) {
+    menu.selectedKeys = keys;
+  }
+
+  const switchInlineCollapsed = () => (menu.inlineCollapsed = !menu.inlineCollapsed);
 
   return { menu, switchInlineCollapsed };
 }

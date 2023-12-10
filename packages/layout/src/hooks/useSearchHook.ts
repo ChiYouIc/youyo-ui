@@ -1,13 +1,17 @@
 import { reactive } from 'vue';
-import { SearchAction, SearchItemType, SearchType } from '../types/search';
 
-export default function useSearchHook(searchList: SearchItemType[], action?: SearchAction) {
-  const search = reactive<SearchType & SearchAction>({
+export type SearchType = {
+  searchList: SearchItemType[];
+};
+
+export type SearchItemType = {
+  label: string;
+  value: string;
+};
+
+export default function useSearchHook(searchList: SearchItemType[]) {
+  const search = reactive<SearchType>({
     searchList: searchList,
-    checked(val: string) {
-      console.log(val);
-      action?.checked(val);
-    },
   });
 
   return {
