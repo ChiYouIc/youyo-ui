@@ -6,8 +6,11 @@
 </template>
 
 <script setup lang="ts">
-import YouyoBaseFrame from '../../packages/layout/src/frame/BaseFrame.vue';
-import { useBaseFrameHook } from '../../packages/layout/src/index.ts';
+// import YouyoBaseFrame from '../../packages/layout/src/frame/BaseFrame.vue';
+// import { useBaseFrameHook } from '../../packages/layout/src/index.ts';
+
+import { YouyoBaseFrame, useBaseFrameHook } from 'youyo-basic-layout';
+
 import { ref, reactive, h } from 'vue';
 import { AppstoreOutlined, CalendarOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons-vue';
 import { ItemType } from 'ant-design-vue';
