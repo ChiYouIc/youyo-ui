@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
-import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 
 export default defineConfig({
   build: {
@@ -45,7 +44,6 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    VueSetupExtend(),
     dts({
       entryRoot: './src',
       outDir: 'es',

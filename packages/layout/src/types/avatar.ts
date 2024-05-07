@@ -4,8 +4,8 @@ export interface AvatarMenu {
   action: () => void;
 }
 
-export type AvatarType = {
+export interface AvatarProps {
   username: string;
   avatar: string;
   menuItem: AvatarMenu[];
-};
+}

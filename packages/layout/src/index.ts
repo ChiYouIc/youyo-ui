@@ -2,7 +2,6 @@ export * from './types';
 export * from './avatar';
 export * from './backTop';
 export * from './footer';
-export * from './hooks';
 export * from './layout';
 export * from './logo';
 export * from './search';

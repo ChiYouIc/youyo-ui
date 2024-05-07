@@ -5,8 +5,8 @@
         <a-avatar size="small" :src="avatar" class="custom-global-header-index-avatar" />
         <span class="custom-global-header-index-name">{{ username }}</span>
       </div>
-      <template #overlay>
-        <a-menu class="custom-drop-down menu" :selected-keys="[]">
+      <template v-if="menuItem.length > 0" #overlay>
+        <a-menu class="custom-drop-down menu">
           <a-menu-item v-for="item in menuItem" :key="item.title" @click="item.action">
             <component :is="item.icon" class="action" />
             {{ item.title }}
@@ -19,16 +19,8 @@
 
 <script lang="ts" setup name="youyo-avatar">
 import './style/index.less';
-
-interface AvatarProps {
-  username: string;
-  avatar: string;
-  menuItem: {
-    title: string;
-    icon: string;
-    action: () => void;
-  }[];
-}
+import { defineProps } from 'vue';
+import type { AvatarProps } from '../types';
 
 defineProps<AvatarProps>();
 </script>

@@ -6,14 +6,16 @@
           <a-dropdown :trigger="['contextmenu']">
             <span>
               {{ tab.tab }}
-              <CloseOutlined v-show="showClose(tab, index)" @click="onClose(tab, index)" />
+              <CloseOutlined v-show="showClose(tab, index)" @click.stop="onClose(tab, index)" />
               <RedoOutlined v-show="showRedo(tab)" @click="onRedo(tab)" />
             </span>
             <template #overlay>
               <a-menu>
-                <a-menu-item key="1">1st menu item</a-menu-item>
-                <a-menu-item key="2">2nd menu item</a-menu-item>
-                <a-menu-item key="3">3rd menu item</a-menu-item>
+                <a-menu-item key="1">关闭</a-menu-item>
+                <a-menu-item key="2">关闭其它</a-menu-item>
+                <a-menu-item key="3">关闭左侧</a-menu-item>
+                <a-menu-item key="4">关闭右侧</a-menu-item>
+                <a-menu-item key="5">关闭所有</a-menu-item>
               </a-menu>
             </template>
           </a-dropdown>
@@ -39,22 +41,20 @@
 </template>
 <script setup lang="ts" name="Tabs">
 import './style/index.less';
-import { computed } from 'vue';
+import { computed, defineEmits, defineProps } from 'vue';
 import { CloseOutlined, EllipsisOutlined, RedoOutlined } from '@ant-design/icons-vue';
-
-type TabsProps = {
-  key: string;
-  tab: string;
-  path: string;
-};
+import type { TabsProps, TabsType } from '../types';
 
 interface TabsEmits {
-  (event: 'redo', tab: TabsProps): void;
-  (event: 'click', val: string): void;
+  (event: 'redo', tab: TabsType): void;
+
+  (event: 'close', tab: TabsType, index: number): void;
+
+  (event: 'click', val: string | number): void;
 }
 
 const emits = defineEmits<TabsEmits>();
-const props = defineProps<{ tabList: TabsProps[]; tabKey: string; modifyTab: (key: string) => void }>();
+const props = defineProps<TabsProps>();
 
 const activeKey = computed({
   get: () => props.tabKey,
@@ -64,19 +64,19 @@ const activeKey = computed({
   },
 });
 
-function showClose(tab: TabsProps, index: number) {
+function showClose(tab: TabsType, index: number) {
   return index !== 0;
 }
 
-function onClose(tab: TabsProps, index: number) {
-  props.tabList.splice(index, 1);
+function onClose(tab: TabsType, index: number) {
+  emits('close', tab, index);
 }
 
-function showRedo(tab: TabsProps) {
+function showRedo(tab: TabsType) {
   return tab.key === activeKey.value;
 }
 
-function onRedo(tab: TabsProps) {
+function onRedo(tab: TabsType) {
   emits('redo', tab);
 }
 </script>

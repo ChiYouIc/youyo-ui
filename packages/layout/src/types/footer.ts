@@ -1,3 +1,3 @@
-export type FooterType = {
+export interface FooterProps {
   content: string;
-};
+}

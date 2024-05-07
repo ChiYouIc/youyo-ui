@@ -1,12 +1,11 @@
 <template>
   <a-menu
     class="youyo-menu"
-    ref="menu"
-    :mode="model"
+    :theme="theme"
+    :mode="mode"
     v-model:openKeys="menuOpenKeys"
     v-model:selectedKeys="menuSelectedKeys"
-    :theme="theme"
-    :inline-collapsed="inlineCollapsed"
+    v-model::inline-collapsed="menuInlineCollapsed"
     :items="menuList"
     @click="onClick"
     @select="onSelect"
@@ -16,37 +15,36 @@
 
 <script setup lang="ts" name="youyo-menu">
 import './style/index.less';
-import { computed } from 'vue';
-import type { ItemType } from 'ant-design-vue';
-
-export interface MenuProps {
-  menuList: ItemType[];
-  openKeys: Array<string>;
-  selectedKeys: Array<string>;
-  inlineCollapsed: boolean;
-  theme: 'light' | 'dark';
-  model: 'vertical' | 'horizontal' | 'inline';
-  modifyOpenKeys: (keys: string[]) => void;
-  modifySelectKeys: (keys: string[]) => void;
-}
+import { defineEmits, defineProps, computed } from 'vue';
+import type { MenuProps } from '../types';
 
 export interface MenuEmits {
   (event: 'click', val: any): void;
-
   (event: 'select', val: any): void;
+  (event: 'update:inlineCollapsed', val: boolean): void;
+  (event: 'update:openKeys', val: string[]): void;
+  (event: 'update:selectedKeys', val: string[]): void;
 }
 
 const emits = defineEmits<MenuEmits>();
 const props = defineProps<MenuProps>();
 
+const menuInlineCollapsed = computed({
+  get: () => {
+    console.log(props.inlineCollapsed);
+    return props.inlineCollapsed;
+  },
+  set: val => emits('update:inlineCollapsed', val),
+});
+
 const menuOpenKeys = computed({
   get: () => props.openKeys,
-  set: keys => props.modifyOpenKeys(keys),
+  set: keys => emits('update:openKeys', keys),
 });
 
 const menuSelectedKeys = computed({
   get: () => props.selectedKeys,
-  set: keys => props.modifySelectKeys(keys),
+  set: keys => emits('update:selectedKeys', keys),
 });
 
 function onClick(menu: any) {

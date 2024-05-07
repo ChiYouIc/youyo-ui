@@ -1,54 +1,45 @@
 <template>
-  <div class="youyo-basic-layout">
-    <div :class="sidebarClass" :style="sidebarStyle">
-      <slot name="sidebar"></slot>
-    </div>
-    <header :class="headerClass" :style="headerStyle">
-      <slot name="header"></slot>
-    </header>
-    <div :class="tabsClass" :style="tabsStyle">
-      <slot name="tabs"></slot>
-    </div>
-    <main :class="contentClass" :style="contentStyle">
-      <slot name="content"></slot>
-    </main>
-    <footer :class="footerClass" :style="footerStyle">
-      <slot name="footer"></slot>
-    </footer>
-  </div>
+  <a-config-provider
+    :theme="{
+      token: {
+        colorPrimary: '#00b96b',
+        algorithm: theme.defaultConfig,
+      },
+    }"
+  >
+    <a-layout :has-sider="true" class="youyo-basic-layout">
+      <a-layout-sider :collapsed="sidebarCollapsed" :width="width" :theme="sidebarTheme" :class="sidebarClass" :style="sidebarStyle">
+        <slot name="sidebar"></slot>
+      </a-layout-sider>
+      <a-layout>
+        <div :class="headerClass" :style="headerStyle">
+          <slot name="header"></slot>
+        </div>
+        <div :class="tabsClass" :style="tabsStyle">
+          <slot name="tabs"></slot>
+        </div>
+        <a-layout-content :class="contentClass" :style="contentStyle">
+          <slot name="content"></slot>
+        </a-layout-content>
+        <a-layout-footer :class="footerClass" :style="footerStyle">
+          <slot name="footer"></slot>
+        </a-layout-footer>
+      </a-layout>
+    </a-layout>
+  </a-config-provider>
 </template>
 
 <script lang="ts" setup name="youyo-layout">
 import './style/index.less';
-import { computed, CSSProperties } from 'vue';
-
-export interface LayoutProps {
-  sidebar: {
-    minWidth: number;
-    maxWidth: number;
-    collapsible: boolean;
-  };
-  header: {
-    height: number;
-    isFixed: boolean;
-  };
-  tabs: {
-    height: number;
-    top: number;
-    isFixed: boolean;
-  };
-  footer: {
-    height: number;
-    isFixed: boolean;
-  };
-}
+import { defineProps, computed, CSSProperties } from 'vue';
+import { theme } from 'ant-design-vue';
+import type { LayoutProps } from '../types';
 
 const props = defineProps<LayoutProps>();
 
+const width = computed(() => (props.sidebarCollapsed ? `${props.sidebarMinWidth}px` : `${props.sidebarMaxWidth}px`));
 const sidebarStyle = computed(() => {
-  let width = props.sidebar.collapsible ? `${props.sidebar.minWidth}px` : `${props.sidebar.maxWidth}px`;
   return {
-    width,
     position: 'fixed',
     left: '0',
     top: '0',
@@ -58,56 +49,51 @@ const sidebarStyle = computed(() => {
 });
 
 const headerStyle = computed(() => {
-  const header = props.header;
   return {
-    width: header.isFixed ? '100%' : '',
-    height: `${header.height}px`,
+    width: '100%',
+    height: `${props.headerHeight}px`,
     zIndex: 8,
-    position: header.isFixed ? 'fixed' : 'static',
+    position: props.headerIsFixed ? 'fixed' : 'static',
     paddingLeft: paddingLeft(),
     paddingRight: '0',
+    marginBottom: '10px',
   } as CSSProperties;
 });
 
 const tabsStyle = computed(() => {
-  const tabs = props.tabs;
-  const header = props.header;
   return {
-    width: tabs.isFixed ? '100%' : '',
-    height: `${tabs.height}px`,
-    position: tabs.isFixed ? 'fixed' : 'static',
+    width: '100%',
+    height: `${props.tabsHeight}px`,
+    position: props.headerIsFixed ? 'fixed' : 'static',
     paddingLeft: paddingLeft(),
-    top: header.isFixed ? `${tabs.top + header.height}px` : `${tabs.top}px`,
+    top: props.headerIsFixed ? `${props.tabsTop + props.headerHeight}px` : `${props.tabsTop}px`,
     zIndex: 7,
   } as CSSProperties;
 });
 
 const contentStyle = computed(() => {
-  const header = props.header;
-  const tabs = props.tabs;
-  const footer = props.footer;
   return {
-    position: 'relative',
+    position: props.headerIsFixed ? 'fixed' : 'static',
+    width: '100%',
+    height: '100%',
     paddingLeft: paddingLeft(),
-    paddingTop: header.isFixed ? `${header.height + tabs.height + tabs.top}px` : '0',
-    paddingBottom: footer.isFixed ? `${footer.height}px` : '',
+    paddingTop: props.headerIsFixed ? `${props.headerHeight + props.tabsHeight + props.tabsTop}px` : '0',
+    paddingBottom: props.footerIsFixed ? `${props.footerHeight}px` : '',
   } as CSSProperties;
 });
 
 const footerStyle = computed(() => {
-  const footer = props.footer;
   return {
-    width: footer.isFixed ? '100%' : '',
-    height: `${footer.height}px`,
-    position: footer.isFixed ? 'fixed' : 'relative',
+    width: props.footerIsFixed ? '100%' : '',
+    height: `${props.footerHeight}px`,
+    position: props.footerIsFixed ? 'fixed' : 'relative',
     paddingLeft: paddingLeft(),
-    bottom: footer.isFixed ? '0' : '',
+    bottom: props.footerIsFixed ? '0' : '',
   } as CSSProperties;
 });
 
 function paddingLeft() {
-  const sidebar = props.sidebar;
-  return `${sidebar.collapsible ? sidebar.minWidth : sidebar.maxWidth}px`;
+  return `${props.sidebarCollapsed ? props.sidebarMinWidth : props.sidebarMaxWidth}px`;
 }
 
 const sidebarClass = computed(() => ['youyo-global-sidebar', 'transition-200-ease-in-out']);

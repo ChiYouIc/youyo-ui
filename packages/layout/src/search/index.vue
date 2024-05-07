@@ -22,18 +22,12 @@
 </template>
 
 <script lang="ts" setup name="youyo-search">
-import { ref } from 'vue';
 import './style/index.less';
+import { defineProps, defineEmits, ref } from 'vue';
 import { SelectProps } from 'ant-design-vue';
 import { BaseSelectRef } from 'ant-design-vue/es/vc-select';
 import { SearchOutlined } from '@ant-design/icons-vue';
-
-export interface SearchProps {
-  searchList: {
-    label: string;
-    value: string;
-  }[];
-}
+import type { SearchProps } from '../types';
 
 export interface SearchEmit {
   (event: 'change', val: string): void;

@@ -6,13 +6,14 @@ import glob from 'fast-glob';
 
 const buildLess = async (p: string) => {
   const sourceDir = resolve(__dirname, `../${p}/src`);
+
   //lib文件目录
   const targetLib = resolve(__dirname, `../${p}/lib`);
+
   //es文件目录
   const targetEs = resolve(__dirname, `../${p}/es`);
 
   //src目录
-
   const srcDir = resolve(__dirname, `../${p}/src`);
 
   //直接将less文件复制到打包后目录

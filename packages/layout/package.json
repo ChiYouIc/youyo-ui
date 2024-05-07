@@ -24,11 +24,10 @@
     "@youyo-ui/utils": "workspace:^1.0.0"
   },
   "devDependencies": {
-    "vite-plugin-vue-setup-extend": "^0.4.0",
     "vue-i18n": "^9.1.10",
     "pinia": "^2.1.4",
     "vue-router": "^4.0.3",
-    "ant-design-vue": "^4.0.7",
+    "ant-design-vue": "^4.1.2",
     "store": "^2.0.12",
     "core-js": "^3.8.3",
     "@youyo-ui/plugins": "workspace:^1.0.0",

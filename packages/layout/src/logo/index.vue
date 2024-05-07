@@ -7,14 +7,8 @@
 
 <script lang="ts" setup name="youyo-logo">
 import './style/index.less';
-
-export interface LogoProps {
-  name: string;
-  img: string;
-  width: number;
-  height: number;
-  showName: boolean;
-}
+import { defineProps } from 'vue';
+import type { LogoProps } from '../types';
 
 defineProps<LogoProps>();
 </script>
