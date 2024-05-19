@@ -7,7 +7,7 @@ import AbstractComponent from '../core/AbstractComponent';
 export default defineComponent({
   name: 'Factory',
   props: {
-    el: Object as PropType<AbstractComponent<any>>,
+    el: Object as PropType<AbstractComponent>,
   },
   setup(props) {
     return () => props.el?.node();

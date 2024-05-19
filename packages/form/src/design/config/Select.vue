@@ -1,26 +1,26 @@
 <template>
-  <a-form :model="form">
+  <a-form :model="configForm">
     <a-form-item label="标签" name="label">
-      <a-input v-model:value="form.label" />
+      <a-input v-model:value="configForm.label" />
     </a-form-item>
     <a-form-item label="名称" name="name">
-      <a-input v-model:value="form.name" />
+      <a-input v-model:value="configForm.name" />
     </a-form-item>
     <a-form-item label="默认值" name="value">
-      <a-select v-model:value="form.value" placeholder="请选择默认值" :options="form.options" />
+      <a-select v-model:value="configForm.value" placeholder="请选择默认值" :options="form.options" />
     </a-form-item>
     <a-form-item label="必填" name="required">
-      <a-switch v-model:checked="form.required" />
+      <a-switch v-model:checked="configForm.required" />
     </a-form-item>
     <a-form-item label="禁用" name="disabled">
-      <a-switch v-model:checked="form.disabled" />
+      <a-switch v-model:checked="configForm.disabled" />
     </a-form-item>
     <a-form-item label="占位符" name="placeholder">
-      <a-input v-model:value="form.placeholder" />
+      <a-input v-model:value="configForm.placeholder" />
     </a-form-item>
     <a-form-item label="候选项" name="options">
-      <a-form :model="form.options">
-        <template v-for="(option, index) in form.options" :key="index">
+      <a-form :model="configForm.options">
+        <template v-for="(option, index) in configForm.options" :key="index">
           <a-row :gutter="5">
             <a-col :span="11">
               <a-form-item style="margin-bottom: 5px">
@@ -47,27 +47,36 @@
 
 <script setup lang="ts" name="SelectConfig">
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
+import { computed, defineEmits, defineProps } from 'vue';
 
-type SelectConfigProps = {
-  form: {
-    label: string;
-    name: string;
-    value: string;
-    required: boolean;
-    disabled: boolean;
-    placeholder: string;
-    options: { label: string; value: string }[];
-  };
+type Form = {
+  label: string;
+  name: string;
+  value: string;
+  required: boolean;
+  disabled: boolean;
+  placeholder: string;
+  options: { label: string; value: string }[];
 };
 
-const props = defineProps<SelectConfigProps>();
+const props = defineProps<{ form: Form }>();
 
+const emits = defineEmits<{ (event: 'update:form', val: Form): void }>();
+
+const configForm = computed({
+  get() {
+    return props.form;
+  },
+  set(val) {
+    emits('update:form', val);
+  },
+});
 function onAddOption() {
-  props.form.options.push({ label: '', value: '' });
+  configForm.value.options.push({ label: '', value: '' });
 }
 
 function onRemoveOption(_: { label: string; value: string }, index: number) {
-  props.form.options.splice(index, 1);
+  configForm.value.options.splice(index, 1);
 }
 </script>
 <style scoped></style>

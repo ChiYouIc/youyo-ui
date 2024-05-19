@@ -1,21 +1,38 @@
 import AbstractComponent from '../AbstractComponent';
-import { AbstractComponentConstructorOption, AbstractComponentInitOption } from '../../types';
 import { Slider as AntSlider, SliderProps } from 'ant-design-vue';
 import { h, VNode } from 'vue';
+import { ComponentConstructorOptionType } from '../types';
 
-type SliderInitOption = AbstractComponentInitOption<number> & {};
+class Slider extends AbstractComponent {
+  private _value: [number, number] | number = 0;
+  private _placeholder: string | undefined = undefined;
 
-class Slider extends AbstractComponent<number> {
-  public placeholder: string | undefined = undefined;
-
-  constructor(option: AbstractComponentConstructorOption) {
+  constructor(option: ComponentConstructorOptionType) {
     super(option);
   }
 
-  init(_: SliderInitOption): void {}
+  init(_: Record<string, any>): void {}
 
   node(): VNode {
-    return h<SliderProps>(AntSlider, { id: this.id, value: this.value, 'onUpdate:value': (val: number) => (this.value = val) });
+    return h<SliderProps>(AntSlider, { id: this.primaryId(), value: this._value, 'onUpdate:value': (val: [number, number] | number) => (this.value = val) });
+  }
+
+  protected val(): any {
+    return this._value;
+  }
+
+  configToJson(): Record<string, any> {
+    const json = super.configToJson();
+    json['placeholder'] = this._placeholder;
+    return json;
+  }
+
+  get placeholder(): string | undefined {
+    return this._placeholder;
+  }
+
+  set placeholder(value: string | undefined) {
+    this._placeholder = value;
   }
 }
 

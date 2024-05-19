@@ -1,42 +1,53 @@
 <template>
-  <a-form :model="form">
+  <a-form :model="configForm">
     <a-form-item label="标签" name="label">
-      <a-input v-model:value="form!.label" />
+      <a-input v-model:value="configForm.label" />
     </a-form-item>
     <a-form-item label="名称" name="name">
-      <a-input v-model:value="form.name" />
+      <a-input v-model:value="configForm.name" />
     </a-form-item>
     <a-form-item label="默认值" name="defaultValue">
-      <a-input v-model:value="form!.value" />
+      <a-input v-model:value="configForm.defaultValue" />
     </a-form-item>
     <a-form-item label="必填" name="required">
-      <a-switch v-model:checked="form!.required" />
+      <a-switch v-model:checked="configForm.required" />
     </a-form-item>
     <a-form-item label="禁用" name="disabled">
-      <a-switch v-model:checked="form!.disabled" />
+      <a-switch v-model:checked="configForm.disabled" />
     </a-form-item>
     <a-form-item label="占位符" name="placeholder">
-      <a-input v-model:value="form!.placeholder" />
+      <a-input v-model:value="configForm.placeholder" />
     </a-form-item>
     <a-form-item label="输入最大长度" name="maxlength">
-      <a-input-number v-model:value="form!.maxlength" :min="50" :max="1000" />
+      <a-input-number v-model:value="configForm.maxlength" :min="50" :max="1000" />
     </a-form-item>
   </a-form>
 </template>
 <script setup lang="ts" name="input">
-type InputConfigProps = {
-  form: {
-    label: string;
-    name: string;
-    value: string;
-    required: boolean;
-    disabled: boolean;
-    placeholder: string;
-    maxlength: number;
-  };
+import { defineProps, defineEmits, computed } from 'vue';
+
+type Form = {
+  label: string;
+  name: string;
+  defaultValue: string;
+  required: boolean;
+  disabled: boolean;
+  placeholder: string;
+  maxlength: number;
 };
 
-defineProps<InputConfigProps>();
+const props = defineProps<{ form: Form }>();
+
+const emits = defineEmits<{ (event: 'update:form', val: Form): void }>();
+
+const configForm = computed({
+  get() {
+    return props.form;
+  },
+  set(val) {
+    emits('update:form', val);
+  },
+});
 </script>
 
 <style scoped></style>

@@ -1,30 +1,41 @@
 <template>
-  <a-form :model="form">
+  <a-form :model="configForm">
     <a-form-item label="标签" name="label">
-      <a-input v-model:value="form!.label" />
+      <a-input v-model:value="configForm.label" />
     </a-form-item>
     <a-form-item label="名称" name="name">
-      <a-input v-model:value="form.name" />
+      <a-input v-model:value="configForm.name" />
     </a-form-item>
     <a-form-item label="默认值" name="defaultValue">
-      <a-switch v-model:checked="form!.value" />
+      <a-switch v-model:checked="configForm.defaultValue" />
     </a-form-item>
     <a-form-item label="禁用" name="disabled">
-      <a-switch v-model:checked="form!.disabled" />
+      <a-switch v-model:checked="configForm.disabled" />
     </a-form-item>
   </a-form>
 </template>
 <script setup lang="ts" name="switch">
-type InputConfigProps = {
-  form: {
-    label: string;
-    name: string;
-    value: string;
-    disabled: boolean;
-  };
+import { computed, defineEmits, defineProps } from 'vue';
+
+type Form = {
+  label: string;
+  name: string;
+  defaultValue: string;
+  disabled: boolean;
 };
 
-defineProps<InputConfigProps>();
+const props = defineProps<{ form: Form }>();
+
+const emits = defineEmits<{ (event: 'update:form', val: Form): void }>();
+
+const configForm = computed({
+  get() {
+    return props.form;
+  },
+  set(val) {
+    emits('update:form', val);
+  },
+});
 </script>
 
 <style scoped></style>

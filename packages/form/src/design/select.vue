@@ -23,11 +23,17 @@ import './style/select.less';
 import { ref } from 'vue';
 import { uuid } from 'vue-uuid';
 import DraggableComponent from 'vuedraggable';
-import { ComponentSelectType } from '../types';
 import AbstractComponent from '../core/AbstractComponent';
-import componentFactory from '../core/componentFactory';
+import componentFactory from '../core/Factory';
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 import useDraggableHook from '../hooks/useDraggableHook';
+import { ComponentModeType } from '../types';
+
+type ComponentSelectType = {
+  name: string;
+  component: ComponentModeType;
+  description: string;
+};
 
 const selectOptions = ref<Array<ComponentSelectType>>([
   { name: '输入框', component: 'Input', description: '输入框' },
@@ -50,12 +56,14 @@ function onMove(obj) {
 
 const count = ref<number>(1);
 
-function onClone(obj: ComponentSelectType): AbstractComponent<any> {
+function onClone(obj: ComponentSelectType): AbstractComponent {
   return componentFactory.creator({
     id: uuid.v1(),
     label: obj.name,
     name: `filed${count.value++}`,
     component: obj.component,
+    required: false,
+    disabled: false,
   });
 }
 </script>

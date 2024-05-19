@@ -1,67 +1,60 @@
 import AbstractComponent from '../AbstractComponent';
-import { AbstractComponentConstructorOption, AbstractComponentInitOption, DateType } from '../../types';
 import { h, VNode } from 'vue';
 import { DatePicker as AntDatePicker, DatePickerProps } from 'ant-design-vue';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
+import { ComponentConstructorOptionType } from '../types';
 
-type DatePickerInitOption = AbstractComponentInitOption<DateType> & {
-  value: string;
-  placeholder: string;
-  picker: 'date' | 'week' | 'month' | 'quarter' | 'year';
-};
+class DatePicker extends AbstractComponent {
+  private _value: string | Dayjs = '';
+  private _placeholder: string = '请选择日期';
+  private _picker: 'date' | 'week' | 'month' | 'quarter' | 'year' = 'date';
 
-class DatePicker extends AbstractComponent<DateType> {
-  public placeholder: string = '请选择日期';
-  public picker: 'date' | 'week' | 'month' | 'quarter' | 'year' = 'date';
-
-  constructor(option: AbstractComponentConstructorOption) {
+  constructor(option: ComponentConstructorOptionType) {
     super(option);
   }
 
-  init({ value, placeholder, picker }: DatePickerInitOption): void {
-    const day = dayjs(value);
-
-    this.value = {
-      date: day.format('YYYY-MM-DD'),
-      year: day.format('YYYY'),
-      month: day.format('YYYY-MM'),
-      week: day.format('ww'),
-      quarter: day.format('Q'),
-    };
-    this.placeholder = placeholder;
-    this.picker = picker;
-  }
-
-  fetchValue(val: Dayjs) {
-    let v: typeof this.value;
-    if (val) {
-      const day = dayjs(val);
-      v = {
-        date: day.format('YYYY-MM-DD'),
-        year: day.format('YYYY'),
-        month: day.format('YYYY-MM'),
-        week: day.format('ww'),
-        quarter: day.format('Q'),
-      };
-    }
-    this.value = v;
-  }
-
-  val(): Record<string, string> {
-    const res: Record<string, string> = {};
-    res[this.name] = this.value.date;
-    return res;
+  init({ value, placeholder, picker }: Record<string, any>): void {
+    this._value = value;
+    this._placeholder = placeholder;
+    this._picker = picker;
   }
 
   node(): VNode {
     return h<DatePickerProps>(AntDatePicker, {
-      id: this.id,
-      value: this.value ? dayjs(this.value?.date) : undefined,
-      'onUpdate:value': (val: Dayjs) => this.fetchValue(val),
-      picker: this.picker,
+      id: this.primaryId(),
+      value: this._value,
+      'onUpdate:value': (val: string | Dayjs) => (this._value = val),
+      picker: this._picker,
       disabled: this.disabled,
-      placeholder: this.placeholder,
+      placeholder: this._placeholder,
     });
+  }
+
+  protected val(): any {
+    return this._value;
+  }
+
+  configToJson(): Record<string, any> {
+    const json = super.configToJson();
+    json['placeholder'] = this._placeholder;
+    json['picker'] = this._picker;
+    return json;
+  }
+
+  get placeholder(): string {
+    return this._placeholder;
+  }
+
+  set placeholder(value: string) {
+    this._placeholder = value;
+  }
+
+  get picker(): 'date' | 'week' | 'month' | 'quarter' | 'year' {
+    return this._picker;
+  }
+
+  set picker(value: 'date' | 'week' | 'month' | 'quarter' | 'year') {
+    this._picker = value;
   }
 }
 

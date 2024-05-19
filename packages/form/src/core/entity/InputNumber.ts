@@ -1,31 +1,58 @@
 import AbstractComponent from '../AbstractComponent';
-import { AbstractComponentConstructorOption, AbstractComponentInitOption } from '../../types';
 import { h, VNode } from 'vue';
 import { InputNumber as AntInputNumber, InputNumberProps } from 'ant-design-vue';
+import { ComponentConstructorOptionType } from '../types';
 
-type InputNumberInitOption = AbstractComponentInitOption<number> & {};
+class InputNumber extends AbstractComponent {
+  private _value: string | number = 0;
+  private _min: number = -1000;
+  private _max: number = 1000;
+  private _placeholder: string = '请输入数值';
 
-class InputNumber extends AbstractComponent<number> {
-  public min: number = -1000;
-  public max: number = 1000;
-  public placeholder: string = '请输入数值';
-
-  constructor(option: AbstractComponentConstructorOption) {
+  constructor(option: ComponentConstructorOptionType) {
     super(option);
   }
 
-  init(_: InputNumberInitOption): void {}
+  init(_: Record<string, any>): void {}
 
   node(): VNode {
     return h<InputNumberProps>(AntInputNumber, {
-      id: this.id,
-      value: this.value,
-      'onUpdate:value': (val: number) => (this.value = val),
-      placeholder: this.placeholder,
+      id: this.primaryId(),
+      value: this._value,
+      'onUpdate:value': (val: string | number) => (this._value = val),
+      placeholder: this._placeholder,
       disabled: this.disabled,
-      min: this.min,
-      max: this.max,
+      min: this._min,
+      max: this._max,
     });
+  }
+
+  protected val(): any {
+    return this._value;
+  }
+
+  get min(): number {
+    return this._min;
+  }
+
+  set min(value: number) {
+    this._min = value;
+  }
+
+  get max(): number {
+    return this._max;
+  }
+
+  set max(value: number) {
+    this._max = value;
+  }
+
+  get placeholder(): string {
+    return this._placeholder;
+  }
+
+  set placeholder(value: string) {
+    this._placeholder = value;
   }
 }
 

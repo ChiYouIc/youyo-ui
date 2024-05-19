@@ -1,83 +1,114 @@
 import AbstractComponent from '../AbstractComponent';
-import { AbstractComponentConstructorOption, AbstractComponentInitOption } from '../../types';
 import { h, VNode } from 'vue';
 import Draggable from 'vuedraggable';
 import DraggableItem from '../../design/draggableItem.vue';
-import useConfigHook from '../../hooks/useConfigHook';
-import componentFactory from '../componentFactory';
+// import useConfigHook from '../../hooks/useConfigHook';
+import componentFactory from '../Factory';
 import useDraggableHook from '../../hooks/useDraggableHook';
+import { ComponentConstructorOptionType } from '../types';
 
-type FenceInitOption = AbstractComponentInitOption<string> & {
-  col: number;
-  list: Array<Array<AbstractComponentConstructorOption>>;
-};
+class Fence extends AbstractComponent {
+  private _col: number = 3;
+  private _list: Array<Array<AbstractComponent>> = [[], [], []];
 
-class Fence extends AbstractComponent<string> {
-  public col: number = 3;
-  public list: Array<Array<AbstractComponent<any>>> = [];
-
-  constructor(c: AbstractComponentConstructorOption) {
+  constructor(c: ComponentConstructorOptionType) {
     super(c);
-    for (let i = 0; i < 3; i++) {
-      this.list.push([]);
-    }
   }
 
   val(): Record<string, any> {
     let res: Record<string, any> = {};
-    for (const item of this.list) {
-      res = Object.assign(res, item[0].val());
+    for (const item of this._list) {
+      res = Object.assign(res, item[0].valToJson());
     }
     return res;
   }
 
-  init({ col, list }: FenceInitOption): void {
+  init({ col, list }: Record<string, any>): void {
     if (col > 3) {
       throw new Error('Columns cannot be larger than three');
     }
 
-    this.col = col;
-    this.list = [];
+    this._col = col;
+    this._list = [];
     for (const item of list) {
-      const f = item[0];
-      this.list.push(f !== undefined ? [componentFactory.creator(f)] : []);
+      this._list.push([componentFactory.creator(item)]);
     }
   }
 
   node(): VNode {
-    const { setValue } = useConfigHook();
     const columns: VNode[] = [];
-    for (let i = 0; i < this.col; i++) {
+    for (let i = 0; i < this._col; i++) {
+      if (i >= this._list.length) {
+        this._list.push([]);
+      }
       const draggable = h(
         Draggable,
         {
           id: 'fence',
-          list: this.list[i],
-          'onUpdate:list': val => (this.list[i] = val),
+          list: this._list[i],
+          'onUpdate:list': (val: any) => (this._list[i] = val),
           tag: 'ul',
           group: 'design',
           itemKey: 'id',
           move: this.onMove,
-          onClick: (e: PointerEvent) => e.stopPropagation(),
+          onClick: (e: PointerEvent) => {
+            console.log('fene click', e);
+            if (this._list[i].length > 0) {
+              // console.log(e);
+              // e.stopPropagation();
+            }
+          },
         },
         {
           item: ({ element }) =>
             h(DraggableItem, {
               element: element,
               style: { width: '100%' },
-              onClick: () => setValue(element),
-              onRemove: () => (this.list[i] = []),
+              // onClick: () => setValue(element),
+              onRemove: () => (this._list[i] = []),
             }),
         },
       );
       columns.push(draggable);
     }
-    return h('div', { id: this.id, class: 'fence' }, [...columns]);
+    return h('div', { id: this.primaryId(), class: 'fence' }, [...columns]);
+  }
+
+  configToJson(): Record<string, any> {
+    const json = super.configToJson();
+    json['col'] = this._col;
+
+    const listJson: Record<string, any>[] = [];
+    for (const l of this._list) {
+      const item = l[0];
+      if (item) {
+        listJson.push(item.configToJson());
+      }
+    }
+
+    json['list'] = listJson;
+    return json;
   }
 
   private onMove(obj: any): boolean {
     const { draggableMove } = useDraggableHook();
     return draggableMove(obj);
+  }
+
+  get col(): number {
+    return this._col;
+  }
+
+  set col(value: number) {
+    this._col = value;
+  }
+
+  get list(): Array<Array<AbstractComponent>> {
+    return this._list;
+  }
+
+  set list(value: Array<Array<AbstractComponent>>) {
+    this._list = value;
   }
 }
 

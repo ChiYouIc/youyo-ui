@@ -1,49 +1,108 @@
-import { AbstractComponentConstructorOption, AbstractComponentInitOption, ComponentModeType } from '../types';
 import { VNode } from 'vue';
+import { ComponentActionType, ComponentConstructorOptionType, ComponentModeType } from './types';
 
 /**
  * 抽象的组件
  */
-abstract class AbstractComponent<Value> {
+abstract class AbstractComponent implements ComponentActionType {
   /** id */
-  public readonly id: string;
+  private readonly _id: string;
   /** 字段标签 */
-  public label: string;
+  private _label: string;
   /** 字段名称 */
-  public name: string;
-  /** 字段值 */
-  public value: Value;
+  private _name: string;
+  /** 默认值 */
+  private _defaultValue: any;
   /** 组件类型 */
-  public readonly component: ComponentModeType;
+  private readonly _component: ComponentModeType;
   /** 是否必填 */
-  public required: boolean;
+  private _required: boolean;
   /** 是否禁用 */
-  public disabled: boolean;
+  private _disabled: boolean;
 
-  constructor({ id, name, component, label, required, disabled }: AbstractComponentConstructorOption) {
-    this.id = id;
-    this.name = name;
-    this.component = component;
-    this.value = undefined as Value;
-    this.label = label || 'Label';
-    this.required = required || false;
-    this.disabled = disabled || false;
+  protected constructor({ id, name, component, label, required, disabled }: ComponentConstructorOptionType) {
+    this._id = id;
+    this._name = name;
+    this._component = component;
+    this._label = label;
+    this._required = required;
+    this._disabled = disabled;
   }
+
+  protected abstract val(): any;
 
   /**
    * 初始化
    */
-  public abstract init(config: AbstractComponentInitOption<any>): void;
+  public abstract init(json: Record<string, any>): void;
 
   /**
    * 获取节点
    */
   public abstract node(): VNode;
 
-  public val(): Record<string, any> {
-    const res: Record<string, any> = {};
-    res[this.name] = this.value;
-    return res;
+  public valToJson(): Record<string, any> {
+    return { [this._name]: this.val() };
+  }
+
+  public configToJson(): Record<string, any> {
+    return {
+      id: this._id,
+      label: this._label,
+      name: this._name,
+      defaultValue: this._defaultValue,
+      component: this._component,
+      required: this._required,
+      disabled: this._disabled,
+    };
+  }
+
+  public primaryId(): string {
+    return this._id;
+  }
+
+  get label(): string {
+    return this._label;
+  }
+
+  set label(value: string) {
+    this._label = value;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  set name(value: string) {
+    this._name = value;
+  }
+
+  get defaultValue(): any {
+    return this._defaultValue;
+  }
+
+  set defaultValue(value: any) {
+    this._defaultValue = value;
+  }
+
+  get component(): ComponentModeType {
+    return this._component;
+  }
+
+  get required(): boolean {
+    return this._required;
+  }
+
+  set required(value: boolean) {
+    this._required = value;
+  }
+
+  get disabled(): boolean {
+    return this._disabled;
+  }
+
+  set disabled(value: boolean) {
+    this._disabled = value;
   }
 }
 

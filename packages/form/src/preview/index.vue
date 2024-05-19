@@ -1,35 +1,41 @@
 <template>
   <div class="form-preview">
     <div class="title">
-      <span>{{ form.name }}</span>
+      <span>{{ name }}</span>
     </div>
     <a-form>
-      <template v-for="item in form.components" :key="item.id">
-        <a-form-item :label="item.label" :name="item.name" :required="item.required">
+      <template v-for="item in componentList" :key="item.id">
+        <template v-if="item.component === 'Fence'">
+          <a-row justify="space-between">
+            <a-col v-for="(f, index) in (item as Fence).list" :key="index">
+              <a-form-item :label="f[0].label" :name="f[0].name" :required="f[0].required">
+                <factory :el="f[0]"></factory>
+              </a-form-item>
+            </a-col>
+          </a-row>
+        </template>
+        <a-form-item v-else :label="item.label" :name="item.name" :required="item.required">
           <factory :el="item" />
         </a-form-item>
       </template>
-      <a-form-item>
-        <a-button @click="onflush">刷新</a-button>
-      </a-form-item>
     </a-form>
-    <vue-json-pretty :showIcon="true" :data="formValue"></vue-json-pretty>
   </div>
 </template>
 <script setup lang="ts">
 import './style/index.less';
-import sfj from '../design/form.json';
-import Form from '../core/entity/Form';
-import { ref } from 'vue';
+import { defineProps } from 'vue';
 import Factory from '../factory/index.vue';
-import VueJsonPretty from 'vue-json-pretty';
+import Fence from '../core/entity/Fence';
+import AbstractComponent from '../core/AbstractComponent';
 
-const form = ref<Form>(new Form(sfj.id, sfj.name, sfj.version, sfj.description, sfj.components));
-
-const formValue = ref<Record<string, any>>({});
-function onflush() {
-  formValue.value = form.value.formValue();
+interface PreviewProps {
+  name: string;
+  components: () => Array<AbstractComponent>;
 }
+
+const props = defineProps<PreviewProps>();
+
+const componentList = props.components();
 </script>
 
 <style scoped></style>

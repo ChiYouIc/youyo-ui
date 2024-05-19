@@ -1,237 +1,179 @@
 {
-  "id": "e7ee2f90-5862-11ee-ad5d-15a7bcf84b58",
-  "name": "手机信息收集单表v1",
-  "description": "这是一个手机信息手机表单",
+  "id": "00476de0-0f56-11ef-bc91-41a193f8ead6",
+  "name": "表单v1",
+  "description": "这事一个测试表单",
   "version": "1.0.0",
   "components": [
     {
-      "id": "48cf2a70-5931-11ee-ae2e-298537dbde9a",
+      "id": "f1609780-0f59-11ef-9f6d-8393dd327dc4",
       "label": "栅栏",
       "name": "filed1",
+      "defaultValue": "undefined",
       "component": "Fence",
       "required": false,
       "disabled": false,
       "col": 3,
       "list": [
-        [
-          {
-            "id": "a7126200-5d0a-11ee-96cf-933b0eff0cff",
-            "label": "输入框",
-            "name": "fence1",
-            "component": "Input",
-            "required": false,
-            "disabled": false,
-            "placeholder": "请输入内容",
-            "maxlength": 500
-          }
-        ],
-        [
-          {
-            "id": "a7ea9990-5d0a-11ee-96cf-933b0eff0cff",
-            "label": "输入框",
-            "name": "fence2",
-            "component": "Input",
-            "required": false,
-            "disabled": false,
-            "placeholder": "请输入内容",
-            "maxlength": 500
-          }
-        ],
-        [
-          {
-            "id": "a8e155a0-5d0a-11ee-96cf-933b0eff0cff",
-            "label": "输入框",
-            "name": "fence3",
-            "component": "Input",
-            "required": false,
-            "disabled": false,
-            "placeholder": "请输入内容",
-            "maxlength": 500
-          }
-        ]
-      ]
-    },
-    {
-      "id": "07e1a8e0-5863-11ee-ad5d-15a7bcf84b58",
-      "label": "内存",
-      "name": "memory",
-      "value": "512",
-      "component": "Radio",
-      "required": true,
-      "disabled": false,
-      "optionType": "default",
-      "options": [
         {
-          "label": "128G",
-          "value": "128"
+          "id": "f2c0ead0-0f59-11ef-9f6d-8393dd327dc4",
+          "label": "数字输入框",
+          "name": "filed2",
+          "defaultValue": "undefined",
+          "component": "InputNumber",
+          "required": false,
+          "disabled": false
         },
         {
-          "label": "256G",
-          "value": "256"
+          "id": "f386d2e0-0f59-11ef-9f6d-8393dd327dc4",
+          "label": "选择框",
+          "name": "filed3",
+          "defaultValue": "undefined",
+          "component": "Select",
+          "required": false,
+          "disabled": false,
+          "placeholder": "",
+          "options": [
+          ]
         },
         {
-          "label": "512G",
-          "value": "512"
+          "id": "f4b87510-0f59-11ef-9f6d-8393dd327dc4",
+          "label": "输入框",
+          "name": "filed4",
+          "defaultValue": "undefined",
+          "component": "Input",
+          "required": false,
+          "disabled": false,
+          "placeholder": "请输入内容",
+          "maxlength": 500
         }
       ]
     },
     {
-      "id": "8a920280-5d22-11ee-a309-79d68f119abf",
-      "label": "表格",
-      "name": "filed5",
-      "component": "Table",
+      "id": "f0803f10-0f58-11ef-9e9a-b31208a4de99",
+      "label": "开关",
+      "name": "filed2",
+      "defaultValue": "undefined",
+      "component": "Switch",
       "required": false,
-      "disabled": false,
-      "columns": [
-        {
-          "title": "4",
-          "dataIndex": "4"
-        },
-        {
-          "title": "3",
-          "dataIndex": "3"
-        },
-        {
-          "title": "4",
-          "dataIndex": "4"
-        },
-        {
-          "title": "2",
-          "dataIndex": "2"
-        },
-        {
-          "title": "3",
-          "dataIndex": "4"
-        },
-        {
-          "title": "1",
-          "dataIndex": "1"
-        },
-        {
-          "title": "2",
-          "dataIndex": "3"
-        },
-        {
-          "title": "4",
-          "dataIndex": "5"
-        }
-      ]
+      "disabled": false
     },
     {
-      "id": "079361d0-5863-11ee-ad5d-15a7bcf84b58",
-      "label": "手机",
-      "name": "brand",
-      "value": "小米",
+      "id": "06395740-0f56-11ef-bc91-41a193f8ead6",
+      "label": "选择框",
+      "name": "filed1",
+      "defaultValue": "undefined",
       "component": "Select",
       "required": false,
       "disabled": false,
-      "placeholder": "请选择手机",
+      "placeholder": "",
       "options": [
         {
-          "label": "iPhone",
-          "value": "iPhone"
+          "label": "2",
+          "value": "2"
         },
         {
-          "label": "小米",
-          "value": "小米"
+          "label": "1",
+          "value": "1"
         },
         {
-          "label": "华为",
-          "value": "华为"
-        },
-        {
-          "label": "Vivo",
-          "value": "Vivo"
-        },
-        {
-          "label": "Oppo",
-          "value": "Oppo"
+          "label": "2",
+          "value": "2"
         }
       ]
     },
     {
-      "id": "89f414d0-5d22-11ee-a309-79d68f119abf",
-      "label": "评分",
+      "id": "0c915570-0f56-11ef-bc91-41a193f8ead6",
+      "label": "数字输入框",
       "name": "filed3",
-      "value": 0,
-      "component": "Rate",
+      "defaultValue": "undefined",
+      "component": "InputNumber",
       "required": false,
-      "disabled": false,
-      "count": 5,
-      "allowHalf": false
+      "disabled": false
     },
     {
-      "id": "8b02ecc0-5d22-11ee-a309-79d68f119abf",
+      "id": "2017f5e0-0f56-11ef-bc91-41a193f8ead6",
       "label": "开关",
-      "name": "filed6",
-      "value": false,
+      "name": "filed10",
+      "defaultValue": "undefined",
       "component": "Switch",
       "required": false,
       "disabled": false
     },
     {
-      "id": "89a57fa0-5d22-11ee-a309-79d68f119abf",
-      "label": "开关",
-      "name": "filed2",
-      "value": false,
-      "component": "Switch",
-      "required": false,
+      "id": "11d28c70-0f56-11ef-bc91-41a193f8ead6",
+      "label": "单选框",
+      "name": "filed9",
+      "defaultValue": "undefined",
+      "component": "Radio",
+      "required": true,
       "disabled": false
     },
     {
-      "id": "8a484f50-5d22-11ee-a309-79d68f119abf",
-      "label": "表格",
-      "name": "filed4",
-      "component": "Table",
-      "required": false,
-      "disabled": false,
-      "columns": [
-      ]
-    },
-    {
-      "id": "82e91a50-5d22-11ee-a309-79d68f119abf",
+      "id": "100f7fb0-0f56-11ef-bc91-41a193f8ead6",
       "label": "日期选择框",
-      "name": "DatePicker1",
+      "name": "filed7",
+      "defaultValue": "undefined",
       "component": "DatePicker",
       "required": false,
       "disabled": false,
       "placeholder": "请选择日期",
-      "picker": "date"
+      "picker": "quarter"
     },
     {
-      "id": "48b1c300-5863-11ee-ad5d-15a7bcf84b58",
-      "label": "手机",
-      "name": "phoneNumber",
-      "value": "18325201758",
-      "component": "Input",
-      "required": false,
-      "disabled": false,
-      "placeholder": "请输入手机号码",
-      "maxlength": 500
-    },
-    {
-      "id": "5a8e0ed0-5863-11ee-ad5d-15a7bcf84b58",
-      "label": "配送日期",
-      "name": "deliveryDate",
-      "value": "2023-09-21",
-      "component": "DatePicker",
-      "required": false,
-      "disabled": false,
-      "placeholder": "请选择配送日期",
-      "picker": "date"
-    },
-    {
-      "id": "63fb1530-5863-11ee-ad5d-15a7bcf84b58",
-      "label": "配送时间",
-      "name": "deliveryTime",
-      "value": "12:00:00",
+      "id": "10e916d0-0f56-11ef-bc91-41a193f8ead6",
+      "label": "时间选择框",
+      "name": "filed8",
+      "defaultValue": "undefined",
       "component": "TimePicker",
       "required": false,
       "disabled": false,
-      "placeholder": "请选择配送时间",
+      "placeholder": "",
       "hourStep": 1,
-      "minuteStep": 30,
-      "secondStep": 30
+      "minuteStep": 1,
+      "secondStep": 1
+    },
+    {
+      "id": "0e17ce60-0f56-11ef-bc91-41a193f8ead6",
+      "label": "输入框",
+      "name": "filed4",
+      "defaultValue": "undefined",
+      "component": "Input",
+      "required": false,
+      "disabled": false,
+      "placeholder": "请输入内容",
+      "maxlength": 500
+    },
+    {
+      "id": "0f7ba420-0f56-11ef-bc91-41a193f8ead6",
+      "label": "表格",
+      "name": "filed6",
+      "defaultValue": "undefined",
+      "component": "Table",
+      "required": false,
+      "disabled": false,
+      "columns": [
+      ]
+    },
+    {
+      "id": "0ecc7860-0f56-11ef-bc91-41a193f8ead6",
+      "label": "上传",
+      "name": "filed5",
+      "defaultValue": "undefined",
+      "component": "Upload",
+      "required": false,
+      "disabled": false
+    },
+    {
+      "id": "07506c90-0f56-11ef-bc91-41a193f8ead6",
+      "label": "选择框",
+      "name": "filed2",
+      "defaultValue": "undefined",
+      "component": "Select",
+      "required": false,
+      "disabled": false,
+      "placeholder": "",
+      "options": [
+      ]
     }
   ]
 }

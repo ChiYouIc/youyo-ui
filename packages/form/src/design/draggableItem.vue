@@ -13,32 +13,31 @@
 </template>
 <script setup lang="ts" name="draggable-item">
 import './style/draggable-item.less';
+import { defineProps, defineEmits } from 'vue';
 import { CloseOutlined } from '@ant-design/icons-vue';
 import Factory from '../factory/index.vue';
 import AbstractComponent from '../core/AbstractComponent';
-import useConfigHook from '../hooks/useConfigHook';
 
 interface DraggableItemProps {
-  element: any;
+  element: AbstractComponent;
 }
 
 interface DraggableItemEmits {
-  (event: 'click', val: AbstractComponent<any>): void;
-  (event: 'remove', val: AbstractComponent<any>): void;
+  (event: 'click', val: AbstractComponent): void;
+
+  (event: 'remove', val: AbstractComponent): void;
 }
 
 defineProps<DraggableItemProps>();
 
 const emits = defineEmits<DraggableItemEmits>();
 
-const { setValue } = useConfigHook();
-
-function onClick(item: AbstractComponent<any>): void {
+function onClick(item: AbstractComponent): void {
+  console.log('draggableItem click', item);
   emits('click', item);
-  setValue(item);
 }
 
-function onRemove(item: AbstractComponent<any>): void {
+function onRemove(item: AbstractComponent): void {
   emits('remove', item);
 }
 </script>

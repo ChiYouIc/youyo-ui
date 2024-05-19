@@ -1,38 +1,46 @@
 import AbstractComponent from '../AbstractComponent';
-import { AbstractComponentConstructorOption, AbstractComponentInitOption } from '../../types';
 import { h, VNode } from 'vue';
 import { Table as AntTable, TableColumnType, TableProps } from 'ant-design-vue';
+import { ComponentConstructorOptionType } from '../types';
 
-type TableInitOption<T> = AbstractComponentInitOption<T[]> & {
-  columns: TableColumnType[];
-  data: T[];
-};
+class Table extends AbstractComponent {
+  private _value: Array<Record<string, any>> = [];
+  private _columns: TableColumnType[] = [];
 
-class Table<T> extends AbstractComponent<T[]> {
-  public columns: TableColumnType[] = [];
-
-  constructor(option: AbstractComponentConstructorOption) {
+  constructor(option: ComponentConstructorOptionType) {
     super(option);
   }
 
-  val(): Record<string, Array<T>> {
-    const res: Record<string, Array<T>> = {};
-    res[this.name] = this.value;
-    return res;
-  }
-
-  init({ value, columns }: TableInitOption<T>): void {
-    this.columns = columns;
-    this.value = value;
+  init({ value, columns }: Record<string, any>): void {
+    this._columns = columns;
+    this._value = value;
   }
 
   node(): VNode {
     return h<TableProps>(AntTable, {
-      id: this.id,
-      dataSource: this.value,
-      columns: this.columns,
+      id: this.primaryId(),
+      dataSource: this._value,
+      columns: this._columns,
       style: { width: '100%' },
     });
+  }
+
+  protected val(): any {
+    return this._value;
+  }
+
+  configToJson(): Record<string, any> {
+    const json = super.configToJson();
+    json['columns'] = this._columns;
+    return json;
+  }
+
+  get columns(): TableColumnType[] {
+    return this._columns;
+  }
+
+  set columns(value: TableColumnType[]) {
+    this._columns = value;
   }
 }
 

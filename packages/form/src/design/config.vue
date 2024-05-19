@@ -7,8 +7,7 @@
 </template>
 <script lang="ts">
 import './style/config.less';
-import useConfigHook from '../hooks/useConfigHook';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import AbstractComponent from '../core/AbstractComponent';
 import InputConfig from './config/Input.vue';
 import SwitchConfig from './config/Switch.vue';
@@ -19,17 +18,16 @@ import RateConfig from './config/Rate.vue';
 import TimePickerConfig from './config/TimePicker.vue';
 import DatePickerConfig from './config/DatePicker.vue';
 import TableConfig from './config/Table.vue';
+import FenceConfig from './config/Fence.vue';
 
 export default defineComponent({
   name: 'form-config',
-  components: { InputConfig, SwitchConfig, SelectConfig, InputNumberConfig, RadioConfig, RateConfig, TimePickerConfig, DatePickerConfig, TableConfig },
-  setup() {
-    const component = ref<AbstractComponent<any>>();
-    const { onChanged } = useConfigHook();
-    onChanged(item => (component.value = item));
-    return {
-      component,
-    };
+  components: { InputConfig, SwitchConfig, SelectConfig, InputNumberConfig, RadioConfig, RateConfig, TimePickerConfig, DatePickerConfig, TableConfig, FenceConfig },
+  props: {
+    component: {
+      type: Object as PropType<AbstractComponent>,
+      required: false,
+    },
   },
 });
 </script>

@@ -1,38 +1,61 @@
 import AbstractComponent from '../AbstractComponent';
-import { AbstractComponentConstructorOption, AbstractComponentInitOption } from '../../types';
 import { h, VNode } from 'vue';
 import { Input as AntInput, InputProps } from 'ant-design-vue';
+import { ComponentConstructorOptionType } from '../types';
 
-type InputInitOption = AbstractComponentInitOption<string> & {
-  placeholder: string;
-  maxlength: number;
-};
+class Input extends AbstractComponent {
+  private _value: string = '';
+  private _placeholder: string = '请输入内容';
+  private _maxlength: number = 500;
 
-class Input extends AbstractComponent<string> {
-  public placeholder: string = '请输入内容';
-  public maxlength: number = 500;
-
-  constructor(option: AbstractComponentConstructorOption) {
+  constructor(option: ComponentConstructorOptionType) {
     super(option);
   }
 
-  init({ value, placeholder, maxlength }: InputInitOption): void {
-    this.value = value;
-    this.placeholder = placeholder;
-    this.maxlength = maxlength;
+  init({ value, placeholder, maxlength }: Record<string, any>): void {
+    this._value = value;
+    this._placeholder = placeholder;
+    this._maxlength = maxlength;
   }
 
   node(): VNode {
     return h<InputProps>(AntInput, {
-      id: this.id,
-      value: this.value,
-      'onUpdate:value': (val: string) => (this.value = val),
-      placeholder: this.placeholder,
+      id: this.primaryId(),
+      value: this._value,
+      'onUpdate:value': (val: string) => (this._value = val),
+      placeholder: this._placeholder,
       disabled: this.disabled,
-      maxlength: this.maxlength,
+      maxlength: this._maxlength,
       allowClear: true,
       style: { width: '200px' },
     });
+  }
+
+  protected val(): any {
+    return this._value;
+  }
+
+  configToJson(): Record<string, any> {
+    const json = super.configToJson();
+    json['placeholder'] = this._placeholder;
+    json['maxlength'] = this._maxlength;
+    return json;
+  }
+
+  get placeholder(): string {
+    return this._placeholder;
+  }
+
+  set placeholder(value: string) {
+    this._placeholder = value;
+  }
+
+  get maxlength(): number {
+    return this._maxlength;
+  }
+
+  set maxlength(value: number) {
+    this._maxlength = value;
   }
 }
 

@@ -1,18 +1,22 @@
 import AbstractComponent from '../AbstractComponent';
-import { AbstractComponentConstructorOption, AbstractComponentInitOption } from '../../types';
 import { h, VNode } from 'vue';
+import { ComponentConstructorOptionType } from '../types';
 
-type UploadInitOption = AbstractComponentInitOption<string> & {};
+class Upload extends AbstractComponent {
+  private _value: string = '';
 
-class Upload extends AbstractComponent<string> {
-  constructor(option: AbstractComponentConstructorOption) {
+  constructor(option: ComponentConstructorOptionType) {
     super(option);
   }
 
-  init(_: UploadInitOption): void {}
+  init(_: Record<string, any>): void {}
 
   node(): VNode {
-    return h('div', { id: this.id });
+    return h('div', { id: this.primaryId() });
+  }
+
+  protected val(): any {
+    return this._value;
   }
 }
 

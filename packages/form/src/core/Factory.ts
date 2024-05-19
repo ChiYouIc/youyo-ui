@@ -1,5 +1,4 @@
 import AbstractComponent from './AbstractComponent';
-import { AbstractComponentConstructorOption, ComponentModeType } from '../types';
 import InputNumber from './entity/InputNumber';
 import Input from './entity/Input';
 import Radio from './entity/Radio';
@@ -12,12 +11,13 @@ import TimePicker from './entity/TimePicker';
 import DatePicker from './entity/DatePicker';
 import Upload from './entity/Upload';
 import Fence from './entity/Fence';
+import { ComponentConstructorOptionType, ComponentModeType } from './types';
 
 /**
  * 抽象工厂
  */
 interface AbstractFactory {
-  creator: (c: AbstractComponentConstructorOption) => AbstractComponent<any>;
+  creator: (c: ComponentConstructorOptionType) => AbstractComponent;
 }
 
 const InputFactory: AbstractFactory = { creator: c => new Input(c) };
@@ -33,7 +33,7 @@ const TimePickerFactory: AbstractFactory = { creator: c => new TimePicker(c) };
 const UploadFactory: AbstractFactory = { creator: c => new Upload(c) };
 const FenceFactory: AbstractFactory = { creator: c => new Fence(c) };
 
-class ComponentFactory {
+class Factory {
   private _cache: Map<ComponentModeType, AbstractFactory> = new Map<ComponentModeType, AbstractFactory>();
 
   constructor() {
@@ -51,7 +51,7 @@ class ComponentFactory {
     this._cache.set('Fence', FenceFactory);
   }
 
-  public creator(option: AbstractComponentConstructorOption): AbstractComponent<any> {
+  public creator(option: ComponentConstructorOptionType): AbstractComponent {
     const factory = this._cache.get(option.component);
     if (factory === undefined) {
       throw new Error(`No constructor found for ${option.component}`);
@@ -60,6 +60,6 @@ class ComponentFactory {
   }
 }
 
-const componentFactory = new ComponentFactory();
+const componentFactory = new Factory();
 
 export default componentFactory;

@@ -1,14 +1,14 @@
 <template>
-  <a-form :model="form">
+  <a-form :model="configForm">
     <a-form-item label="标签" name="label">
-      <a-input v-model:value="form!.label" />
+      <a-input v-model:value="configForm!.label" />
     </a-form-item>
     <a-form-item label="名称" name="name">
-      <a-input v-model:value="form.name" />
+      <a-input v-model:value="configForm.name" />
     </a-form-item>
     <a-form-item label="自定义列" name="options">
-      <a-form :model="form.columns">
-        <template v-for="(option, index) in form.columns" :key="index">
+      <a-form :model="configForm.columns">
+        <template v-for="(option, index) in configForm.columns" :key="index">
           <a-row :gutter="5">
             <a-col :span="11">
               <a-form-item style="margin-bottom: 5px">
@@ -17,7 +17,7 @@
             </a-col>
             <a-col :span="11">
               <a-form-item style="margin-bottom: 5px">
-                <a-input v-model:value="option.dataIndex" placeholder="请输入value" />
+                <a-input v-model:value="option.dataIndex" placeholder="请输入dataIndex" />
               </a-form-item>
             </a-col>
             <a-col :span="2">
@@ -28,28 +28,43 @@
           </a-row>
         </template>
       </a-form>
-      <a-button type="dashed" block @click="onAddOption"><plus-outlined />新增</a-button>
+      <a-button type="dashed" block @click="onAddOption">
+        <plus-outlined />
+        新增
+      </a-button>
     </a-form-item>
   </a-form>
 </template>
 <script setup lang="ts" name="TableConfig">
 import { TableColumnType } from 'ant-design-vue';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
+import { computed, defineEmits, defineProps } from 'vue';
 
-type TableProps = {
-  form: {
-    label: string;
-    name: string;
-    columns: TableColumnType[];
-  };
+type Form = {
+  label: string;
+  name: string;
+  columns: TableColumnType[];
 };
 
-const props = defineProps<TableProps>();
+const props = defineProps<{ form: Form }>();
 
-function onRemoveOption() {}
+const emits = defineEmits<{ (event: 'update:form', val: Form): void }>();
+
+const configForm = computed({
+  get() {
+    return props.form;
+  },
+  set(val) {
+    emits('update:form', val);
+  },
+});
+
+function onRemoveOption(option: TableColumnType, index: number) {
+  configForm.value.columns.splice(index, 1);
+}
 
 function onAddOption() {
-  props.form.columns.push({ title: '', dataIndex: '' });
+  configForm.value.columns.push({ title: '', dataIndex: '' });
 }
 </script>
 

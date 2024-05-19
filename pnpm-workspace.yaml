@@ -1,4 +1,6 @@
 packages:
+  - 'demo/youyo-dash-board'
+  - 'demo/youyo-form-design'
   - 'examples'
   - 'packages/components'
   - 'packages/layout'

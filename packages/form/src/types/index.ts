@@ -7,25 +7,6 @@ export type ComponentSelectType = {
   description: string;
 };
 
-/**
- * 抽象组件构造方法option
- */
-export type AbstractComponentConstructorOption = {
-  id: string;
-  name: string;
-  component: ComponentModeType;
-  label?: string;
-  required?: boolean;
-  disabled?: boolean;
-};
-
-/**
- * 组件初始化 option
- */
-export type AbstractComponentInitOption<Value> = {
-  value: Value;
-};
-
 export enum ComponentMode {
   Empty,
   Input,

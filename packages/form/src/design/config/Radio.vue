@@ -1,29 +1,29 @@
 <template>
-  <a-form :model="form">
+  <a-form :model="configForm">
     <a-form-item label="标签" name="label">
-      <a-input v-model:value="form.label" />
+      <a-input v-model:value="configForm.label" />
     </a-form-item>
     <a-form-item label="名称" name="name">
-      <a-input v-model:value="form.name" />
+      <a-input v-model:value="configForm.name" />
     </a-form-item>
     <a-form-item label="默认值" name="value">
-      <a-select v-model:value="form.value" placeholder="请选择默认值" :options="form.options" />
+      <a-select v-model:value="configForm.value" placeholder="请选择默认值" :options="form.options" />
     </a-form-item>
     <a-form-item label="必填" name="required">
-      <a-switch v-model:checked="form.required" />
+      <a-switch v-model:checked="configForm.required" />
     </a-form-item>
     <a-form-item label="禁用" name="disabled">
-      <a-switch v-model:checked="form.disabled" />
+      <a-switch v-model:checked="configForm.disabled" />
     </a-form-item>
     <a-form-item label="按钮类型" name="disabled">
-      <a-select v-model:value="form.optionType">
+      <a-select v-model:value="configForm.optionType">
         <a-select-option value="default">Default</a-select-option>
         <a-select-option value="button">Button</a-select-option>
       </a-select>
     </a-form-item>
     <a-form-item label="候选项" name="options">
-      <a-form :model="form.options">
-        <template v-for="(option, index) in form.options" :key="index">
+      <a-form :model="configForm.options">
+        <template v-for="(option, index) in configForm.options" :key="index">
           <a-row :gutter="5">
             <a-col :span="11">
               <a-form-item style="margin-bottom: 5px">
@@ -50,26 +50,35 @@
 
 <script setup lang="ts" name="RadioConfig">
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
+import { computed, defineEmits, defineProps } from 'vue';
 
-interface RadioProps {
-  form: {
-    label: string;
-    name: string;
-    value: string;
-    required: boolean;
-    disabled: boolean;
-    optionType: 'button' | 'default';
-    options: Array<{ label: string; value: string; disabled?: boolean }>;
-  };
+interface Form {
+  label: string;
+  name: string;
+  value: string;
+  required: boolean;
+  disabled: boolean;
+  optionType: 'button' | 'default';
+  options: Array<{ label: string; value: string; disabled?: boolean }>;
 }
 
-const props = defineProps<RadioProps>();
+const props = defineProps<{ form: Form }>();
+const emits = defineEmits<{ (event: 'update:form', val: Form): void }>();
+
+const configForm = computed({
+  get() {
+    return props.form;
+  },
+  set(val) {
+    emits('update:form', val);
+  },
+});
 function onAddOption() {
-  props.form.options.push({ label: '', value: '' });
+  configForm.value.options.push({ label: '', value: '' });
 }
 
 function onRemoveOption(_: { label: string; value: string }, index: number) {
-  props.form.options.splice(index, 1);
+  configForm.value.options.splice(index, 1);
 }
 </script>
 
