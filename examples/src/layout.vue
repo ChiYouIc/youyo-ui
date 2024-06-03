@@ -20,7 +20,7 @@
 import YouyoBaseFrame from '../../packages/layout/src/frame/BaseFrame.vue';
 
 import { h, reactive, ref } from 'vue';
-import { AppstoreOutlined, CalendarOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons-vue';
+import { CalendarOutlined, MailOutlined } from '@ant-design/icons-vue';
 import { ItemLabelType, ItemType, MenuItemType, SubMenuType } from 'youyo-basic-layout/src';
 import { RouterLink, useRouter } from 'vue-router';
 
@@ -52,30 +52,48 @@ function getMenuItem(key: string, title: string, label: ItemLabelType, path: str
 }
 
 const items: ItemType[] = reactive([
-  getMenuItem('0', 'Home', h(RouterLink, { to: '/' }, 'Home'), '/', h(MailOutlined)),
-  getMenuItem('1', 'Navigation One', h(RouterLink, { to: '/form' }, 'Navigation One'), '/form', h(MailOutlined)),
-  getMenuItem('2', 'Navigation Two', h(RouterLink, { to: '/flow' }, 'Navigation Two'), '/flow', h(CalendarOutlined)),
-  { type: 'divider' },
-  { key: '121', type: 'group', label: 'xxxx', title: 'xxxx', children: [getMenuItem('31', 'Option 3', 'Option 3', '')] },
-  getItem(
-    'sub1',
-    'Navigation Two',
-    'Navigation Two',
-    [
-      getMenuItem('3', 'Option 3', 'Option 3', '1'),
-      getMenuItem('4', 'Option 4', 'Option 4', '4'),
-      getItem('sub1-2', 'Submenu', 'Submenu', [getMenuItem('5', 'Option 5', 'Option 5', '5'), getMenuItem('6', 'Option 6', 'Option 6', '6')]),
-    ],
-    h(AppstoreOutlined),
+  getMenuItem(
+    '0',
+    'Home',
+    h(RouterLink, { to: '/' }, () => 'Home'),
+    '/',
+    h(MailOutlined),
   ),
-  getItem(
-    'Navigation Three',
-    'Navigation Three',
-    'sub2',
-    [getMenuItem('7', 'Option 7', 'Option 7', ''), getMenuItem('8', 'Option 8', 'Option 8', '8'), getMenuItem('9', 'Option 9', 'Option 9', '9'), getMenuItem('10', 'Option 10', 'Option 10', '10')],
-    h(SettingOutlined),
+  getMenuItem(
+    '1',
+    'Navigation One',
+    h(RouterLink, { to: '/form' }, () => 'Navigation One'),
+    '/form',
+    h(MailOutlined),
   ),
+  getMenuItem(
+    '2',
+    'Navigation Two',
+    h(RouterLink, { to: '/flow' }, () => 'Navigation Two'),
+    '/flow',
+    h(CalendarOutlined),
+  ),
+  // { type: 'divider' },
+  // { key: '121', type: 'group', label: 'xxxx', title: 'xxxx', children: [getMenuItem('31', 'Option 3', 'Option 3', '')] },
+  // getItem(
+  //   'sub1',
+  //   'Navigation Two',
+  //   'Navigation Two',
+  //   [
+  //     getMenuItem('3', 'Option 3', 'Option 3', '1'),
+  //     getMenuItem('4', 'Option 4', 'Option 4', '4'),
+  //     getItem('sub1-2', 'Submenu', 'Submenu', [getMenuItem('5', 'Option 5', 'Option 5', '5'), getMenuItem('6', 'Option 6', 'Option 6', '6')]),
+  //   ],
+  //   h(AppstoreOutlined),
+  // ),
+  // getItem(
+  //   'Navigation Three',
+  //   'Navigation Three',
+  //   'sub2',
+  //   [getMenuItem('7', 'Option 7', 'Option 7', ''), getMenuItem('8', 'Option 8', 'Option 8', '8'), getMenuItem('9', 'Option 9', 'Option 9', '9'), getMenuItem('10', 'Option 10', 'Option 10', '10')],
+  //   h(SettingOutlined),
+  // ),
 ]);
 </script>
 
-<style></style>
+<style scoped></style>

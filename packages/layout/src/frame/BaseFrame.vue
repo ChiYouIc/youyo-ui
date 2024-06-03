@@ -43,7 +43,7 @@
       </template>
       <template #tabs>
         <div class="base-frame-tabs">
-          <youyo-tabs :tab-key="tabKey" :tab-list="tabList" :modify-tab="modifyTab" @redo="pageReload" @click="handleTabClick" @close="handleTabClose" />
+          <youyo-tabs :tab-key="tabKey" :tab-list="tabList" :modify-tab="modifyTab" @redo="pageReload" @click="tabClick" @close="tabClose" />
         </div>
       </template>
       <template #content>
@@ -68,11 +68,12 @@ import YouyoSearch from '../search/index.vue';
 import YouyoFooter from '../footer/index.vue';
 import YouyoFullScreen from '../screen/index.vue';
 import YouyoTabs from '../tabs/index.vue';
-import { BaseFrameProps, ItemType, LayoutProps, MenuItemType, MenuProps, SearchItemType, TabsType } from '../types';
-import { computed, defineProps, onMounted, reactive, ref, watch } from 'vue';
+import { BaseFrameEmits, BaseFrameProps, ItemType, LayoutProps, MenuItemType, MenuProps, SearchItemType, TabsType } from '../types';
+import { defineEmits, defineProps, onMounted, reactive, ref, watch } from 'vue';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue';
 
 const props = defineProps<BaseFrameProps>();
+const emits = defineEmits<BaseFrameEmits>();
 const collapsed = ref<boolean>(false);
 const showLogoName = ref<boolean>(!collapsed.value);
 const searchList = getSearchItemList(props.menuList, []);
@@ -100,8 +101,6 @@ const menuItemList = ref<Array<MenuItemType>>([]);
 const theme = ref<'light' | 'dark'>('light');
 const tabList = ref<TabsType[]>([]);
 const tabKey = ref<string | number>('');
-
-const router = computed(() => props.router);
 
 watch(
   () => props.currentPath,
@@ -135,9 +134,8 @@ function addTab(t: TabsType) {
     console.warn('multiple tab item');
     return;
   }
-
   tabList.value.push(t);
-  localStorage.setItem('tab-list', JSON.stringify(tabList.value));
+  emits('tab-add', t);
 }
 
 /**
@@ -156,6 +154,32 @@ function modifyTab(key: string | number) {
   }
 
   tabKey.value = find.key;
+}
+
+/**
+ * tab 点击时
+ * @param key
+ */
+function tabClick(key: string | number) {
+  const tab = tabList.value.find(t => t.key === key);
+  if (!tab) {
+    throw new Error('not found tab item');
+  }
+  emits('tab-click', tab);
+  modifyMenu(key);
+}
+
+/**
+ * tab 页面关闭
+ * @param tab
+ * @param index
+ */
+function tabClose(tab: TabsType, index: number) {
+  tabList.value.splice(index, 1);
+  if (tab.key === tabKey.value) {
+    tabKey.value = tabList[index - 1].key;
+  }
+  emits('tab-close', tab);
 }
 
 /**
@@ -254,31 +278,6 @@ function handleMenuSelect({ _, key }) {
 }
 
 /**
- * tab 点击时
- * @param key
- */
-function handleTabClick(key: string | number) {
-  const tab = tabList.value.find(t => t.key === key);
-  if (!tab) {
-    throw new Error('not found tab item');
-  }
-  router.value.push(tab.path);
-  modifyMenu(key);
-}
-
-/**
- * tab 页面关闭
- * @param tab
- * @param index
- */
-function handleTabClose(tab: TabsType, index: number) {
-  tabList.value.splice(index, 1);
-  if (tab.key === tabKey.value) {
-    tabKey.value = tabList[index - 1].key;
-  }
-}
-
-/**
  * 搜索组件选择时
  * @param key
  */
@@ -291,7 +290,7 @@ function handleSearchChange(key: string) {
   modifyMenu(key);
   addTab({ key: menuItem.key, tab: menuItem.title, path: menuItem.path });
   modifyTab(key);
-  router.value.push(menuItem.path);
+  emits('search-select', menuItem);
 }
 
 function switchCol() {
@@ -321,10 +320,7 @@ function initMenuItemList(menuList: ItemType[]) {
 
 onMounted(() => {
   // tabList
-  const tList = localStorage.getItem('tab-list');
-  if (tList) {
-    tabList.value = JSON.parse(tList);
-  }
+  tabList.value = props.tabList || [];
 
   // menuItemList
   initMenuItemList(props.menuList);
