@@ -1,24 +1,30 @@
 <template>
   <div class="form-preview">
     <div class="title">
-      <span>{{ name }}</span>
+      <span>{{ form.name }}</span>
     </div>
-    <a-form>
-      <template v-for="item in componentList" :key="item.id">
+    <y-form :model="data">
+      <template v-for="item in form.components" :key="item.id">
+        <!-- 栅栏 -->
         <template v-if="item.component === 'Fence'">
-          <a-row justify="space-between">
-            <a-col v-for="(f, index) in (item as Fence).list" :key="index">
-              <a-form-item :label="f[0].label" :name="f[0].name" :required="f[0].required">
+          <div>
+            <template v-for="(f, index) in (item as Fence).list" :key="index">
+              <y-form-item v-if="f[0]" :label="f[0].label" :name="f[0].name" :required="f[0].required">
                 <factory :el="f[0]"></factory>
-              </a-form-item>
-            </a-col>
-          </a-row>
+              </y-form-item>
+            </template>
+          </div>
         </template>
-        <a-form-item v-else :label="item.label" :name="item.name" :required="item.required">
+        <!-- 表格 -->
+        <y-form-item v-else-if="item.component === 'Table'" :name="item.name" :required="item.required">
           <factory :el="item" />
-        </a-form-item>
+        </y-form-item>
+        <y-form-item v-else :label="item.label" :name="item.name" :required="item.required">
+          <factory :el="item" />
+        </y-form-item>
       </template>
-    </a-form>
+    </y-form>
+    {{ data }}
   </div>
 </template>
 <script setup lang="ts">
@@ -26,16 +32,16 @@ import './style/index.less';
 import { defineProps } from 'vue';
 import Factory from '../factory/index.vue';
 import Fence from '../core/entity/Fence';
-import AbstractComponent from '../core/AbstractComponent';
+import Form from '../core/Form';
+import YForm from './form.vue';
+import YFormItem from './formItem.vue';
 
 interface PreviewProps {
-  name: string;
-  components: () => Array<AbstractComponent>;
+  form: Form;
+  data: Record<string, any>;
 }
 
-const props = defineProps<PreviewProps>();
-
-const componentList = props.components();
+defineProps<PreviewProps>();
 </script>
 
 <style scoped></style>

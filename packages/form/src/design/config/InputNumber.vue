@@ -7,7 +7,7 @@
       <a-input v-model:value="configForm.name" />
     </a-form-item>
     <a-form-item label="默认值" name="defaultValue">
-      <a-input v-model:value="configForm.value" />
+      <a-input v-model:value="configForm.defaultValue" />
     </a-form-item>
     <a-form-item label="必填" name="required">
       <a-switch v-model:checked="configForm.required" />
@@ -33,7 +33,7 @@ import { computed, defineEmits, defineProps } from 'vue';
 type Form = {
   label: string;
   name: string;
-  value: string;
+  defaultValue: string;
   required: boolean;
   disabled: boolean;
   placeholder: string;

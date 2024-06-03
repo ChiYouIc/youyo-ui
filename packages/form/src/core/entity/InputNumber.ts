@@ -27,8 +27,12 @@ class InputNumber extends AbstractComponent {
     });
   }
 
-  protected val(): any {
+  protected getVal(): any {
     return this._value;
+  }
+
+  protected setVal(val: any): void {
+    this._value = val;
   }
 
   get min(): number {

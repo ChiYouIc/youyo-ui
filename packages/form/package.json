@@ -18,13 +18,13 @@
   "dependencies": {
     "@youyo-ui/utils": "workspace:^1.0.0",
     "dayjs": "^1.11.10",
-    "vue-uuid": "^3.0.0"
+    "vue-uuid": "^3.0.0",
+    "vuedraggable": "^4.1.0"
+
   },
   "devDependencies": {
     "vite-plugin-vue-setup-extend": "^0.4.0",
-    "vue-json-pretty": "2.2.4",
     "@youyo-ui/plugins": "workspace:^1.0.0",
-    "@youyo-ui/builds": "workspace:^1.0.0",
-    "vuedraggable": "^4.1.0"
+    "@youyo-ui/builds": "workspace:^1.0.0"
   }
 }

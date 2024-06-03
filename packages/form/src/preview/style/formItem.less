@@ -1,0 +1,46 @@
+.y-preview-form-item {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  //align-items: center;
+  margin-bottom: 24px;
+  vertical-align: top;
+
+  .item-label {
+    height: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+
+    .mark-required::before {
+      display: inline;
+      margin-inline-end: 4px;
+      color: #ff4d4f;
+      font-size: 14px;
+      content: "*";
+    }
+
+    label::after {
+      content: ":";
+      position: relative;
+      margin-block: 0;
+      margin-inline-start: 2px;
+      margin-inline-end: 8px;
+    }
+
+  }
+
+  .item-content {
+    width: 100%;
+    min-height: 32px;
+
+    .required-msg {
+      display: block;
+      color: #ff4d4f;
+      font-size: 14px;
+    }
+  }
+
+}

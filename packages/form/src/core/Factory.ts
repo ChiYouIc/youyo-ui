@@ -1,6 +1,6 @@
 import AbstractComponent from './AbstractComponent';
-import InputNumber from './entity/InputNumber';
 import Input from './entity/Input';
+import InputNumber from './entity/InputNumber';
 import Radio from './entity/Radio';
 import Rate from './entity/Rate';
 import Select from './entity/Select';

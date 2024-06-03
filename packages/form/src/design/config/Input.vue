@@ -23,7 +23,7 @@
     </a-form-item>
   </a-form>
 </template>
-<script setup lang="ts" name="input">
+<script setup lang="ts">
 import { defineProps, defineEmits, computed } from 'vue';
 
 type Form = {

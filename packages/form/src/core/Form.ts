@@ -12,7 +12,7 @@ class Form {
   private _version: string;
   private _components: Array<AbstractComponent> = [];
 
-  constructor(id: string, name: string, version: string, description: string, components?: Array<ComponentConstructorOptionType>) {
+  constructor(id: string, name: string, version: string, description: string, components: Array<ComponentConstructorOptionType>) {
     this._id = id;
     this._name = name;
     this._version = version;
@@ -33,8 +33,8 @@ class Form {
     this._components.splice(index, 1);
   }
 
-  private initComponents(list: Array<ComponentConstructorOptionType> | undefined) {
-    if (list === undefined || list.length === 0) {
+  private initComponents(list: Array<ComponentConstructorOptionType>) {
+    if (list.length === 0) {
       return;
     }
 
@@ -43,6 +43,7 @@ class Form {
         id: item.id,
         name: item.name,
         component: item.component,
+        defaultValue: item.defaultValue,
         label: item.label,
         required: item.required,
         disabled: item.disabled,
@@ -76,7 +77,6 @@ class Form {
     };
 
     this._components.forEach(c => json.components.push(c.configToJson()));
-
     return json;
   }
 

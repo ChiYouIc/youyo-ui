@@ -2,7 +2,6 @@ import AbstractComponent from '../AbstractComponent';
 import { h, VNode } from 'vue';
 import Draggable from 'vuedraggable';
 import DraggableItem from '../../design/draggableItem.vue';
-// import useConfigHook from '../../hooks/useConfigHook';
 import componentFactory from '../Factory';
 import useDraggableHook from '../../hooks/useDraggableHook';
 import { ComponentConstructorOptionType } from '../types';
@@ -15,13 +14,15 @@ class Fence extends AbstractComponent {
     super(c);
   }
 
-  val(): Record<string, any> {
+  getVal(): Record<string, any> {
     let res: Record<string, any> = {};
     for (const item of this._list) {
-      res = Object.assign(res, item[0].valToJson());
+      res = Object.assign(res, item[0]?.valToJson());
     }
     return res;
   }
+
+  protected setVal(val: any): void {}
 
   init({ col, list }: Record<string, any>): void {
     if (col > 3) {
@@ -51,13 +52,7 @@ class Fence extends AbstractComponent {
           group: 'design',
           itemKey: 'id',
           move: this.onMove,
-          onClick: (e: PointerEvent) => {
-            console.log('fene click', e);
-            if (this._list[i].length > 0) {
-              // console.log(e);
-              // e.stopPropagation();
-            }
-          },
+          onClick: (e: PointerEvent) => e.stopPropagation(),
         },
         {
           item: ({ element }) =>

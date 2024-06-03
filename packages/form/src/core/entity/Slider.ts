@@ -14,11 +14,15 @@ class Slider extends AbstractComponent {
   init(_: Record<string, any>): void {}
 
   node(): VNode {
-    return h<SliderProps>(AntSlider, { id: this.primaryId(), value: this._value, 'onUpdate:value': (val: [number, number] | number) => (this.value = val) });
+    return h<SliderProps>(AntSlider, { id: this.primaryId(), value: this._value, 'onUpdate:value': (val: [number, number] | number) => (this._value = val) });
   }
 
-  protected val(): any {
+  protected getVal(): any {
     return this._value;
+  }
+
+  protected setVal(val: any): void {
+    this._value = val;
   }
 
   configToJson(): Record<string, any> {

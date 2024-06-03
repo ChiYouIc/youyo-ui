@@ -4,6 +4,7 @@
   box-shadow: 6px 0 10px -5px #8888, -6px 0 10px -5px #8888;
   overflow: inherit;
   padding: 5px;
+  overflow: hidden;
 
   .form-design-draggable {
     list-style: none;
@@ -11,6 +12,8 @@
     margin: 0;
     min-height: 120px;
     outline: 1px dashed;
+    height: 100%;
+    overflow: overlay;
 
     & > li {
       border: 1px dashed #d9d9d9;

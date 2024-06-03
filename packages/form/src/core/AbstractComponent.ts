@@ -20,16 +20,19 @@ abstract class AbstractComponent implements ComponentActionType {
   /** 是否禁用 */
   private _disabled: boolean;
 
-  protected constructor({ id, name, component, label, required, disabled }: ComponentConstructorOptionType) {
+  protected constructor({ id, name, component, defaultValue, label, required, disabled }: ComponentConstructorOptionType) {
     this._id = id;
     this._name = name;
     this._component = component;
+    this._defaultValue = defaultValue;
     this._label = label;
     this._required = required;
     this._disabled = disabled;
   }
 
-  protected abstract val(): any;
+  protected abstract getVal(): any;
+
+  protected abstract setVal(val: any): void;
 
   /**
    * 初始化
@@ -42,7 +45,7 @@ abstract class AbstractComponent implements ComponentActionType {
   public abstract node(): VNode;
 
   public valToJson(): Record<string, any> {
-    return { [this._name]: this.val() };
+    return { [this._name]: this.getVal() };
   }
 
   public configToJson(): Record<string, any> {
@@ -83,6 +86,7 @@ abstract class AbstractComponent implements ComponentActionType {
 
   set defaultValue(value: any) {
     this._defaultValue = value;
+    this.setVal(value);
   }
 
   get component(): ComponentModeType {

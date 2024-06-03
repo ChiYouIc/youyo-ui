@@ -19,11 +19,16 @@ class Switch extends AbstractComponent {
       id: this.primaryId(),
       checked: this._value,
       'onUpdate:checked': (val: boolean | string | number) => (this._value = val),
+      disabled: this.disabled,
     });
   }
 
-  protected val(): any {
+  protected getVal(): any {
     return this._value;
+  }
+
+  protected setVal(val: any): void {
+    this._value = val;
   }
 }
 

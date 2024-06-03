@@ -32,8 +32,12 @@ class Rate extends AbstractComponent {
     return json;
   }
 
-  protected val(): any {
+  protected getVal(): any {
     return this._value;
+  }
+
+  protected setVal(val: any): void {
+    this._value = val;
   }
 
   get count(): number {

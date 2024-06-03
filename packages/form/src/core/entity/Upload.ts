@@ -15,8 +15,12 @@ class Upload extends AbstractComponent {
     return h('div', { id: this.primaryId() });
   }
 
-  protected val(): any {
+  protected getVal(): any {
     return this._value;
+  }
+
+  protected setVal(val: any): void {
+    this._value = val;
   }
 }
 

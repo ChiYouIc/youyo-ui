@@ -106,7 +106,8 @@
       "defaultValue": "undefined",
       "component": "Radio",
       "required": true,
-      "disabled": false
+      "disabled": false,
+      "options": []
     },
     {
       "id": "100f7fb0-0f56-11ef-bc91-41a193f8ead6",

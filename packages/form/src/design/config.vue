@@ -1,5 +1,6 @@
 <template>
   <div class="form-config">
+    <a-divider orientation="left">配置</a-divider>
     <template v-if="component">
       <component :is="`${component.component}Config`" v-model:form="component" />
     </template>

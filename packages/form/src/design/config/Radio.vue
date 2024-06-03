@@ -6,8 +6,8 @@
     <a-form-item label="名称" name="name">
       <a-input v-model:value="configForm.name" />
     </a-form-item>
-    <a-form-item label="默认值" name="value">
-      <a-select v-model:value="configForm.value" placeholder="请选择默认值" :options="form.options" />
+    <a-form-item label="默认值" name="defaultValue">
+      <a-select v-model:value="configForm.defaultValue" placeholder="请选择默认值" :options="form.options" />
     </a-form-item>
     <a-form-item label="必填" name="required">
       <a-switch v-model:checked="configForm.required" />
@@ -15,7 +15,7 @@
     <a-form-item label="禁用" name="disabled">
       <a-switch v-model:checked="configForm.disabled" />
     </a-form-item>
-    <a-form-item label="按钮类型" name="disabled">
+    <a-form-item label="按钮类型" name="optionType">
       <a-select v-model:value="configForm.optionType">
         <a-select-option value="default">Default</a-select-option>
         <a-select-option value="button">Button</a-select-option>
@@ -43,7 +43,10 @@
           </a-row>
         </template>
       </a-form>
-      <a-button type="dashed" block @click="onAddOption"><plus-outlined />新增</a-button>
+      <a-button type="dashed" block @click="onAddOption">
+        <plus-outlined />
+        新增
+      </a-button>
     </a-form-item>
   </a-form>
 </template>
@@ -55,7 +58,7 @@ import { computed, defineEmits, defineProps } from 'vue';
 interface Form {
   label: string;
   name: string;
-  value: string;
+  defaultValue: string;
   required: boolean;
   disabled: boolean;
   optionType: 'button' | 'default';
@@ -73,6 +76,7 @@ const configForm = computed({
     emits('update:form', val);
   },
 });
+
 function onAddOption() {
   configForm.value.options.push({ label: '', value: '' });
 }
