@@ -11,7 +11,6 @@
       :tabs-top="layout.tabsTop"
       :footer-height="layout.footerHeight"
       :footer-is-fixed="layout.footerIsFixed"
-      :tabs-is-fixed="layout.tabsIsFixed"
     >
       <template #sidebar>
         <youyo-logo :width="50" :height="50" :img="logoImg" :name="logoName" :show-name="showLogoName" style="padding: 12px 10px" />
@@ -22,8 +21,8 @@
           v-model:inline-collapsed="collapsed"
           v-model:open-keys="menu.openKeys"
           v-model:selected-keys="menu.selectedKeys"
-          @click="handleMenuClick"
-          @select="handleMenuSelect"
+          @click="menuClick"
+          @select="menuSelect"
         />
       </template>
       <template #header>
@@ -43,7 +42,7 @@
       </template>
       <template #tabs>
         <div class="base-frame-tabs">
-          <youyo-tabs v-model:tab-key="tabKey" :tab-list="tabList" @redo="pageReload" @change="tabChange" @close="tabClose" />
+          <youyo-tabs v-model:tab-key="tabKey" :tab-list="tabList" @redo="tab => pageReload(tab.path)" @change="tabChange" @close="tabClose" />
         </div>
       </template>
       <template #content>
@@ -68,12 +67,11 @@ import YouyoSearch from '../search/index.vue';
 import YouyoFooter from '../footer/index.vue';
 import YouyoFullScreen from '../screen/index.vue';
 import YouyoTabs from '../tabs/index.vue';
-import { BaseFrameEmits, BaseFrameProps, ItemType, LayoutProps, MenuItemType, MenuProps, SearchItemType, TabsType } from '../types';
-import { defineEmits, defineProps, onMounted, reactive, ref } from 'vue';
+import { BaseFrameProps, ItemType, LayoutProps, MenuItemType, MenuProps, SearchItemType, TabsType } from '../types';
+import { defineProps, onMounted, reactive, ref } from 'vue';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue';
 
 const props = defineProps<BaseFrameProps>();
-const emits = defineEmits<BaseFrameEmits>();
 const collapsed = ref<boolean>(false);
 const showLogoName = ref<boolean>(!collapsed.value);
 const searchList = getSearchItemList(props.menuList, []);
@@ -116,7 +114,6 @@ function addTab(t: TabsType) {
     return;
   }
   tabList.value.push(t);
-  emits('tab-add', t);
 }
 
 /**
@@ -150,7 +147,6 @@ function tabChange(key: string | number) {
   if (!tab) {
     throw new Error('not found tab item');
   }
-  emits('tab-change', tab);
   props.pageChange(tab.path);
   modifyMenu(key);
 }
@@ -165,7 +161,6 @@ function tabClose(tab: TabsType, index: number) {
   if (tab.key === tabKey.value) {
     tabKey.value = tabList[index - 1].key;
   }
-  emits('tab-close', tab);
 }
 
 /**
@@ -208,13 +203,13 @@ function findMenuOpenKeys(key: string | number, menuList: ItemType[]): (string |
 
   let result: (string | number)[] = [];
   for (let menu of menuList) {
-    if (!('children' in menu)) {
-      continue;
-    }
-
-    if (menu.key === key) {
+    if ('key' in menu && menu.key === key) {
       result = [menu.key];
       break;
+    }
+
+    if (!('children' in menu)) {
+      continue;
     }
 
     const children = menu.children || [];
@@ -246,6 +241,7 @@ function modifyMenu(key: string | number) {
   }
   menu.openKeys = findMenuOpenKeys(key, props.menuList);
   menu.selectedKeys = [key];
+  console.log(menu.openKeys, menu.selectedKeys);
 }
 
 /**
@@ -253,7 +249,7 @@ function modifyMenu(key: string | number) {
  * @param item
  * @param key
  */
-function handleMenuClick({ item, key }) {
+function menuClick({ item, key }) {
   addTab({ key: key, tab: item.title, path: item.path });
 }
 
@@ -262,7 +258,7 @@ function handleMenuClick({ item, key }) {
  * @param _
  * @param key
  */
-function handleMenuSelect({ _, key }) {
+function menuSelect({ _, key }) {
   modifyTab(key);
 }
 
@@ -279,14 +275,11 @@ function searchSelect(key: string) {
   modifyMenu(key);
   addTab({ key: menuItem.key, tab: menuItem.title, path: menuItem.path });
   modifyTab(key);
-  emits('search-select', menuItem);
   props.pageChange(menuItem.path);
 }
 
 function switchCol() {
   collapsed.value = !collapsed.value;
-  // switchInlineCollapsed();
-  // switchCollapsible();
   switchShowLogoName();
 }
 

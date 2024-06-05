@@ -1,4 +1,4 @@
-import { ItemType, MenuItemType } from './menu';
+import { ItemType } from './menu';
 import { TabsType } from './tab';
 
 export interface BaseFrameProps {
@@ -19,9 +19,4 @@ export interface BaseFrameProps {
   pageChange: (path: String) => void;
 }
 
-export interface BaseFrameEmits {
-  (event: 'tab-change', val: TabsType): void;
-  (event: 'tab-add', val: TabsType): void;
-  (event: 'tab-close', val: TabsType): void;
-  (event: 'search-select', val: MenuItemType): void;
-}
+export interface BaseFrameEmits {}
