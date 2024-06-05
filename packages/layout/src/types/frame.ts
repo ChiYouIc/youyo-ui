@@ -15,8 +15,8 @@ export interface BaseFrameProps {
     icon: string;
     action: () => void;
   }[];
-  pageReload: (path: String) => void;
-  pageChange: (path: String) => void;
+  pageReload: (path: string) => void;
+  pageChange: (path: string) => void;
 }
 
 export interface BaseFrameEmits {}
