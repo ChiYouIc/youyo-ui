@@ -31,7 +31,7 @@
 
 <script lang="ts" setup name="youyo-layout">
 import './style/index.less';
-import { defineProps, computed, CSSProperties } from 'vue';
+import { computed, CSSProperties, defineProps } from 'vue';
 import { theme } from 'ant-design-vue';
 import type { LayoutProps } from '../types';
 
@@ -75,10 +75,12 @@ const contentStyle = computed(() => {
   return {
     position: props.headerIsFixed ? 'fixed' : 'static',
     width: '100%',
-    height: '100%',
+    height: props.headerIsFixed ? `calc(100vh - ${props.headerHeight + props.tabsHeight + props.footerHeight + props.tabsTop}px)` : '100%',
+    minHeight: `calc(100vh - ${props.headerHeight + props.tabsHeight + props.footerHeight + props.tabsTop + 10}px)`,
+    overflow: props.headerIsFixed ? 'auto' : 'visible',
+    marginTop: props.headerIsFixed ? `${props.headerHeight + props.tabsHeight + props.tabsTop}px` : '',
     paddingLeft: paddingLeft(),
-    paddingTop: props.headerIsFixed ? `${props.headerHeight + props.tabsHeight + props.tabsTop}px` : '0',
-    paddingBottom: props.footerIsFixed ? `${props.footerHeight}px` : '',
+    marginBottom: props.footerIsFixed ? `${props.footerHeight}px` : '',
   } as CSSProperties;
 });
 

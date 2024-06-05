@@ -7,5 +7,4 @@ export type TabsType = {
 export interface TabsProps {
   tabList: TabsType[];
   tabKey: string | number;
-  modifyTab: (key: string | number) => void;
 }

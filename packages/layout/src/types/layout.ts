@@ -7,7 +7,6 @@ export interface LayoutProps {
   headerIsFixed: boolean;
   tabsHeight: number;
   tabsTop: number;
-  tabsIsFixed: boolean;
   footerHeight: number;
   footerIsFixed: boolean;
 }

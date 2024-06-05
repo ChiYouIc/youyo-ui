@@ -1,9 +1,8 @@
 import { ItemType, MenuItemType } from './menu';
-import { Router } from 'vue-router';
 import { TabsType } from './tab';
 
 export interface BaseFrameProps {
-  currentPath: string;
+  basePath?: string;
   logoName: string;
   logoImg: string;
   username: string;
@@ -11,17 +10,17 @@ export interface BaseFrameProps {
   tabList?: TabsType[];
   menuList: ItemType[];
   footerContent: string;
-  router: Router;
   avatarMenuList: {
     title: string;
     icon: string;
     action: () => void;
   }[];
-  pageReload: (val: TabsType) => void;
+  pageReload: (path: String) => void;
+  pageChange: (path: String) => void;
 }
 
 export interface BaseFrameEmits {
-  (event: 'tab-click', val: TabsType): void;
+  (event: 'tab-change', val: TabsType): void;
   (event: 'tab-add', val: TabsType): void;
   (event: 'tab-close', val: TabsType): void;
   (event: 'search-select', val: MenuItemType): void;

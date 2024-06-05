@@ -14,8 +14,8 @@
         :filter-option="false"
         size="small"
         @focusout="focusout"
-        @change="handleChecked"
-        @search="handleSearch"
+        @change="onSelect"
+        @search="onSearch"
       ></a-select>
     </div>
   </div>
@@ -30,7 +30,7 @@ import { SearchOutlined } from '@ant-design/icons-vue';
 import type { SearchProps } from '../types';
 
 export interface SearchEmit {
-  (event: 'change', val: string): void;
+  (event: 'select', val: string): void;
 }
 
 const props = defineProps<SearchProps>();
@@ -45,7 +45,7 @@ const val = ref<string>();
  * 搜索过滤
  * @param val
  */
-function handleSearch(val: string) {
+function onSearch(val: string) {
   if (!val) {
     return [];
   }
@@ -60,7 +60,7 @@ const openInput = () => {
 
 const focusout = () => (inputWidth.value = '0');
 
-function handleChecked(val: string) {
-  emits('change', val);
+function onSelect(val: string) {
+  emits('select', val);
 }
 </script>

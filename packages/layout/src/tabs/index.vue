@@ -1,6 +1,6 @@
 <template>
   <div class="base-tabs">
-    <a-tabs v-model:activeKey="activeKey" type="card">
+    <a-tabs v-model:activeKey="activeKey" type="card" @change="onChange">
       <a-tab-pane v-for="(tab, index) in tabList" :key="tab.key">
         <template #tab>
           <a-dropdown :trigger="['contextmenu']">
@@ -46,11 +46,13 @@ import { CloseOutlined, EllipsisOutlined, RedoOutlined } from '@ant-design/icons
 import type { TabsProps, TabsType } from '../types';
 
 interface TabsEmits {
+  (event: 'update:tabKey', key: string | number): void;
+
   (event: 'redo', tab: TabsType): void;
 
   (event: 'close', tab: TabsType, index: number): void;
 
-  (event: 'click', val: string | number): void;
+  (event: 'change', val: string | number): void;
 }
 
 const emits = defineEmits<TabsEmits>();
@@ -58,11 +60,12 @@ const props = defineProps<TabsProps>();
 
 const activeKey = computed({
   get: () => props.tabKey,
-  set: val => {
-    props.modifyTab(val);
-    emits('click', val);
-  },
+  set: val => emits('update:tabKey', val),
 });
+
+function onChange(val: string | number) {
+  emits('change', val);
+}
 
 function showClose(tab: TabsType, index: number) {
   return index !== 0;

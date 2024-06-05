@@ -35,7 +35,7 @@
             </span>
           </div>
           <div class="right">
-            <youyo-search :search-list="searchList" @change="handleSearchChange" />
+            <youyo-search :search-list="searchList" @select="searchSelect" />
             <youyo-avatar :username="username" :avatar="avatarImg" :menu-item="avatarMenuList" />
             <youyo-full-screen />
           </div>
@@ -43,7 +43,7 @@
       </template>
       <template #tabs>
         <div class="base-frame-tabs">
-          <youyo-tabs :tab-key="tabKey" :tab-list="tabList" :modify-tab="modifyTab" @redo="pageReload" @click="tabClick" @close="tabClose" />
+          <youyo-tabs v-model:tab-key="tabKey" :tab-list="tabList" @redo="pageReload" @change="tabChange" @close="tabClose" />
         </div>
       </template>
       <template #content>
@@ -69,7 +69,7 @@ import YouyoFooter from '../footer/index.vue';
 import YouyoFullScreen from '../screen/index.vue';
 import YouyoTabs from '../tabs/index.vue';
 import { BaseFrameEmits, BaseFrameProps, ItemType, LayoutProps, MenuItemType, MenuProps, SearchItemType, TabsType } from '../types';
-import { defineEmits, defineProps, onMounted, reactive, ref, watch } from 'vue';
+import { defineEmits, defineProps, onMounted, reactive, ref } from 'vue';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue';
 
 const props = defineProps<BaseFrameProps>();
@@ -82,10 +82,9 @@ const layout = reactive<LayoutProps>({
   sidebarMinWidth: 80,
   sidebarMaxWidth: 310,
   headerHeight: 64,
-  headerIsFixed: false,
+  headerIsFixed: true,
   tabsHeight: 41,
   tabsTop: 0,
-  tabsIsFixed: false,
   footerHeight: 50,
   sidebarCollapsed: false,
   footerIsFixed: true,
@@ -101,24 +100,6 @@ const menuItemList = ref<Array<MenuItemType>>([]);
 const theme = ref<'light' | 'dark'>('light');
 const tabList = ref<TabsType[]>([]);
 const tabKey = ref<string | number>('');
-
-watch(
-  () => props.currentPath,
-  (path, _) => {
-    console.log(path);
-    const menu = menuItemList.value.find(m => m.path === path);
-    if (!menu) {
-      modifyMenu(-1);
-      modifyTab(-1);
-      console.warn('not found menu: ' + path);
-      return;
-    }
-
-    modifyMenu(menu.key);
-    addTab({ key: menu.key, tab: menu.title, path: menu.path });
-    modifyTab(menu.key);
-  },
-);
 
 /**
  * 添加tab
@@ -147,6 +128,10 @@ function modifyTab(key: string | number) {
     return;
   }
 
+  if (tabKey.value === key) {
+    return;
+  }
+
   const find = tabList.value.find(tab => tab.key === key);
   if (!find) {
     console.warn('not found tab item');
@@ -160,12 +145,13 @@ function modifyTab(key: string | number) {
  * tab 点击时
  * @param key
  */
-function tabClick(key: string | number) {
+function tabChange(key: string | number) {
   const tab = tabList.value.find(t => t.key === key);
   if (!tab) {
     throw new Error('not found tab item');
   }
-  emits('tab-click', tab);
+  emits('tab-change', tab);
+  props.pageChange(tab.path);
   modifyMenu(key);
 }
 
@@ -255,6 +241,9 @@ function findMenuItem(key: string | number): MenuItemType | null {
  * @param key
  */
 function modifyMenu(key: string | number) {
+  if (menu.selectedKeys.includes(key)) {
+    return;
+  }
   menu.openKeys = findMenuOpenKeys(key, props.menuList);
   menu.selectedKeys = [key];
 }
@@ -281,7 +270,7 @@ function handleMenuSelect({ _, key }) {
  * 搜索组件选择时
  * @param key
  */
-function handleSearchChange(key: string) {
+function searchSelect(key: string) {
   const menuItem = findMenuItem(key);
   if (!menuItem) {
     console.warn('not found menu item');
@@ -291,6 +280,7 @@ function handleSearchChange(key: string) {
   addTab({ key: menuItem.key, tab: menuItem.title, path: menuItem.path });
   modifyTab(key);
   emits('search-select', menuItem);
+  props.pageChange(menuItem.path);
 }
 
 function switchCol() {
@@ -318,12 +308,33 @@ function initMenuItemList(menuList: ItemType[]) {
   }
 }
 
+function initPage() {
+  let currentPath = window.location.pathname;
+  if (props.basePath && props.basePath.length > 1 && currentPath.startsWith(props.basePath)) {
+    currentPath = currentPath.substring(props.basePath.length);
+  }
+
+  const menu = menuItemList.value.find(m => m.path === currentPath);
+  if (!menu) {
+    modifyMenu(-1);
+    modifyTab(-1);
+    console.warn('not found menu: ' + currentPath);
+  } else {
+    modifyMenu(menu.key);
+    addTab({ key: menu.key, tab: menu.title, path: menu.path });
+    modifyTab(menu.key);
+  }
+}
+
 onMounted(() => {
   // tabList
   tabList.value = props.tabList || [];
 
   // menuItemList
   initMenuItemList(props.menuList);
+
+  // 页面初始化
+  initPage();
 });
 </script>
 
