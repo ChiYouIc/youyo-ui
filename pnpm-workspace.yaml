@@ -1,7 +1,8 @@
 packages:
   - 'demo/youyo-dash-board'
   - 'demo/youyo-form-design'
-  - 'examples'
+  - 'demo/youyo-layout'
+  - 'demo/qiankun-app'
   - 'packages/components'
   - 'packages/layout'
   - 'packages/utils'

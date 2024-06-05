@@ -1,5 +1,5 @@
 {
-  "name": "vite-project",
+  "name": "youyo-layout",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,15 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ant-design/icons-vue": "^7.0.0",
+    "vue": "^3.4.21",
     "ant-design-vue": "^4.1.2",
     "pinia": "^2.1.4",
     "vue-router": "^4.0.3",
-    "youyo-basic-layout": "workspace:^1.0.0",
-    "youyo-form": "workspace:^1.0.0",
-    "youyo-flow": "workspace:^1.0.0"
+    "youyo-basic-layout": "workspace:^1.0.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue-tsc": "^2.0.6",
     "@types/less": "^3.0.3",
     "less": "^4.1.3"
   }

@@ -15,9 +15,10 @@
     "vue-json-pretty": "2.2.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue": "^5.0.5",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
-    "vue-tsc": "^2.0.6"
+    "vue-tsc": "^2.0.6",
+    "vite-plugin-qiankun": "^1.0.15"
   }
 }
