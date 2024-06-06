@@ -5,6 +5,7 @@
     logo-img="https://next.antdv.com/assets/logo.1ef800a8.svg"
     avatar-img="'https://next.antdv.com/assets/logo.1ef800a8.svg'"
     :menu-list="items"
+    home-key="0"
     :avatar-menu-list="[]"
     :page-reload="() => {}"
     :page-change="(path: string) => router.push(path)"
@@ -16,11 +17,10 @@
 </template>
 
 <script setup lang="ts">
-import YouyoBaseFrame from '../../../packages/layout/src/frame/BaseFrame.vue';
+import { YouyoBaseFrame, ItemLabelType, ItemType, MenuItemType, SubMenuType } from 'youyo-basic-layout/src';
 
 import { h, reactive, ref } from 'vue';
 import { AppstoreOutlined, CalendarOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons-vue';
-import { ItemLabelType, ItemType, MenuItemType, SubMenuType } from 'youyo-basic-layout/src';
 import { RouterLink, useRouter } from 'vue-router';
 
 const username = ref<string>('Admin');
