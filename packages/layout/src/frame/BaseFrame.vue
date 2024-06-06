@@ -42,7 +42,7 @@
       </template>
       <template #tabs>
         <div class="base-frame-tabs">
-          <youyo-tabs v-model:tab-key="tabKey" :tab-list="tabList" @redo="tab => pageReload(tab.path)" @change="tabChange" @close="tabClose" />
+          <youyo-tabs v-model:tab-key="tabKey" v-model:tab-list="tabList" @redo="tab => pageReload(tab.path)" @change="tabChange" />
         </div>
       </template>
       <template #content>
@@ -102,18 +102,18 @@ const tabKey = ref<string | number>('');
 /**
  * 添加tab
  */
-function addTab(t: TabsType) {
-  if (!t) {
-    console.warn('params is null');
-    return;
-  }
-
+function addTab(t: TabsType, first?: boolean) {
   const find = tabList.value.find(tab => tab.key === t.key);
   if (find) {
     console.warn('multiple tab item');
     return;
   }
-  tabList.value.push(t);
+
+  if (!first) {
+    tabList.value.push(t);
+  } else {
+    tabList.value = [t, ...tabList.value];
+  }
 }
 
 /**
@@ -149,18 +149,6 @@ function tabChange(key: string | number) {
   }
   props.pageChange(tab.path);
   modifyMenu(key);
-}
-
-/**
- * tab 页面关闭
- * @param tab
- * @param index
- */
-function tabClose(tab: TabsType, index: number) {
-  tabList.value.splice(index, 1);
-  if (tab.key === tabKey.value) {
-    tabKey.value = tabList[index - 1].key;
-  }
 }
 
 /**
@@ -320,11 +308,17 @@ function initPage() {
 }
 
 onMounted(() => {
+  // menuItemList
+  initMenuItemList(props.menuList);
+
   // tabList
   tabList.value = props.tabList || [];
 
-  // menuItemList
-  initMenuItemList(props.menuList);
+  const menu = findMenuItem(props.homeKey);
+  console.log(props.homeKey, menu);
+  if (menu) {
+    addTab({ key: menu.key, tab: menu.title, path: menu.path }, true);
+  }
 
   // 页面初始化
   initPage();

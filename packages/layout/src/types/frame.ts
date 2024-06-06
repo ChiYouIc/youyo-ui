@@ -9,6 +9,7 @@ export interface BaseFrameProps {
   avatarImg: string;
   tabList?: TabsType[];
   menuList: ItemType[];
+  homeKey: string | number;
   footerContent: string;
   avatarMenuList: {
     title: string;
