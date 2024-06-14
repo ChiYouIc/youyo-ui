@@ -33,11 +33,18 @@
 
     ul#fence {
       border-left: 1px dashed #d9d9d9;
-
-      &:first-child {
-        border: none;
-      }
+      border-bottom: 1px dashed #d9d9d9;
+      padding: 10px;
     }
+
+    ul#fence:first-child {
+      border-left: none;
+    }
+
+    div.fence-item:last-child > ul#fence {
+      border-bottom: none;
+    }
+
   }
 
   .draggable-item-close {

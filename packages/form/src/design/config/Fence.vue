@@ -1,15 +1,19 @@
 <template>
   <a-form :model="configForm">
-    <a-form-item label="栅栏">
-      <a-input-number v-model:value="configForm.col" />
+    <a-form-item label="行">
+      <a-input-number v-model:value="configForm.row"/>
+    </a-form-item>
+    <a-form-item label="列">
+      <a-input-number v-model:value="configForm.col"/>
     </a-form-item>
   </a-form>
 </template>
 <script setup lang="ts">
-import { computed, defineEmits, defineProps } from 'vue';
+import {computed, defineEmits, defineProps} from 'vue';
 
 interface Form {
   col: number;
+  row: number;
 }
 
 const props = defineProps<{ form: Form }>();

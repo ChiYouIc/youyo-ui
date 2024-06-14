@@ -1,16 +1,16 @@
 <template>
   <youyo-form-design :form="form" @selected="onSelected" />
-  <a-row>
-    <a-col :span="8">
-      <vue-json-pretty :showIcon="true" :data="formJson"></vue-json-pretty>
-    </a-col>
-    <a-col :span="8">
-      <vue-json-pretty :showIcon="true" :data="formData"></vue-json-pretty>
-    </a-col>
-    <a-col :span="8">
-      <vue-json-pretty :showIcon="true" :data="currComponentJson"></vue-json-pretty>
-    </a-col>
-  </a-row>
+<!--  <a-row>-->
+<!--    <a-col :span="8">-->
+<!--      <vue-json-pretty :showIcon="true" :data="formJson"></vue-json-pretty>-->
+<!--    </a-col>-->
+<!--    <a-col :span="8">-->
+<!--      <vue-json-pretty :showIcon="true" :data="formData"></vue-json-pretty>-->
+<!--    </a-col>-->
+<!--    <a-col :span="8">-->
+<!--      <vue-json-pretty :showIcon="true" :data="currComponentJson"></vue-json-pretty>-->
+<!--    </a-col>-->
+<!--  </a-row>-->
 </template>
 
 <script setup lang="ts">
