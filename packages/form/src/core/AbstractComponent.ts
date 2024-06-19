@@ -30,7 +30,7 @@ abstract class AbstractComponent implements ComponentActionType {
     this._disabled = disabled;
   }
 
-  protected abstract getVal(): any;
+  public abstract getVal(): any;
 
   protected abstract setVal(val: any): void;
 

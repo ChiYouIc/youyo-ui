@@ -26,7 +26,7 @@
         </div>
       </template>
       <template #item="{ element }">
-        <draggable-item :element="element" @click="onDraggableItemClick" @remove="onFormComponentRemove" />
+        <draggable-item :element="element" />
       </template>
     </draggable-component>
   </div>
@@ -38,20 +38,20 @@ import './style/design.less';
 import DraggableComponent from 'vuedraggable';
 import { defineEmits, defineProps } from 'vue';
 import 'vue-json-pretty/lib/styles.css';
-import AbstractComponent from '../core/AbstractComponent';
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 import DraggableItem from './draggableItem.vue';
 import useDraggableHook from '../hooks/useDraggableHook';
 import Form from '../core/Form';
+import { useMitt } from '../hooks/useMitt';
 
 interface DesignEmits {
   (event: 'preview'): void;
-
-  (event: 'click', val: AbstractComponent): void;
 }
 
 const props = defineProps<{ form: Form }>();
-const emits = defineEmits<DesignEmits>();
+defineEmits<DesignEmits>();
+
+const { emit } = useMitt();
 
 function onChange(e) {
   const added = e?.added;
@@ -65,17 +65,8 @@ function onMove(obj: any) {
   return draggableMove(obj);
 }
 
-function onDraggableItemClick(val: AbstractComponent) {
-  console.log('design onDraggableItemClick', val);
-  emits('click', val);
-}
-
-function onFormComponentRemove(el: AbstractComponent) {
-  props.form.remove(el);
-}
-
 function onFormClean() {
-  props.form.clear();
+  emit('toClean');
 }
 </script>
 

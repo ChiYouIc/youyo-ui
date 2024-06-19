@@ -2,7 +2,7 @@
   <div class="youyo-form-design">
     <div class="youyo-form-design__content">
       <form-select />
-      <form-design :form="form" @preview="onPreview" @click="onDesignComponentClick" />
+      <form-design :form="form" @preview="onPreview" />
       <form-config :component="currItem" ref="formConfigRef" />
     </div>
     <a-modal v-model:open="open" width="80%">
@@ -20,6 +20,7 @@ import { computed, defineEmits, defineProps, ref } from 'vue';
 import Form from '../core/Form';
 import AbstractComponent from '../core/AbstractComponent';
 import Preview from '../preview/index.vue';
+import { useMitt } from '../hooks/useMitt';
 
 const formConfigRef = ref();
 
@@ -28,11 +29,18 @@ interface DesignEmits {
 }
 
 const emits = defineEmits<DesignEmits>();
+
 const props = defineProps<{ form: Form }>();
 
 const open = ref<boolean>(false);
 const currItem = ref<AbstractComponent>();
 const formData = computed(() => props.form.formValue());
+const { on } = useMitt();
+
+// 消息总线，监听组件事件
+on('toConfig', item => onDesignComponentClick(item));
+on('toRemove', item => props.form.remove(item));
+on('toClean', () => props.form.clear());
 
 function onPreview() {
   open.value = true;

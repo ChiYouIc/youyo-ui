@@ -8,7 +8,7 @@
 </template>
 <script lang="ts">
 import './style/config.less';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent } from 'vue';
 import AbstractComponent from '../core/AbstractComponent';
 import InputConfig from './config/Input.vue';
 import SwitchConfig from './config/Switch.vue';

@@ -1,6 +1,7 @@
 import componentFactory from './Factory';
 import { ComponentConstructorOptionType } from './types';
 import AbstractComponent from './AbstractComponent';
+import Fence from './entity/Fence';
 
 /**
  * 表单对象
@@ -24,13 +25,24 @@ class Form {
     this._components.splice(-this._components.length);
   }
 
-  public remove(component: AbstractComponent): void {
+  public remove(component: AbstractComponent): boolean {
     const index = this._components.findIndex(c => c.primaryId() === component.primaryId());
-    if (index === -1) {
-      return;
+    if (index !== -1) {
+      this._components.splice(index, 1);
+      return true;
     }
 
-    this._components.splice(index, 1);
+    // fence 中
+    const fenceList = this._components.filter(c => c.component === 'Fence');
+    if (fenceList.length > 0) {
+      for (const fence of fenceList) {
+        if ((fence as Fence).remove(component)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   private initComponents(list: Array<ComponentConstructorOptionType>) {

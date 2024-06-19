@@ -3,7 +3,7 @@
     <a-divider orientation="left">组件</a-divider>
     <draggable-component id="design" v-model:list="selectOptions" tag="ul" :group="{ name: 'design', pull: 'clone', put: false }" item-key="id" :move="onMove" :clone="onClone">
       <template #item="{ element }">
-        <li class="component-item">
+        <li class="component-item" :name="element.name" :component="element.component">
           <span>{{ element.component }}</span>
           <span>{{ element.name }}</span>
           <span>
