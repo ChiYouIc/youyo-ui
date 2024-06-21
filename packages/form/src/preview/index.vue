@@ -8,7 +8,7 @@
         <!-- 栅栏 -->
         <form-fence-item v-if="item.component === 'Fence'" :fence="item" />
         <!-- 表格 -->
-        <y-form-item v-else :component="item"/>
+        <y-form-item v-else :component="item" />
       </template>
     </y-form>
     {{ data }}
@@ -16,9 +16,8 @@
 </template>
 <script setup lang="ts">
 import './style/index.less';
-import {defineProps} from 'vue';
+import { defineProps } from 'vue';
 import FormFenceItem from './formFenceItem.vue';
-import Fence from "../core/entity/Fence";
 import Form from '../core/Form';
 import YForm from './form.vue';
 import YFormItem from './formItem.vue';

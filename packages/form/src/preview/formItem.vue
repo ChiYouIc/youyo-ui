@@ -15,23 +15,56 @@
 <script setup lang="ts">
 import './style/formItem.less';
 import {computed, CSSProperties, defineProps, inject} from 'vue';
-import Factory from "../factory/index.vue";
-import AbstractComponent from "../core/AbstractComponent";
+import Factory from '../factory/index.vue';
+import AbstractComponent from '../core/AbstractComponent';
 
 interface FormItemProps {
-  component: AbstractComponent
+  component: AbstractComponent;
 }
 
 const props = defineProps<FormItemProps>();
 
 const labelStyle = computed<CSSProperties>(() => {
-  return {minWidth: `${inject('label-width', 100)}px`}
+  return {minWidth: `${inject('label-width', 100)}px`};
+});
+
+const label = computed(() => props.component.label);
+const required = computed(() => props.component.required);
+const requiredMsg = computed(() => {
+  if (!props.component.required) {
+    return undefined;
+  }
+  const val = props.component.getVal();
+  console.log(val)
+  if (isNull(val)) {
+    return '请输入';
+  }
+});
+
+function isNull(val: any): boolean {
+  if (val === undefined || val === null) {
+    return true;
+  }
+
+  if (typeof val === 'string') {
+    return val.length === 0;
+  }
+}
+
+/** 执行校验 */
+function doValid(): boolean {
+
+}
+
+/** 清除校验 */
+function clearValid() {
+
+}
+
+defineExpose({
+  doValid,
+  clearValid
 })
-
-const label = computed(() => props.component.label)
-const required = computed(() => props.component.required)
-const requiredMsg = computed(() => props.component.getVal())
-
 </script>
 
 <style scoped></style>

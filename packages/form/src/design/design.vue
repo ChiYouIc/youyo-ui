@@ -48,7 +48,7 @@ interface DesignEmits {
   (event: 'preview'): void;
 }
 
-const props = defineProps<{ form: Form }>();
+defineProps<{ form: Form }>();
 defineEmits<DesignEmits>();
 
 const { emit } = useMitt();
