@@ -1,5 +1,5 @@
 packages:
-  - 'demo/youyo-dash-board'
+  - 'demo/interactjs-demo'
   - 'demo/youyo-form-design'
   - 'demo/youyo-layout'
   - 'demo/qiankun-app'

@@ -1,0 +1,29 @@
+{
+  "name": "interactjs-demo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@interactjs/actions": "^1.10.27",
+    "@interactjs/auto-start": "^1.10.27",
+    "@interactjs/dev-tools": "^1.10.27",
+    "@interactjs/interact": "^1.10.27",
+    "@interactjs/modifiers": "^1.10.27",
+    "@interactjs/auto-scroll": "^1.10.27",
+    "element-resize-detector": "^1.2.4",
+    "mitt": "^2.1.0",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@interactjs/types": "^1.10.27",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue-tsc": "^2.0.6"
+  }
+}
