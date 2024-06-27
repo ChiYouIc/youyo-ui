@@ -1,7 +1,7 @@
 import AbstractComponent from '../AbstractComponent';
-import { Switch as AntSwitch, SwitchProps } from 'ant-design-vue';
 import { h, VNode } from 'vue';
 import { ComponentConstructorOptionType } from '../types';
+import { CSwitch } from '../../components';
 
 class Switch extends AbstractComponent {
   private _value: boolean | string | number = false;
@@ -15,15 +15,15 @@ class Switch extends AbstractComponent {
   }
 
   node(): VNode {
-    return h<SwitchProps>(AntSwitch, {
+    return h(CSwitch, {
       id: this.primaryId(),
-      checked: this._value,
-      'onUpdate:checked': (val: boolean | string | number) => (this._value = val),
+      value: this._value,
+      'onUpdate:value': (val: boolean | string | number) => (this._value = val),
       disabled: this.disabled,
     });
   }
 
-  protected getVal(): any {
+  public getVal(): any {
     return this._value;
   }
 

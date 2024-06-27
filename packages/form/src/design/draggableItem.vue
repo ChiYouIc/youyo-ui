@@ -32,7 +32,6 @@ function onClick(item: AbstractComponent): void {
 }
 
 function onRemove(item: AbstractComponent): void {
-  console.log('sssssssssss');
   emit('toRemove', item);
 }
 </script>

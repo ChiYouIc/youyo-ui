@@ -1,15 +1,33 @@
 import AbstractComponent from '../AbstractComponent';
 import { h, VNode } from 'vue';
-import { Input as AntInput, InputProps } from 'ant-design-vue';
+import { CInput } from '../../components';
 import { ComponentConstructorOptionType } from '../types';
 
 class Input extends AbstractComponent {
   private _value: string = '';
-  private _placeholder: string = '请输入内容';
-  private _maxlength: number = 500;
 
   constructor(option: ComponentConstructorOptionType) {
     super(option);
+  }
+
+  private _placeholder: string = '请输入内容';
+
+  get placeholder(): string {
+    return this._placeholder;
+  }
+
+  set placeholder(value: string) {
+    this._placeholder = value;
+  }
+
+  private _maxlength: number = 500;
+
+  get maxlength(): number {
+    return this._maxlength;
+  }
+
+  set maxlength(value: number) {
+    this._maxlength = value;
   }
 
   init({ value, placeholder, maxlength }: Record<string, any>): void {
@@ -19,7 +37,7 @@ class Input extends AbstractComponent {
   }
 
   node(): VNode {
-    return h<InputProps>(AntInput, {
+    return h(CInput, {
       id: this.primaryId(),
       value: this._value,
       'onUpdate:value': (val: string) => (this._value = val),
@@ -31,14 +49,6 @@ class Input extends AbstractComponent {
     });
   }
 
-  protected getVal(): any {
-    return this._value;
-  }
-
-  protected setVal(val: any): void {
-    this._value = val;
-  }
-
   configToJson(): Record<string, any> {
     const json = super.configToJson();
     json['placeholder'] = this._placeholder;
@@ -46,20 +56,12 @@ class Input extends AbstractComponent {
     return json;
   }
 
-  get placeholder(): string {
-    return this._placeholder;
+  public getVal(): any {
+    return this._value;
   }
 
-  set placeholder(value: string) {
-    this._placeholder = value;
-  }
-
-  get maxlength(): number {
-    return this._maxlength;
-  }
-
-  set maxlength(value: number) {
-    this._maxlength = value;
+  protected setVal(val: any): void {
+    this._value = val;
   }
 }
 

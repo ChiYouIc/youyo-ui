@@ -1,15 +1,33 @@
 import AbstractComponent from '../AbstractComponent';
 import { h, VNode } from 'vue';
-import { RadioGroup as AntRadioGroup, RadioGroupProps } from 'ant-design-vue';
+import { CRadio } from '../../components';
 import { ComponentConstructorOptionType } from '../types';
 
 class Radio extends AbstractComponent {
   private _value: any = undefined;
-  private _optionType: 'button' | 'default' = 'default';
-  private _options: Array<{ label: string; value: string; disabled?: boolean }> = [];
 
   constructor(option: ComponentConstructorOptionType) {
     super(option);
+  }
+
+  private _optionType: 'button' | 'default' = 'default';
+
+  get optionType(): 'button' | 'default' {
+    return this._optionType;
+  }
+
+  set optionType(value: 'button' | 'default') {
+    this._optionType = value;
+  }
+
+  private _options: Array<{ label: string; value: string; disabled?: boolean }> = [];
+
+  get options(): Array<{ label: string; value: string; disabled?: boolean }> {
+    return this._options;
+  }
+
+  set options(value: Array<{ label: string; value: string; disabled?: boolean }>) {
+    this._options = value;
   }
 
   init({ value, optionType, options }: Record<string, any>): void {
@@ -19,7 +37,7 @@ class Radio extends AbstractComponent {
   }
 
   node(): VNode {
-    return h<RadioGroupProps>(AntRadioGroup, {
+    return h(CRadio, {
       id: this.primaryId(),
       value: this._value,
       'onUpdate:value': (val: any) => (this._value = val),
@@ -36,28 +54,12 @@ class Radio extends AbstractComponent {
     return toJson;
   }
 
-  protected getVal(): any {
+  public getVal(): any {
     return this._value;
   }
 
   protected setVal(val: any): void {
     this._value = val;
-  }
-
-  get optionType(): 'button' | 'default' {
-    return this._optionType;
-  }
-
-  set optionType(value: 'button' | 'default') {
-    this._optionType = value;
-  }
-
-  get options(): Array<{ label: string; value: string; disabled?: boolean }> {
-    return this._options;
-  }
-
-  set options(value: Array<{ label: string; value: string; disabled?: boolean }>) {
-    this._options = value;
   }
 }
 

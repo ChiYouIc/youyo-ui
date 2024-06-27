@@ -1,21 +1,39 @@
 import AbstractComponent from '../AbstractComponent';
 import { h, VNode } from 'vue';
-import { Rate as AntRate, RateProps } from 'ant-design-vue';
+import { CRate } from '../../components';
 import { ComponentConstructorOptionType } from '../types';
 
 class Rate extends AbstractComponent {
   private _value: number = 0;
-  private _count: number = 5;
-  private _allowHalf: boolean = false;
 
   constructor(option: ComponentConstructorOptionType) {
     super(option);
   }
 
+  private _count: number = 5;
+
+  get count(): number {
+    return this._count;
+  }
+
+  set count(value: number) {
+    this._count = value;
+  }
+
+  private _allowHalf: boolean = false;
+
+  get allowHalf(): boolean {
+    return this._allowHalf;
+  }
+
+  set allowHalf(value: boolean) {
+    this._allowHalf = value;
+  }
+
   init(_: Record<string, any>): void {}
 
   node(): VNode {
-    return h<RateProps>(AntRate, {
+    return h(CRate, {
       id: this.primaryId(),
       value: this._value,
       'onUpdate:value': (val: number) => (this._value = val),
@@ -32,28 +50,12 @@ class Rate extends AbstractComponent {
     return json;
   }
 
-  protected getVal(): any {
+  public getVal(): any {
     return this._value;
   }
 
   protected setVal(val: any): void {
     this._value = val;
-  }
-
-  get count(): number {
-    return this._count;
-  }
-
-  set count(value: number) {
-    this._count = value;
-  }
-
-  get allowHalf(): boolean {
-    return this._allowHalf;
-  }
-
-  set allowHalf(value: boolean) {
-    this._allowHalf = value;
   }
 }
 

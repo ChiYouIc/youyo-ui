@@ -1,14 +1,24 @@
 import AbstractComponent from '../AbstractComponent';
 import { h, VNode } from 'vue';
-import { Table as AntTable, TableColumnType, TableProps } from 'ant-design-vue';
+import { TableColumnType } from 'ant-design-vue';
 import { ComponentConstructorOptionType } from '../types';
+import { CTable } from '../../components';
 
 class Table extends AbstractComponent {
   private _value: Array<Record<string, any>> = [];
-  private _columns: TableColumnType[] = [];
 
   constructor(option: ComponentConstructorOptionType) {
     super(option);
+  }
+
+  private _columns: TableColumnType[] = [];
+
+  get columns(): TableColumnType[] {
+    return this._columns;
+  }
+
+  set columns(value: TableColumnType[]) {
+    this._columns = value;
   }
 
   init({ value, columns }: Record<string, any>): void {
@@ -17,20 +27,11 @@ class Table extends AbstractComponent {
   }
 
   node(): VNode {
-    return h<TableProps>(AntTable, {
+    return h(CTable, {
       id: this.primaryId(),
-      dataSource: this._value,
+      value: this._value,
       columns: this._columns,
-      style: { width: '100%' },
     });
-  }
-
-  protected getVal(): any {
-    return this._value;
-  }
-
-  protected setVal(val: any): void {
-    this._value = val;
   }
 
   configToJson(): Record<string, any> {
@@ -39,12 +40,12 @@ class Table extends AbstractComponent {
     return json;
   }
 
-  get columns(): TableColumnType[] {
-    return this._columns;
+  public getVal(): any {
+    return this._value;
   }
 
-  set columns(value: TableColumnType[]) {
-    this._columns = value;
+  protected setVal(val: any): void {
+    this._value = val;
   }
 }
 

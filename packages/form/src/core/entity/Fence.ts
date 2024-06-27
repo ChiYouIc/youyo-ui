@@ -5,14 +5,41 @@ import DraggableItem from '../../design/draggableItem.vue';
 import useDraggableHook from '../../hooks/useDraggableHook';
 import { ComponentConstructorOptionType } from '../types';
 import componentFactory from '../Factory';
+import { CFence } from '../../components';
 
 class Fence extends AbstractComponent {
-  private _row: number = 1;
-  private _col: number = 2;
-  private _list: Array<Array<AbstractComponent>> = [];
-
   constructor(c: ComponentConstructorOptionType) {
     super(c);
+  }
+
+  private _row: number = 1;
+
+  get row(): number {
+    return this._row;
+  }
+
+  set row(value: number) {
+    this._row = value;
+  }
+
+  private _col: number = 2;
+
+  get col(): number {
+    return this._col;
+  }
+
+  set col(value: number) {
+    this._col = value;
+  }
+
+  private _list: Array<Array<AbstractComponent>> = [];
+
+  get list(): Array<Array<AbstractComponent>> {
+    return this._list;
+  }
+
+  set list(value: Array<Array<AbstractComponent>>) {
+    this._list = value;
   }
 
   getVal(): Record<string, any> {
@@ -23,14 +50,13 @@ class Fence extends AbstractComponent {
     return res;
   }
 
-  protected setVal(val: any): void {}
-
   public remove(component: AbstractComponent): boolean {
     const index = this._list.findIndex(c => c[0].primaryId() === component.primaryId());
     if (index !== -1) {
       this._list[index] = [];
       return true;
     }
+    return false;
   }
 
   init({ col, row, list }: Record<string, any>): void {
@@ -81,7 +107,9 @@ class Fence extends AbstractComponent {
       rows.push(h('div', { class: 'fence-item' }, [...columns]));
     }
 
-    return h('div', { id: this.primaryId(), class: 'fence' }, [...rows]);
+    // return h('div', { id: this.primaryId(), class: 'fence' }, [...rows]);
+
+    return h(CFence, { id: this.primaryId(), row: this._row, col: this._col, list: this._list });
   }
 
   configToJson(): Record<string, any> {
@@ -91,12 +119,12 @@ class Fence extends AbstractComponent {
 
     const listJson: Record<string, any>[] = [];
     for (const ls of this._list) {
-      const item = [];
+      const item: AbstractComponent[] = [];
       for (const l of ls) {
         item.push(l);
       }
       if (item.length > 0) {
-        listJson.push(item.configToJson());
+        listJson.push(item[0].configToJson());
       }
     }
 
@@ -104,33 +132,11 @@ class Fence extends AbstractComponent {
     return json;
   }
 
+  protected setVal(val: any): void {}
+
   private onMove(obj: any): boolean {
     const { draggableMove } = useDraggableHook();
     return draggableMove(obj);
-  }
-
-  get col(): number {
-    return this._col;
-  }
-
-  set col(value: number) {
-    this._col = value;
-  }
-
-  get row(): number {
-    return this._row;
-  }
-
-  set row(value: number) {
-    this._row = value;
-  }
-
-  get list(): Array<Array<AbstractComponent>> {
-    return this._list;
-  }
-
-  set list(value: Array<Array<AbstractComponent>>) {
-    this._list = value;
   }
 }
 

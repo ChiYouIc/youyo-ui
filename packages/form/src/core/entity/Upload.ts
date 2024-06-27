@@ -1,6 +1,7 @@
 import AbstractComponent from '../AbstractComponent';
 import { h, VNode } from 'vue';
 import { ComponentConstructorOptionType } from '../types';
+import { CUpload } from '../../components';
 
 class Upload extends AbstractComponent {
   private _value: string = '';
@@ -12,10 +13,10 @@ class Upload extends AbstractComponent {
   init(_: Record<string, any>): void {}
 
   node(): VNode {
-    return h('div', { id: this.primaryId() });
+    return h(CUpload, { id: this.primaryId(), disabled: this.disabled, placeholder: 'upload' });
   }
 
-  protected getVal(): any {
+  public getVal(): any {
     return this._value;
   }
 

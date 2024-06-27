@@ -1,16 +1,35 @@
 import AbstractComponent from '../AbstractComponent';
 import { h, VNode } from 'vue';
-import { Select as AntSelect, SelectProps } from 'ant-design-vue';
+
 import { ComponentConstructorOptionType } from '../types';
 import { SelectValue } from 'ant-design-vue/es/select';
+import { CSelect } from '../../components';
 
 class Select extends AbstractComponent {
   private _value: SelectValue = undefined;
-  private _placeholder: string = '';
-  private _options: Array<{ label: string; value: string }> = [];
 
   constructor(option: ComponentConstructorOptionType) {
     super(option);
+  }
+
+  private _placeholder: string = '';
+
+  get placeholder(): string {
+    return this._placeholder;
+  }
+
+  set placeholder(value: string) {
+    this._placeholder = value;
+  }
+
+  private _options: Array<{ label: string; value: string }> = [];
+
+  get options(): Array<{ label: string; value: string }> {
+    return this._options;
+  }
+
+  set options(value: Array<{ label: string; value: string }>) {
+    this._options = value;
   }
 
   init({ value, placeholder, options }: Record<string, any>): void {
@@ -20,7 +39,7 @@ class Select extends AbstractComponent {
   }
 
   node(): VNode {
-    return h<SelectProps>(AntSelect, {
+    return h(CSelect, {
       id: this.primaryId(),
       value: this._value,
       'onUpdate:value': (val: SelectValue) => (this._value = val),
@@ -31,14 +50,6 @@ class Select extends AbstractComponent {
     });
   }
 
-  protected getVal(): any {
-    return this._value;
-  }
-
-  protected setVal(val: any): void {
-    this._value = val;
-  }
-
   configToJson(): Record<string, any> {
     const json = super.configToJson();
     json['placeholder'] = this._placeholder;
@@ -46,20 +57,12 @@ class Select extends AbstractComponent {
     return json;
   }
 
-  get placeholder(): string {
-    return this._placeholder;
+  public getVal(): any {
+    return this._value;
   }
 
-  set placeholder(value: string) {
-    this._placeholder = value;
-  }
-
-  get options(): Array<{ label: string; value: string }> {
-    return this._options;
-  }
-
-  set options(value: Array<{ label: string; value: string }>) {
-    this._options = value;
+  protected setVal(val: any): void {
+    this._value = val;
   }
 }
 
