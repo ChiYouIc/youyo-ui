@@ -1,8 +1,12 @@
 import AbstractComponent from '../AbstractComponent';
 import { h, VNode } from 'vue';
-import { TableColumnType } from 'ant-design-vue';
 import { ComponentConstructorOptionType } from '../types';
 import { CTable } from '../../components';
+
+export type TableColumnType = {
+  title: string;
+  prop: string;
+};
 
 class Table extends AbstractComponent {
   private _value: Array<Record<string, any>> = [];

@@ -1,9 +1,9 @@
 <template>
-  <a-table :data-source="value" :columns="columns" />
+  <a-table :data-source="value" :columns="tableColumns" />
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
 
 interface TableProps {
   id: string;
@@ -11,7 +11,9 @@ interface TableProps {
   columns: Array<Record<string, any>>;
 }
 
-defineProps<TableProps>();
+const props = defineProps<TableProps>();
+
+const tableColumns = computed(() => props.columns.map(c => ({ title: c.title, dataIndex: c.prop })));
 </script>
 
 <style scoped></style>

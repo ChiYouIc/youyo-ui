@@ -1,15 +1,15 @@
 <template>
   <a-form :model="configForm">
     <a-form-item label="行">
-      <a-input-number v-model:value="configForm.row"/>
+      <a-input-number v-model:value="configForm.row" :min="1" />
     </a-form-item>
     <a-form-item label="列">
-      <a-input-number v-model:value="configForm.col"/>
+      <a-input-number v-model:value="configForm.col" :min="2" />
     </a-form-item>
   </a-form>
 </template>
 <script setup lang="ts">
-import {computed, defineEmits, defineProps} from 'vue';
+import { computed, defineEmits, defineProps } from 'vue';
 
 interface Form {
   col: number;

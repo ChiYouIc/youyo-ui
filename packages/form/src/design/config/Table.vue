@@ -17,7 +17,7 @@
             </a-col>
             <a-col :span="11">
               <a-form-item style="margin-bottom: 5px">
-                <a-input v-model:value="option.dataIndex" placeholder="请输入dataIndex" />
+                <a-input v-model:value="option.prop" placeholder="请输入dataIndex" />
               </a-form-item>
             </a-col>
             <a-col :span="2">
@@ -28,17 +28,14 @@
           </a-row>
         </template>
       </a-form>
-      <a-button type="dashed" block @click="onAddOption">
-        <plus-outlined />
-        新增
-      </a-button>
+      <a-button type="dashed" block @click="onAddOption"><plus-outlined />新增</a-button>
     </a-form-item>
   </a-form>
 </template>
 <script setup lang="ts" name="TableConfig">
-import { TableColumnType } from 'ant-design-vue';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { computed, defineEmits, defineProps } from 'vue';
+import { TableColumnType } from '../../core/entity/Table';
 
 type Form = {
   label: string;
@@ -64,7 +61,7 @@ function onRemoveOption(option: TableColumnType, index: number) {
 }
 
 function onAddOption() {
-  configForm.value.columns.push({ title: '', dataIndex: '' });
+  configForm.value.columns.push({ title: '', prop: '' });
 }
 </script>
 

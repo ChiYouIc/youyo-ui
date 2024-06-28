@@ -2,6 +2,7 @@
   <div class="y-form-fence-item" v-for="(_, ri) in row">
     <template v-for="(_, ci) in col">
       <y-form-item v-if="comList[ri * col + ci].length > 0" :component="comList[ri * row + ci][0]" />
+      <div v-else></div>
     </template>
   </div>
 </template>

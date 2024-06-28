@@ -3,9 +3,9 @@
     <div class="youyo-form-design__content">
       <form-select />
       <form-design :form="form" @preview="onPreview" />
-      <form-config :component="currItem" ref="formConfigRef" />
+      <form-config :type="componentType" :component="currItem" />
     </div>
-    <a-modal v-model:open="open" width="80%">
+    <a-modal v-model:open="open" width="100%" wrap-class-name="full-modal">
       <preview :form="form" :data="formData" />
     </a-modal>
   </div>
@@ -16,23 +16,16 @@ import FormSelect from './select.vue';
 import FormDesign from './design.vue';
 import FormConfig from './config.vue';
 
-import { computed, defineEmits, defineProps, ref } from 'vue';
+import { computed, defineProps, ref } from 'vue';
 import Form from '../core/Form';
 import AbstractComponent from '../core/AbstractComponent';
 import Preview from '../preview/index.vue';
 import { useMitt } from '../hooks/useMitt';
 
-const formConfigRef = ref();
-
-interface DesignEmits {
-  (event: 'selected', val: AbstractComponent): void;
-}
-
-const emits = defineEmits<DesignEmits>();
-
 const props = defineProps<{ form: Form }>();
 
 const open = ref<boolean>(false);
+const componentType = ref<'Component' | 'Form'>('Component');
 const currItem = ref<AbstractComponent>();
 const formData = computed(() => props.form.formValue());
 const { on } = useMitt();
@@ -46,9 +39,9 @@ function onPreview() {
   open.value = true;
 }
 
-function onDesignComponentClick(item: AbstractComponent): void {
+function onDesignComponentClick(item: any): void {
   console.log('design index', item);
-  emits('selected', item);
+  componentType.value = item instanceof AbstractComponent ? 'Component' : 'Form';
   currItem.value = item;
 }
 </script>

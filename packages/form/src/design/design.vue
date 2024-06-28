@@ -12,17 +12,9 @@
       <template #header>
         <div class="draggable-header">
           <span class="title">{{ form.name }}</span>
-          <a-tooltip :overlayStyle="{ width: '100%' }">
-            <template #title>
-              <p>Id: {{ form.id }}</p>
-              <p>Name: {{ form.name }}</p>
-              <p>Version: {{ form.version }}</p>
-              <p>Description: {{ form.description }}</p>
-            </template>
-            <question-circle-outlined />
-          </a-tooltip>
           <a-button type="primary" @click="onFormClean">清空</a-button>
           <a-button type="primary" @click="$emit('preview')">预览</a-button>
+          <a-button type="primary" @click="onConfig">配置</a-button>
         </div>
       </template>
       <template #item="{ element }">
@@ -38,7 +30,6 @@ import './style/design.less';
 import DraggableComponent from 'vuedraggable';
 import { defineEmits, defineProps } from 'vue';
 import 'vue-json-pretty/lib/styles.css';
-import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 import DraggableItem from './draggableItem.vue';
 import useDraggableHook from '../hooks/useDraggableHook';
 import Form from '../core/Form';
@@ -48,7 +39,7 @@ interface DesignEmits {
   (event: 'preview'): void;
 }
 
-defineProps<{ form: Form }>();
+const props = defineProps<{ form: Form }>();
 defineEmits<DesignEmits>();
 
 const { emit } = useMitt();
@@ -67,6 +58,10 @@ function onMove(obj: any) {
 
 function onFormClean() {
   emit('toClean');
+}
+
+function onConfig() {
+  emit('toConfig', props.form);
 }
 </script>
 

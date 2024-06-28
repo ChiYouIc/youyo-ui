@@ -73,41 +73,14 @@ class Fence extends AbstractComponent {
   }
 
   node(): VNode {
-    const rows: VNode[] = [];
     for (let i = 0; i < this._row; i++) {
-      const columns: VNode[] = [];
       for (let j = 0; j < this._col; j++) {
         const index = i * this._col + j;
-        this._list.push([]);
-        const draggable = h(
-          Draggable,
-          {
-            'fence-id': index,
-            id: 'fence',
-            list: this._list[index],
-            'onUpdate:list': (val: any) => (this._list[index] = val),
-            tag: 'ul',
-            group: 'design',
-            itemKey: 'id',
-            move: this.onMove,
-            onClick: () => {},
-          },
-          {
-            item: ({ element }) =>
-              h(DraggableItem, {
-                element: element,
-                style: { width: '100%' },
-                onRemove: () => (this._list[index] = []),
-              }),
-          },
-        );
-        columns.push(draggable);
+        if (index > this._list.length - 1) {
+          this._list.push([]);
+        }
       }
-
-      rows.push(h('div', { class: 'fence-item' }, [...columns]));
     }
-
-    // return h('div', { id: this.primaryId(), class: 'fence' }, [...rows]);
 
     return h(CFence, { id: this.primaryId(), row: this._row, col: this._col, list: this._list });
   }
@@ -133,11 +106,6 @@ class Fence extends AbstractComponent {
   }
 
   protected setVal(val: any): void {}
-
-  private onMove(obj: any): boolean {
-    const { draggableMove } = useDraggableHook();
-    return draggableMove(obj);
-  }
 }
 
 export default Fence;

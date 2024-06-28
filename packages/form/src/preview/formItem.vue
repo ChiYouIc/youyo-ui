@@ -6,7 +6,7 @@
       </label>
     </div>
     <div :class="['item-content']">
-      <factory :el="component"/>
+      <factory :el="component" />
       <span v-if="requiredMsg" class="required-msg">{{ requiredMsg }}</span>
     </div>
   </div>
@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import './style/formItem.less';
-import {computed, CSSProperties, defineProps, inject} from 'vue';
+import { computed, CSSProperties, defineProps, inject } from 'vue';
 import Factory from '../factory/index.vue';
 import AbstractComponent from '../core/AbstractComponent';
 
@@ -25,7 +25,7 @@ interface FormItemProps {
 const props = defineProps<FormItemProps>();
 
 const labelStyle = computed<CSSProperties>(() => {
-  return {minWidth: `${inject('label-width', 100)}px`};
+  return { minWidth: `${inject('label-width', 100)}px` };
 });
 
 const label = computed(() => props.component.label);
@@ -35,7 +35,7 @@ const requiredMsg = computed(() => {
     return undefined;
   }
   const val = props.component.getVal();
-  console.log(val)
+  console.log(val);
   if (isNull(val)) {
     return '请输入';
   }
@@ -52,19 +52,15 @@ function isNull(val: any): boolean {
 }
 
 /** 执行校验 */
-function doValid(): boolean {
-
-}
+function doValid(): boolean {}
 
 /** 清除校验 */
-function clearValid() {
-
-}
+function clearValid() {}
 
 defineExpose({
   doValid,
-  clearValid
-})
+  clearValid,
+});
 </script>
 
 <style scoped></style>

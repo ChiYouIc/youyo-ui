@@ -2,6 +2,9 @@ import componentFactory from './Factory';
 import { ComponentConstructorOptionType } from './types';
 import AbstractComponent from './AbstractComponent';
 import Fence from './entity/Fence';
+import { c } from 'vite/dist/node/types.d-aGj9QkWt';
+import index from '../preview/index.vue';
+import form from '../design/config/Form.vue';
 
 /**
  * 表单对象
@@ -10,14 +13,18 @@ class Form {
   private _id: string;
   private _name: string;
   private _description: string;
+  private _width: string;
+  private _height: string;
   private _version: string;
   private _components: Array<AbstractComponent> = [];
 
-  constructor(id: string, name: string, version: string, description: string, components: Array<ComponentConstructorOptionType>) {
+  constructor(id: string, name: string, version: string, description: string, components: Array<ComponentConstructorOptionType>, width: string = '100%', height: string = '100%') {
     this._id = id;
     this._name = name;
     this._version = version;
     this._description = description;
+    this._width = width;
+    this._height = height;
     this.initComponents(components);
   }
 
@@ -130,6 +137,22 @@ class Form {
 
   set components(value: Array<AbstractComponent>) {
     this._components = value;
+  }
+
+  get width(): string {
+    return this._width;
+  }
+
+  set width(value: string) {
+    this._width = value;
+  }
+
+  get height(): string {
+    return this._height;
+  }
+
+  set height(value: string) {
+    this._height = value;
   }
 }
 
