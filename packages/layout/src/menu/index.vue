@@ -1,28 +1,32 @@
 <template>
   <a-menu
-    class="youyo-menu"
-    :theme="theme"
-    :mode="mode"
+    v-model::inline-collapsed="menuInlineCollapsed"
     v-model:openKeys="menuOpenKeys"
     v-model:selectedKeys="menuSelectedKeys"
-    v-model::inline-collapsed="menuInlineCollapsed"
     :items="menuList"
+    :mode="mode"
+    :theme="theme"
+    class="youyo-menu"
     @click="onClick"
     @select="onSelect"
   >
   </a-menu>
 </template>
 
-<script setup lang="ts" name="youyo-menu">
+<script lang="ts" name="youyo-menu" setup>
 import './style/index.less';
-import { defineEmits, defineProps, computed } from 'vue';
+import { computed, defineEmits, defineProps } from 'vue';
 import type { MenuProps } from '../types';
 
 export interface MenuEmits {
   (event: 'click', val: any): void;
+
   (event: 'select', val: any): void;
+
   (event: 'update:inlineCollapsed', val: boolean): void;
+
   (event: 'update:openKeys', val: string[]): void;
+
   (event: 'update:selectedKeys', val: string[]): void;
 }
 

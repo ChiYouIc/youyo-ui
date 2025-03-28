@@ -1,4 +1,5 @@
 import type { VNode } from 'vue';
+
 export type ItemType = MenuItemType | SubMenuType | MenuDividerType | MenuItemGroupType;
 
 export type ItemLabelType = VNode | string | number | boolean | null | undefined | void;

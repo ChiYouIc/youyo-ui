@@ -1,26 +1,27 @@
 <template>
   <div class="base-frame-layout">
     <youyo-layout
-      :sidebar-collapsed="collapsed"
-      :sidebar-theme="theme"
-      :sidebar-min-width="layout.sidebarMinWidth"
-      :sidebar-max-width="layout.sidebarMaxWidth"
-      :header-height="layout.headerHeight"
-      :header-is-fixed="layout.headerIsFixed"
-      :tabs-height="layout.tabsHeight"
-      :tabs-top="layout.tabsTop"
       :footer-height="layout.footerHeight"
       :footer-is-fixed="layout.footerIsFixed"
+      :header-height="layout.headerHeight"
+      :header-is-fixed="layout.headerIsFixed"
+      :sidebar-collapsed="collapsed"
+      :sidebar-max-width="layout.sidebarMaxWidth"
+      :sidebar-min-width="layout.sidebarMinWidth"
+      :sidebar-theme="theme"
+      :tabs-height="layout.tabsHeight"
+      :tabs-top="layout.tabsTop"
     >
       <template #sidebar>
-        <youyo-logo :width="50" :height="50" :img="logoImg" :name="logoName" :show-name="showLogoName" style="padding: 12px 10px" />
+        <youyo-logo :height="50" :img="logoImg" :name="logoName" :show-name="showLogoName" :width="50" style="padding: 12px 10px" />
         <youyo-menu
-          :menu-list="menu.menuList"
-          :theme="theme"
-          :mode="menu.mode"
           v-model:inline-collapsed="collapsed"
           v-model:open-keys="menu.openKeys"
           v-model:selected-keys="menu.selectedKeys"
+          :menu-list="menu.menuList"
+          :mode="menu.mode"
+          :theme="theme"
+          style="height: calc(100vh - 72px)"
           @click="menuClick"
           @select="menuSelect"
         />
@@ -35,14 +36,14 @@
           </div>
           <div class="right">
             <youyo-search :search-list="searchList" @select="searchSelect" />
-            <youyo-avatar :username="username" :avatar="avatarImg" :menu-item="avatarMenuList" />
+            <youyo-avatar :avatar="avatarImg" :menu-item="avatarMenuList" :username="username" />
             <youyo-full-screen />
           </div>
         </div>
       </template>
       <template #tabs>
         <div class="base-frame-tabs">
-          <youyo-tabs v-model:tab-key="tabKey" v-model:tab-list="tabList" @redo="tab => pageReload(tab.path)" @change="tabChange" />
+          <youyo-tabs v-model:tab-key="tabKey" v-model:tab-list="tabList" @change="tabChange" @redo="tab => pageReload(tab.path)" />
         </div>
       </template>
       <template #content>
@@ -57,7 +58,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="youyo-base-frame">
+<script lang="ts" name="youyo-base-frame" setup>
 import './style/base.less';
 import YouyoMenu from '../menu/index.vue';
 import YouyoLayout from '../layout/index.vue';
@@ -229,7 +230,7 @@ function modifyMenu(key: string | number) {
   }
   menu.openKeys = findMenuOpenKeys(key, props.menuList);
   menu.selectedKeys = [key];
-  console.log(menu.openKeys, menu.selectedKeys);
+  // console.log(menu.openKeys, menu.selectedKeys);
 }
 
 /**
@@ -310,12 +311,12 @@ function initPage() {
 onMounted(() => {
   // menuItemList
   initMenuItemList(props.menuList);
+  // console.log(menuItemList.value);
 
   // tabList
   tabList.value = props.tabList || [];
 
   const menu = findMenuItem(props.homeKey);
-  console.log(props.homeKey, menu);
   if (menu) {
     addTab({ key: menu.key, tab: menu.title, path: menu.path }, true);
   }

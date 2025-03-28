@@ -2,7 +2,7 @@
   <div class="youyo-avatar">
     <a-dropdown placement="bottomRight">
       <div class="custom-account-avatar">
-        <a-avatar size="small" :src="avatar" class="custom-global-header-index-avatar" />
+        <a-avatar :src="avatar" class="custom-global-header-index-avatar" size="small" />
         <span class="custom-global-header-index-name">{{ username }}</span>
       </div>
       <template v-if="menuItem.length > 0" #overlay>
@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script lang="ts" setup name="youyo-avatar">
+<script lang="ts" name="youyo-avatar" setup>
 import './style/index.less';
 import { defineProps } from 'vue';
 import type { AvatarProps } from '../types';

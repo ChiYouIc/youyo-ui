@@ -1,6 +1,6 @@
 {
   "name": "youyo-basic-layout",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "description": "youyo basic layout",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -21,9 +21,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@youyo-ui/utils": "workspace:^1.0.0"
   },
   "devDependencies": {
+    "@youyo-ui/utils": "workspace:^1.0.0",
     "vue-i18n": "^9.1.10",
     "pinia": "^2.1.4",
     "vue-router": "^4.0.3",

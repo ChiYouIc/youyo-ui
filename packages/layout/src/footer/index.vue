@@ -2,7 +2,7 @@
   <span> {{ content }} </span>
 </template>
 
-<script lang="ts" setup name="youyo-footer">
+<script lang="ts" name="youyo-footer" setup>
 import { defineProps } from 'vue';
 import type { FooterProps } from '../types';
 

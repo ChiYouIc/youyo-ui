@@ -4,7 +4,7 @@
     <ExpandOutlined v-else />
   </div>
 </template>
-<script setup lang="ts" name="FullScreen">
+<script lang="ts" name="FullScreen" setup>
 import './style/index.less';
 import { ref } from 'vue';
 import { CompressOutlined, ExpandOutlined } from '@ant-design/icons-vue';

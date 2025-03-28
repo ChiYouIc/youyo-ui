@@ -1,29 +1,29 @@
 <template>
   <div class="youyo-search">
     <search-outlined class="youyo-search-icon" @click="openInput" />
-    <div class="youyo-search-input" :style="{ width: inputWidth }">
+    <div :style="{ width: inputWidth }" class="youyo-search-input">
       <a-select
         ref="search"
-        style="width: 210px"
         v-model:value="val"
-        show-search
-        :show-arrow="false"
         :default-active-first-option="true"
-        :options="selectOptions"
-        :not-found-content="null"
         :filter-option="false"
+        :not-found-content="null"
+        :options="selectOptions"
+        :show-arrow="false"
+        show-search
         size="small"
-        @focusout="focusout"
+        style="width: 210px"
         @change="onSelect"
+        @focusout="focusout"
         @search="onSearch"
       ></a-select>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup name="youyo-search">
+<script lang="ts" name="youyo-search" setup>
 import './style/index.less';
-import { defineProps, defineEmits, ref } from 'vue';
+import { defineEmits, defineProps, ref } from 'vue';
 import { SelectProps } from 'ant-design-vue';
 import { BaseSelectRef } from 'ant-design-vue/es/vc-select';
 import { SearchOutlined } from '@ant-design/icons-vue';

@@ -8,7 +8,7 @@
     }"
   >
     <a-layout :has-sider="true" class="youyo-basic-layout">
-      <a-layout-sider :collapsed="sidebarCollapsed" :width="width" :theme="sidebarTheme" :class="sidebarClass" :style="sidebarStyle">
+      <a-layout-sider :class="sidebarClass" :collapsed="sidebarCollapsed" :style="sidebarStyle" :theme="sidebarTheme" :width="width">
         <slot name="sidebar"></slot>
       </a-layout-sider>
       <a-layout>
@@ -29,7 +29,7 @@
   </a-config-provider>
 </template>
 
-<script lang="ts" setup name="youyo-layout">
+<script lang="ts" name="youyo-layout" setup>
 import './style/index.less';
 import { computed, CSSProperties, defineProps } from 'vue';
 import { theme } from 'ant-design-vue';

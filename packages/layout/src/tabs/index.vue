@@ -38,11 +38,11 @@
     </a-tabs>
   </div>
 </template>
-<script setup lang="ts" name="Tabs">
+<script lang="ts" name="Tabs" setup>
 import './style/index.less';
 import { computed, defineEmits, defineProps } from 'vue';
 import { CloseOutlined, EllipsisOutlined, RedoOutlined } from '@ant-design/icons-vue';
-import type { TabsProps, TabsEmits, TabsType } from '../types';
+import type { TabsEmits, TabsProps, TabsType } from '../types';
 
 const emits = defineEmits<TabsEmits>();
 const props = defineProps<TabsProps>();

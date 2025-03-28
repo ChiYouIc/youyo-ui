@@ -5,6 +5,6 @@
   </div>
 </template>
 
-<script lang="ts" setup name="youyo-back-top">
+<script lang="ts" name="youyo-back-top" setup>
 import './style/index.less';
 </script>
