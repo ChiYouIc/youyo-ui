@@ -1,12 +1,14 @@
 .draggable-item {
   min-height: 60px;
-  //padding: 0 5px;
+  padding: 5px;
   display: flex;
   flex-direction: row;
   column-gap: 5px;
   align-content: center;
   align-items: center;
   position: relative;
+  border: none;
+  cursor: pointer;
 
   .draggable-item-label {
     white-space: nowrap;
@@ -29,7 +31,7 @@
   }
 
   [item-label-type=Fence], [item-label-type=Table] {
-   display: none;
+    display: none;
   }
 
   .draggable-item-content {
@@ -51,11 +53,23 @@
 
   }
 
-  .draggable-item-close {
+  .draggable-item-action {
     position: absolute;
-    right: 0;
+    display: none;
+    right: 10px;
     top: 0;
     cursor: pointer;
+  }
+
+  &:hover {
+    border-width: 1px;
+    border-style: dashed;
+
+    & > .draggable-item-action {
+      display: flex;
+      flex-direction: row;
+      column-gap: 5px;
+    }
   }
 
 }

@@ -20,7 +20,8 @@
     "dayjs": "^1.11.10",
     "vue-uuid": "^3.0.0",
     "vuedraggable": "^4.1.0",
-    "mitt": "^3.0.1"
+    "mitt": "^3.0.1",
+    "vue-json-pretty": "2.2.4"
   },
   "devDependencies": {
     "vite-plugin-vue-setup-extend": "^0.4.0",

@@ -12,6 +12,9 @@
     <a-form-item label="描述">
       <a-textarea v-model:value="f.description"></a-textarea>
     </a-form-item>
+    <a-form-item label="标签宽度">
+      <a-input v-model:value="f.labelWidth"></a-input>
+    </a-form-item>
     <a-form-item label="宽">
       <a-input v-model:value="f.width"></a-input>
     </a-form-item>
@@ -35,6 +38,7 @@ type Form = {
   name: string;
   description: string;
   version: boolean;
+  labelWidth: string;
   width: string;
   height: string;
   components: Array<Array<AbstractComponent>>;

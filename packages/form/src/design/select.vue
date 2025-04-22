@@ -1,26 +1,36 @@
 <template>
   <div class="form-select">
-    <a-divider orientation="left">组件</a-divider>
-    <draggable-component id="design" v-model:list="selectOptions" tag="ul" :group="{ name: 'design', pull: 'clone', put: false }" item-key="id" :move="onMove" :clone="onClone">
-      <template #item="{ element }">
-        <li class="component-item" :name="element.name" :component="element.component">
-          <span>{{ element.component }}</span>
-          <span>{{ element.name }}</span>
-          <span>
-            <a-tooltip :title="element.description">
-              <question-circle-outlined />
-            </a-tooltip>
-          </span>
-        </li>
-      </template>
-    </draggable-component>
-    <a-divider orientation="left">套件</a-divider>
+    <a-tabs v-model:active-key="activeKey">
+      <a-tab-pane key="component" tab="组件">
+        <draggable-component id="design" v-model:list="selectOptions" tag="ul" :group="{ name: 'design', pull: 'clone', put: false }" item-key="id" :move="onMove" :clone="onClone">
+          <template #item="{ element }">
+            <li :name="element.name" :component="element.component">
+              <div class="component-item">
+                <span>{{ element.component }}</span>
+                <span>{{ element.name }}</span>
+                <span>
+                  <a-tooltip :title="element.description">
+                    <question-circle-outlined />
+                  </a-tooltip>
+                </span>
+              </div>
+            </li>
+          </template>
+        </draggable-component>
+      </a-tab-pane>
+      <a-tab-pane key="form" tab="Json">
+        <vue-json-pretty :showIcon="true" :data="formJson"></vue-json-pretty>
+      </a-tab-pane>
+      <a-tab-pane key="form-val" tab="Json Value">
+        <vue-json-pretty :showIcon="true" :data="formData"></vue-json-pretty>
+      </a-tab-pane>
+    </a-tabs>
   </div>
 </template>
 
 <script setup lang="ts">
 import './style/select.less';
-import { ref } from 'vue';
+import { computed, defineProps, ref } from 'vue';
 import { uuid } from 'vue-uuid';
 import DraggableComponent from 'vuedraggable';
 import AbstractComponent from '../core/AbstractComponent';
@@ -28,12 +38,20 @@ import componentFactory from '../core/Factory';
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 import useDraggableHook from '../hooks/useDraggableHook';
 import { ComponentModeType } from '../types';
+import Form from '../core/Form';
+import VueJsonPretty from 'vue-json-pretty';
 
 type ComponentSelectType = {
   name: string;
   component: ComponentModeType;
   description: string;
 };
+
+const props = defineProps<{ form: Form }>();
+
+const activeKey = ref<string>('component');
+const formJson = computed(() => props.form.toJson());
+const formData = computed(() => props.form.formValue());
 
 const selectOptions = ref<Array<ComponentSelectType>>([
   { name: '输入框', component: 'Input', description: '输入框' },
@@ -64,6 +82,7 @@ function onClone(obj: ComponentSelectType): AbstractComponent {
     component: obj.component,
     required: false,
     disabled: false,
+    defaultValue: null,
   });
 }
 </script>

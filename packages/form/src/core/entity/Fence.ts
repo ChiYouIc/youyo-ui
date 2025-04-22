@@ -1,8 +1,5 @@
 import AbstractComponent from '../AbstractComponent';
 import { h, VNode } from 'vue';
-import Draggable from 'vuedraggable';
-import DraggableItem from '../../design/draggableItem.vue';
-import useDraggableHook from '../../hooks/useDraggableHook';
 import { ComponentConstructorOptionType } from '../types';
 import componentFactory from '../Factory';
 import { CFence } from '../../components';

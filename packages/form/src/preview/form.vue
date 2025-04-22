@@ -4,6 +4,12 @@
   </form>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Form from '../core/Form';
+import { provide } from 'vue';
+
+const props = defineProps<{ form: Form; model: Record<string, any> }>();
+provide('form', props.form);
+</script>
 
 <style scoped></style>

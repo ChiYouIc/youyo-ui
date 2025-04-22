@@ -1,19 +1,20 @@
 <template>
   <div class="form-config">
-    <a-divider orientation="left">配置</a-divider>
-    <template v-if="component">
-      <template v-if="type === 'Component'">
-        <component :is="`${component.component}Config`" v-model:form="component" />
-      </template>
-      <template v-if="type === 'Form'">
-        <f-config v-model:form="component" />
-      </template>
-    </template>
+    <a-tabs v-model:active-key="activeKey">
+      <a-tab-pane key="Form" tab="表单配置">
+        <f-config v-model:form="form" />
+      </a-tab-pane>
+      <a-tab-pane key="Component" tab="组件配置">
+        <template v-if="item">
+          <component :is="`${item.component}Config`" v-model:form="item" />
+        </template>
+      </a-tab-pane>
+    </a-tabs>
   </div>
 </template>
 <script lang="ts">
 import './style/config.less';
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import InputConfig from './config/Input.vue';
 import SwitchConfig from './config/Switch.vue';
 import SelectConfig from './config/Select.vue';
@@ -25,20 +26,38 @@ import DatePickerConfig from './config/DatePicker.vue';
 import TableConfig from './config/Table.vue';
 import FenceConfig from './config/Fence.vue';
 import FConfig from './config/Form.vue';
+import AbstractComponent from '../core/AbstractComponent';
 
 export default defineComponent({
   name: 'form-config',
   components: { InputConfig, SwitchConfig, SelectConfig, InputNumberConfig, RadioConfig, RateConfig, TimePickerConfig, DatePickerConfig, TableConfig, FenceConfig, FConfig },
   props: {
-    component: {
+    form: {
       type: Object,
-      required: false,
-    },
-    type: {
-      type: String,
       required: true,
     },
   },
+  setup() {
+    const activeKey = ref<'Component' | 'Form'>('Form');
+    const item = ref<AbstractComponent>();
+    const type = ref<string>('');
+
+    function switchFormItemConfig(componentType: 'Component' | 'Form', component: AbstractComponent) {
+      activeKey.value = componentType;
+      type.value = componentType;
+      if (componentType === 'Component') {
+        item.value = component;
+      }
+    }
+
+    return {
+      activeKey,
+      item,
+      type,
+      switchFormItemConfig,
+    };
+  },
+  expose: ['switchFormItemConfig'],
 });
 </script>
 

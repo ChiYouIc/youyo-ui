@@ -4,7 +4,7 @@
       <div class="title">
         <span>{{ form.name }}</span>
       </div>
-      <y-form :model="data">
+      <y-form :model="data" :form="form">
         <template v-for="item in form.components" :key="item.id">
           <!-- 栅栏 -->
           <form-fence-item v-if="item.component === 'Fence'" :fence="item" />

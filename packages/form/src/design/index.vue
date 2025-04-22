@@ -1,9 +1,9 @@
 <template>
   <div class="youyo-form-design">
     <div class="youyo-form-design__content">
-      <form-select />
+      <form-select :form="form" />
       <form-design :form="form" @preview="onPreview" />
-      <form-config :type="componentType" :component="currItem" />
+      <form-config ref="formConfigRef" :form="form" />
     </div>
     <a-modal v-model:open="open" width="100%" wrap-class-name="full-modal">
       <preview :form="form" :data="formData" />
@@ -29,6 +29,7 @@ const componentType = ref<'Component' | 'Form'>('Component');
 const currItem = ref<AbstractComponent>();
 const formData = computed(() => props.form.formValue());
 const { on } = useMitt();
+const formConfigRef = ref();
 
 // 消息总线，监听组件事件
 on('toConfig', item => onDesignComponentClick(item));
@@ -43,6 +44,8 @@ function onDesignComponentClick(item: any): void {
   console.log('design index', item);
   componentType.value = item instanceof AbstractComponent ? 'Component' : 'Form';
   currItem.value = item;
+  console.log(formConfigRef.value);
+  formConfigRef.value?.switchFormItemConfig(componentType.value, item);
 }
 </script>
 

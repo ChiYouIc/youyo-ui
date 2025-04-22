@@ -17,15 +17,17 @@ import './style/formItem.less';
 import { computed, CSSProperties, defineProps, inject } from 'vue';
 import Factory from '../factory/index.vue';
 import AbstractComponent from '../core/AbstractComponent';
+import Form from '../core/Form';
 
 interface FormItemProps {
   component: AbstractComponent;
 }
 
 const props = defineProps<FormItemProps>();
+const form = inject<Form>('form');
 
 const labelStyle = computed<CSSProperties>(() => {
-  return { minWidth: `${inject('label-width', 100)}px` };
+  return { minWidth: form?.labelWidth || '120px' };
 });
 
 const label = computed(() => props.component.label);
@@ -39,6 +41,8 @@ const requiredMsg = computed(() => {
   if (isNull(val)) {
     return '请输入';
   }
+
+  return undefined;
 });
 
 function isNull(val: any): boolean {
