@@ -3,4 +3,4 @@ import { withInstall } from '@youyo-ui/utils';
 
 const YouyoFormDesign = withInstall(design, 'youyo-form-design');
 
-export { YouyoFormDesign };
+export default YouyoFormDesign;

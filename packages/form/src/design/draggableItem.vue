@@ -20,8 +20,8 @@ import { defineProps } from 'vue';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons-vue';
 import { theme } from 'ant-design-vue';
 import Factory from '../factory/index.vue';
-import AbstractComponent from '../core/AbstractComponent';
-import { useMitt } from '../hooks/useMitt';
+import type { AbstractComponent } from '../core';
+import { useMitt } from '../hooks';
 
 interface DraggableItemProps {
   element: AbstractComponent;

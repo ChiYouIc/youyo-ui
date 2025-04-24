@@ -33,12 +33,12 @@ import './style/select.less';
 import { computed, defineProps, ref } from 'vue';
 import { uuid } from 'vue-uuid';
 import DraggableComponent from 'vuedraggable';
-import AbstractComponent from '../core/AbstractComponent';
-import componentFactory from '../core/Factory';
+import type { AbstractComponent, Form } from '../core';
+import { Factory as ComponentFactory } from '../core';
+
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
-import useDraggableHook from '../hooks/useDraggableHook';
+import { useDraggableHook } from '../hooks/index';
 import { ComponentModeType } from '../types';
-import Form from '../core/Form';
 import VueJsonPretty from 'vue-json-pretty';
 
 type ComponentSelectType = {
@@ -75,7 +75,7 @@ function onMove(obj) {
 const count = ref<number>(1);
 
 function onClone(obj: ComponentSelectType): AbstractComponent {
-  return componentFactory.creator({
+  return ComponentFactory.creator({
     id: uuid.v1(),
     label: obj.name,
     name: `filed${count.value++}`,

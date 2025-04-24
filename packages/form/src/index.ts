@@ -1,5 +1,3 @@
-export * from './design/index';
-export * from './preview/index';
-
-export { default as DesignForm } from './core/Form';
-export { default as DesignAbstractComponent } from './core/AbstractComponent';
+export { default as YouyoFormDesign } from './design/index';
+export { default as YouyoFlowView } from './preview/index';
+export * from './core/index';

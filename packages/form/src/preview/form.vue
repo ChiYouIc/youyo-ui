@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import Form from '../core/Form';
+import type { Form } from '../core';
 import { provide } from 'vue';
 
 const props = defineProps<{ form: Form; model: Record<string, any> }>();

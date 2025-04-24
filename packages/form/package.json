@@ -1,10 +1,11 @@
 {
   "name": "youyo-form",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "dynamic form design",
   "main": "lib/index.js",
   "module": "es/index.js",
   "scripts": {
+    "publish": "npm publish --access public",
     "build": "vite build && esno ./build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,7 +17,6 @@
     "lib"
   ],
   "dependencies": {
-    "@youyo-ui/utils": "workspace:^1.0.0",
     "dayjs": "^1.11.10",
     "vue-uuid": "^3.0.0",
     "vuedraggable": "^4.1.0",
@@ -24,6 +24,7 @@
     "vue-json-pretty": "2.2.4"
   },
   "devDependencies": {
+    "@youyo-ui/utils": "workspace:^1.0.0",
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "@youyo-ui/plugins": "workspace:^1.0.0",
     "@youyo-ui/builds": "workspace:^1.0.0"

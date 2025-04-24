@@ -3,4 +3,4 @@ import { withInstall } from '@youyo-ui/utils';
 
 const YouyoFormPreview = withInstall(preview, 'youyo-form-preview');
 
-export { YouyoFormPreview };
+export default YouyoFormPreview;

@@ -2,7 +2,7 @@
 import './style/index.less';
 import { defineComponent, PropType } from 'vue';
 
-import AbstractComponent from '../core/AbstractComponent';
+import type { AbstractComponent } from '../core';
 
 export default defineComponent({
   name: 'Factory',

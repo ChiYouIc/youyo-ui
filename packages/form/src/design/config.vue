@@ -15,18 +15,20 @@
 <script lang="ts">
 import './style/config.less';
 import { defineComponent, ref } from 'vue';
-import InputConfig from './config/Input.vue';
-import SwitchConfig from './config/Switch.vue';
-import SelectConfig from './config/Select.vue';
-import InputNumberConfig from './config/InputNumber.vue';
-import RadioConfig from './config/Radio.vue';
-import RateConfig from './config/Rate.vue';
-import TimePickerConfig from './config/TimePicker.vue';
-import DatePickerConfig from './config/DatePicker.vue';
-import TableConfig from './config/Table.vue';
-import FenceConfig from './config/Fence.vue';
-import FConfig from './config/Form.vue';
-import AbstractComponent from '../core/AbstractComponent';
+import {
+  DatePicker as DatePickerConfig,
+  Fence as FenceConfig,
+  Form as FConfig,
+  Input as InputConfig,
+  InputNumber as InputNumberConfig,
+  Radio as RadioConfig,
+  Rate as RateConfig,
+  Select as SelectConfig,
+  Switch as SwitchConfig,
+  Table as TableConfig,
+  TimePicker as TimePickerConfig,
+} from './config';
+import type { AbstractComponent } from '../core';
 
 export default defineComponent({
   name: 'form-config',

@@ -31,9 +31,8 @@ import DraggableComponent from 'vuedraggable';
 import { defineEmits, defineProps } from 'vue';
 import 'vue-json-pretty/lib/styles.css';
 import DraggableItem from './draggableItem.vue';
-import useDraggableHook from '../hooks/useDraggableHook';
-import Form from '../core/Form';
-import { useMitt } from '../hooks/useMitt';
+import type { Form } from '../core';
+import { useMitt, useDraggableHook } from '../hooks';
 
 interface DesignEmits {
   (event: 'preview'): void;

@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
-import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 
 export default defineConfig({
   build: {
@@ -14,7 +13,7 @@ export default defineConfig({
     //cssCodeSplit: true,
     rollupOptions: {
       //忽略打包vue文件
-      external: ['vue', 'store', 'ant-design-vue', 'pinia', 'vue-demi', 'vue-i18n', 'vue-router', 'vue-types', 'less'],
+      external: ['vue', 'store', 'ant-design-vue', 'dayjs', 'vue-uuid', 'vuedraggable', 'mitt', 'vue-json-pretty', '@ant-design/icons-vue', 'pinia', 'vue-demi', 'vue-i18n', 'vue-router', 'vue-types', 'less'],
       input: ['src/index.ts'],
       output: [
         {
@@ -45,7 +44,6 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    VueSetupExtend(),
     dts({
       entryRoot: './src',
       outDir: 'es',

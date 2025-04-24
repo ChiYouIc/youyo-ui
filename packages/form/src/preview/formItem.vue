@@ -16,8 +16,7 @@
 import './style/formItem.less';
 import { computed, CSSProperties, defineProps, inject } from 'vue';
 import Factory from '../factory/index.vue';
-import AbstractComponent from '../core/AbstractComponent';
-import Form from '../core/Form';
+import type { Form, AbstractComponent } from '../core';
 
 interface FormItemProps {
   component: AbstractComponent;

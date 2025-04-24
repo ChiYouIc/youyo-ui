@@ -12,15 +12,14 @@
 </template>
 <script setup lang="ts">
 import './style/index.less';
+import { computed, defineProps, ref } from 'vue';
 import FormSelect from './select.vue';
 import FormDesign from './design.vue';
 import FormConfig from './config.vue';
-
-import { computed, defineProps, ref } from 'vue';
-import Form from '../core/Form';
-import AbstractComponent from '../core/AbstractComponent';
-import Preview from '../preview/index.vue';
-import { useMitt } from '../hooks/useMitt';
+import type { Form } from '../core';
+import { AbstractComponent } from '../core';
+import Preview from '../preview/index';
+import { useMitt } from '../hooks';
 
 const props = defineProps<{ form: Form }>();
 

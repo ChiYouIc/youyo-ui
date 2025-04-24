@@ -19,9 +19,9 @@
 import './style/index.less';
 import { computed, defineProps } from 'vue';
 import FormFenceItem from './formFenceItem.vue';
-import Form from '../core/Form';
 import YForm from './form.vue';
 import YFormItem from './formItem.vue';
+import type { Form } from '../core';
 
 interface PreviewProps {
   form: Form;
