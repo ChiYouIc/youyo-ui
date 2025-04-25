@@ -10,3 +10,5 @@ packages:
   - 'packages/form'
   - 'packages/plugins'
   - 'packages/builds'
+  - 'packages/page-log'
+  - 'packages/tools'

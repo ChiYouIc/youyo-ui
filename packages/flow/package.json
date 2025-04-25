@@ -16,10 +16,11 @@
     "lib"
   ],
   "dependencies": {
-    "@youyo-ui/utils": "workspace:^1.0.0",
-    "youyo-form": "workspace:^1.0.0"
+
   },
   "devDependencies": {
+    "youyo-form": "workspace:^1.0.0",
+    "@youyo-ui/utils": "workspace:^1.0.0",
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vue-json-pretty": "2.2.4",
     "@youyo-ui/plugins": "workspace:^1.0.0",

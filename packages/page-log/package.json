@@ -1,0 +1,38 @@
+{
+  "name": "youyo-page-log",
+  "version": "1.0.6",
+  "description": "youyo page logo",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "author": "Youyo",
+  "license": "MIT",
+  "keywords": [
+    "youyo-ui-layout"
+  ],
+  "files": [
+    "es",
+    "lib",
+    "README.md"
+  ],
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "publish": "npm publish --access public",
+    "build": "vite build && esno ./build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "youyo-ui": "workspace:^1.0.0",
+    "youyo-tools": "workspace:^1.0.0",
+    "@youyo-ui/utils": "workspace:^1.0.0",
+    "vue-i18n": "^9.1.10",
+    "pinia": "^2.1.4",
+    "vue-router": "^4.0.3",
+    "ant-design-vue": "^4.1.2",
+    "store": "^2.0.12",
+    "core-js": "^3.8.3",
+    "@youyo-ui/plugins": "workspace:^1.0.0",
+    "@youyo-ui/builds": "workspace:^1.0.0"
+  }
+}

@@ -10,4 +10,9 @@ export default defineConfig({
       useDevMode: true, // vite写法，webpack写法请查看对应文档
     }),
   ],
+  css: {
+    preprocessorOptions: {
+      less: {},
+    },
+  },
 });

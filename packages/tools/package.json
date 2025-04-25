@@ -1,0 +1,34 @@
+{
+  "name": "youyo-tools",
+  "version": "1.0.0",
+  "description": "youyo tools",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "author": "Youyo",
+  "license": "MIT",
+  "keywords": [
+    "youyo-tools"
+  ],
+  "files": [
+    "es",
+    "lib",
+    "README.md"
+  ],
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "publish": "npm publish --access public",
+    "build": "vite build && esno ./build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^1.9.0"
+  },
+  "devDependencies": {
+    "@youyo-ui/utils": "workspace:^1.0.0",
+    "vue-router": "^4.0.3",
+    "ant-design-vue": "^4.1.2",
+    "core-js": "^3.8.3",
+    "@youyo-ui/plugins": "workspace:^1.0.0",
+    "@youyo-ui/builds": "workspace:^1.0.0"
+  }
+}

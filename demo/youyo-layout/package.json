@@ -9,11 +9,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "youyo-ui": "^1.0.0",
     "vue": "^3.4.21",
     "ant-design-vue": "^4.1.2",
     "pinia": "^2.1.4",
     "vue-router": "^4.0.3",
-    "youyo-basic-layout": "workspace:^1.0.0"
+    "youyo-basic-layout": "workspace:^1.0.0",
+    "youyo-tools": "workspace:^1.0.0",
+    "youyo-flow": "workspace:^1.0.0",
+    "youyo-page-log": "workspace:^1.0.0",
+    "@vue-flow/background": "latest",
+    "@vue-flow/controls": "latest",
+    "@vue-flow/core": "latest",
+    "@vue-flow/minimap": "latest"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
