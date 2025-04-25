@@ -5,18 +5,23 @@
         {{ label }}
       </label>
     </div>
-    <div :class="['item-content']">
-      <factory :el="component" />
-      <span v-if="requiredMsg" class="required-msg">{{ requiredMsg }}</span>
+    <div :class="['item-content']" :mode="mode">
+      <template v-if="showMode === 'form'">
+        <factory :el="component" />
+        <span v-if="requiredMsg" class="required-msg">{{ requiredMsg }}</span>
+      </template>
+      <template v-else>
+        {{ nullDefaultValue(component.getVal()) }}
+      </template>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import './style/formItem.less';
-import { computed, CSSProperties, defineProps, inject } from 'vue';
+import { computed, CSSProperties, defineProps, inject, ref } from 'vue';
 import Factory from '../factory/index.vue';
-import type { Form, AbstractComponent } from '../core';
+import type { AbstractComponent, Form } from '../core';
 
 interface FormItemProps {
   component: AbstractComponent;
@@ -24,6 +29,15 @@ interface FormItemProps {
 
 const props = defineProps<FormItemProps>();
 const form = inject<Form>('form');
+const mode = inject<'form' | 'text'>('mode');
+const requiredMsg = ref<string>();
+const showMode = computed(() => {
+  if (props.component.component == 'Table') {
+    return 'form';
+  }
+
+  return mode;
+});
 
 const labelStyle = computed<CSSProperties>(() => {
   return { minWidth: form?.labelWidth || '120px' };
@@ -31,18 +45,6 @@ const labelStyle = computed<CSSProperties>(() => {
 
 const label = computed(() => props.component.label);
 const required = computed(() => props.component.required);
-const requiredMsg = computed(() => {
-  if (!props.component.required) {
-    return undefined;
-  }
-  const val = props.component.getVal();
-  console.log(val);
-  if (isNull(val)) {
-    return '请输入';
-  }
-
-  return undefined;
-});
 
 function isNull(val: any): boolean {
   if (val === undefined || val === null) {
@@ -52,13 +54,34 @@ function isNull(val: any): boolean {
   if (typeof val === 'string') {
     return val.length === 0;
   }
+
+  return false;
 }
 
 /** 执行校验 */
-function doValid(): boolean {}
+function doValid(): boolean {
+  if (!props.component.required) {
+    return true;
+  }
+  const val = props.component.getVal();
+  if (isNull(val)) {
+    requiredMsg.value = '请输入';
+    return false;
+  }
+
+  return false;
+}
 
 /** 清除校验 */
-function clearValid() {}
+function clearValid() {
+  requiredMsg.value = undefined;
+}
+
+function nullDefaultValue(val: any): string {
+  if (val === undefined || val === null) '（空）';
+  if (String(val).trim().length === 0) return '（空）';
+  return val;
+}
 
 defineExpose({
   doValid,

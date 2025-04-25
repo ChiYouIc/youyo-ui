@@ -5,8 +5,15 @@
       <form-design :form="form" @preview="onPreview" />
       <form-config ref="formConfigRef" :form="form" />
     </div>
-    <a-modal v-model:open="open" width="100%" wrap-class-name="full-modal">
-      <preview :form="form" :data="formData" />
+    <a-modal v-model:open="open" width="100%" wrap-class-name="full-modal" destroy-on-close>
+      <a-tabs>
+        <a-tab-pane key="form" tab="表单">
+          <youyo-form-preview :form="form" :data="formData" mode="form" />
+        </a-tab-pane>
+        <a-tab-pane key="text" tab="文本">
+          <youyo-form-preview :form="form" :data="formData" mode="text" />
+        </a-tab-pane>
+      </a-tabs>
     </a-modal>
   </div>
 </template>
@@ -18,7 +25,7 @@ import FormDesign from './design.vue';
 import FormConfig from './config.vue';
 import type { Form } from '../core';
 import { AbstractComponent } from '../core';
-import Preview from '../preview/index';
+import YouyoFormPreview from '../preview/index';
 import { useMitt } from '../hooks';
 
 const props = defineProps<{ form: Form }>();
@@ -32,7 +39,7 @@ const formConfigRef = ref();
 
 // 消息总线，监听组件事件
 on('toConfig', item => onDesignComponentClick(item));
-on('toRemove', item => props.form.remove(item));
+on('toRemove', item => props.form.remove(item as AbstractComponent));
 on('toClean', () => props.form.clear());
 
 function onPreview() {
