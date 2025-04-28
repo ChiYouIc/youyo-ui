@@ -54,6 +54,7 @@ class Select extends AbstractComponent {
     const json = super.configToJson();
     json['placeholder'] = this._placeholder;
     json['options'] = this._options;
+    json['value'] = this._value;
     return json;
   }
 

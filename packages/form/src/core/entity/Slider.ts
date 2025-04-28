@@ -6,11 +6,11 @@ import { CSlider } from '../../components';
 class Slider extends AbstractComponent {
   private _value: [number, number] | number = 0;
 
+  private _placeholder: string | undefined = undefined;
+
   constructor(option: ComponentConstructorOptionType) {
     super(option);
   }
-
-  private _placeholder: string | undefined = undefined;
 
   get placeholder(): string | undefined {
     return this._placeholder;
@@ -20,15 +20,24 @@ class Slider extends AbstractComponent {
     this._placeholder = value;
   }
 
-  init(_: Record<string, any>): void {}
+  init({ placeholder, value }: Record<string, any>): void {
+    this._value = value;
+    this._placeholder = placeholder;
+  }
 
   node(): VNode {
-    return h(CSlider, { id: this.primaryId(), value: this._value, 'onUpdate:value': (val: [number, number] | number) => (this._value = val), disabled: this.disabled });
+    return h(CSlider, {
+      id: this.primaryId(),
+      value: this._value,
+      'onUpdate:value': (val: [number, number] | number) => (this._value = val),
+      disabled: this.disabled,
+    });
   }
 
   configToJson(): Record<string, any> {
     const json = super.configToJson();
     json['placeholder'] = this._placeholder;
+    json['value'] = this._value;
     return json;
   }
 

@@ -5,12 +5,12 @@ import { ComponentConstructorOptionType } from '../types';
 
 class Rate extends AbstractComponent {
   private _value: number = 0;
+  private _count: number = 5;
+  private _allowHalf: boolean = false;
 
   constructor(option: ComponentConstructorOptionType) {
     super(option);
   }
-
-  private _count: number = 5;
 
   get count(): number {
     return this._count;
@@ -20,8 +20,6 @@ class Rate extends AbstractComponent {
     this._count = value;
   }
 
-  private _allowHalf: boolean = false;
-
   get allowHalf(): boolean {
     return this._allowHalf;
   }
@@ -30,7 +28,11 @@ class Rate extends AbstractComponent {
     this._allowHalf = value;
   }
 
-  init(_: Record<string, any>): void {}
+  init({ value, count, allowHalf }: Record<string, any>): void {
+    this._value = value;
+    this._count = count;
+    this._allowHalf = allowHalf;
+  }
 
   node(): VNode {
     return h(CRate, {
@@ -47,6 +49,7 @@ class Rate extends AbstractComponent {
     const json = super.configToJson();
     json['count'] = this._count;
     json['allowHalf'] = this._allowHalf;
+    json['value'] = this._value;
     return json;
   }
 

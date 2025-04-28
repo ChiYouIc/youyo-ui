@@ -51,6 +51,7 @@ class Radio extends AbstractComponent {
     const toJson = super.configToJson();
     toJson['optionType'] = this._optionType;
     toJson['options'] = this._options;
+    toJson['value'] = this._value;
     return toJson;
   }
 

@@ -53,6 +53,7 @@ class Input extends AbstractComponent {
     const json = super.configToJson();
     json['placeholder'] = this._placeholder;
     json['maxlength'] = this._maxlength;
+    json['value'] = this._value;
     return json;
   }
 

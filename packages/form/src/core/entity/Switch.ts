@@ -23,6 +23,12 @@ class Switch extends AbstractComponent {
     });
   }
 
+  configToJson(): Record<string, any> {
+    const json = super.configToJson();
+    json['value'] = this._value;
+    return json;
+  }
+
   public getVal(): any {
     return this._value;
   }

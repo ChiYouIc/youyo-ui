@@ -52,6 +52,7 @@ class DatePicker extends AbstractComponent {
     const json = super.configToJson();
     json['placeholder'] = this._placeholder;
     json['picker'] = this._picker;
+    json['value'] = this._value;
     return json;
   }
 

@@ -5,12 +5,17 @@ import { CTimePicker } from '../../components';
 
 class TimePicker extends AbstractComponent {
   private _value: string = '';
+  private _placeholder: string = '';
+  /** 小时选项间隔 */
+  private _hourStep: number = 1;
+  /** 分钟选项间隔 */
+  private _minuteStep: number = 1;
+  /** 秒钟选项间隔 */
+  private _secondStep: number = 1;
 
   constructor(option: ComponentConstructorOptionType) {
     super(option);
   }
-
-  private _placeholder: string = '';
 
   get placeholder(): string {
     return this._placeholder;
@@ -20,9 +25,6 @@ class TimePicker extends AbstractComponent {
     this._placeholder = value;
   }
 
-  /** 小时选项间隔 */
-  private _hourStep: number = 1;
-
   get hourStep(): number {
     return this._hourStep;
   }
@@ -31,9 +33,6 @@ class TimePicker extends AbstractComponent {
     this._hourStep = value;
   }
 
-  /** 分钟选项间隔 */
-  private _minuteStep: number = 1;
-
   get minuteStep(): number {
     return this._minuteStep;
   }
@@ -41,9 +40,6 @@ class TimePicker extends AbstractComponent {
   set minuteStep(value: number) {
     this._minuteStep = value;
   }
-
-  /** 秒钟选项间隔 */
-  private _secondStep: number = 1;
 
   get secondStep(): number {
     return this._secondStep;
@@ -81,6 +77,7 @@ class TimePicker extends AbstractComponent {
     json['hourStep'] = this._hourStep;
     json['minuteStep'] = this._minuteStep;
     json['secondStep'] = this._secondStep;
+    json['value'] = this._value;
     return json;
   }
 

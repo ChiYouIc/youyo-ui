@@ -41,6 +41,7 @@ class Table extends AbstractComponent {
   configToJson(): Record<string, any> {
     const json = super.configToJson();
     json['columns'] = this._columns;
+    json['valur'] = this._value;
     return json;
   }
 
