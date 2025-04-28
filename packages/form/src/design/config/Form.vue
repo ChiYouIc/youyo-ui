@@ -21,12 +21,12 @@
     <a-form-item label="高">
       <a-input v-model:value="f.height"></a-input>
     </a-form-item>
-    <a-form-item label="val-json">
+    <!--    <a-form-item label="val-json">
       <span>{{ form.formValue() }}</span>
     </a-form-item>
     <a-form-item label="form-json">
       <span>{{ form.toJson() }}</span>
-    </a-form-item>
+    </a-form-item>-->
   </a-form>
 </template>
 <script setup lang="ts">

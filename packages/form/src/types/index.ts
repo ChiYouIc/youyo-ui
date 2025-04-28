@@ -3,27 +3,9 @@
  */
 export type ComponentSelectType = {
   name: string;
-  component: ComponentModeType;
+  component: string;
   description: string;
 };
-
-export enum ComponentMode {
-  Empty,
-  Input,
-  DatePicker,
-  InputNumber,
-  Radio,
-  Rate,
-  Select,
-  Slider,
-  Switch,
-  Table,
-  TimePicker,
-  Upload,
-  Fence,
-}
-
-export type ComponentModeType = keyof typeof ComponentMode;
 
 export type DateType = {
   date: string;

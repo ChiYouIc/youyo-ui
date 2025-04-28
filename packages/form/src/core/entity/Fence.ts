@@ -1,8 +1,8 @@
 import AbstractComponent from '../AbstractComponent';
 import { h, VNode } from 'vue';
 import { ComponentConstructorOptionType } from '../types';
-import componentFactory from '../Factory';
 import { CFence } from '../../components';
+import globalConfig from '../../config';
 
 class Fence extends AbstractComponent {
   constructor(c: ComponentConstructorOptionType) {
@@ -65,7 +65,7 @@ class Fence extends AbstractComponent {
     this._row = row;
     this._list = [];
     for (const item of list) {
-      this._list.push([componentFactory.creator(item)]);
+      this._list.push([globalConfig.componentFactory.creator(item)]);
     }
   }
 

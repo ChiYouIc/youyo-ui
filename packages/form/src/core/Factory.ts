@@ -1,54 +1,19 @@
 import AbstractComponent from './AbstractComponent';
-import Input from './entity/Input';
-import InputNumber from './entity/InputNumber';
-import Radio from './entity/Radio';
-import Rate from './entity/Rate';
-import Select from './entity/Select';
-import Slider from './entity/Slider';
-import Switch from './entity/Switch';
-import Table from './entity/Table';
-import TimePicker from './entity/TimePicker';
-import DatePicker from './entity/DatePicker';
-import Upload from './entity/Upload';
-import Fence from './entity/Fence';
-import { ComponentConstructorOptionType, ComponentModeType } from './types';
+import { ComponentConstructorOptionType } from './types';
 
 /**
  * 抽象工厂
  */
-interface AbstractFactory {
+export interface AbstractFactory {
+  name: string;
   creator: (c: ComponentConstructorOptionType) => AbstractComponent;
 }
 
-const InputFactory: AbstractFactory = { creator: c => new Input(c) };
-const DatePickerFactory: AbstractFactory = { creator: c => new DatePicker(c) };
-const InputNumberFactory: AbstractFactory = { creator: c => new InputNumber(c) };
-const RadioFactory: AbstractFactory = { creator: c => new Radio(c) };
-const RateFactory: AbstractFactory = { creator: c => new Rate(c) };
-const SelectFactory: AbstractFactory = { creator: c => new Select(c) };
-const SliderFactory: AbstractFactory = { creator: c => new Slider(c) };
-const SwitchFactory: AbstractFactory = { creator: c => new Switch(c) };
-const TableFactory: AbstractFactory = { creator: c => new Table(c) };
-const TimePickerFactory: AbstractFactory = { creator: c => new TimePicker(c) };
-const UploadFactory: AbstractFactory = { creator: c => new Upload(c) };
-const FenceFactory: AbstractFactory = { creator: c => new Fence(c) };
+export default class Factory {
+  private _cache: Map<string, AbstractFactory> = new Map<string, AbstractFactory>();
 
-class Factory {
-  private _cache: Map<ComponentModeType, AbstractFactory> = new Map<ComponentModeType, AbstractFactory>();
-
-  constructor() {
-    this._cache.set('Input', InputFactory);
-    this._cache.set('DatePicker', DatePickerFactory);
-    this._cache.set('InputNumber', InputNumberFactory);
-    this._cache.set('Radio', RadioFactory);
-    this._cache.set('Rate', RateFactory);
-    this._cache.set('Select', SelectFactory);
-    this._cache.set('Slider', SliderFactory);
-    this._cache.set('Switch', SwitchFactory);
-    this._cache.set('Table', TableFactory);
-    this._cache.set('TimePicker', TimePickerFactory);
-    this._cache.set('Upload', UploadFactory);
-    this._cache.set('Fence', FenceFactory);
+  constructor(factories: AbstractFactory[]) {
+    factories.forEach(f => this._cache.set(f.name, f));
   }
 
   public creator(option: ComponentConstructorOptionType): AbstractComponent {
@@ -59,7 +24,3 @@ class Factory {
     return factory.creator(option);
   }
 }
-
-const componentFactory = new Factory();
-
-export default componentFactory;

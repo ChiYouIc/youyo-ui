@@ -1,4 +1,4 @@
-import componentFactory from './Factory';
+import globalConfig from '../config';
 import { ComponentConstructorOptionType } from './types';
 import AbstractComponent from './AbstractComponent';
 import Fence from './entity/Fence';
@@ -57,7 +57,7 @@ class Form {
     }
 
     for (const item of list) {
-      const component = componentFactory.creator({
+      const component = globalConfig.componentFactory.creator({
         id: item.id,
         name: item.name,
         component: item.component,

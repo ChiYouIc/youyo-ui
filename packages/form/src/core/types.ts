@@ -26,27 +26,9 @@ export interface ComponentActionType {
 export type ComponentConstructorOptionType = Record<string, any> & {
   id: string;
   name: string;
-  component: ComponentModeType;
+  component: string;
   defaultValue: any;
   label: string;
   required: boolean;
   disabled: boolean;
 };
-
-export enum ComponentMode {
-  Empty,
-  Input,
-  DatePicker,
-  InputNumber,
-  Radio,
-  Rate,
-  Select,
-  Slider,
-  Switch,
-  Table,
-  TimePicker,
-  Upload,
-  Fence,
-}
-
-export type ComponentModeType = keyof typeof ComponentMode;
