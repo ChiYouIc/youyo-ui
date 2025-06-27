@@ -9,26 +9,31 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "youyo-ui": "^1.0.0",
-    "vue": "^3.4.21",
+    "@kangc/v-md-editor": "^2.3.18",
+    "@vue-flow/background": "^1.3.2",
+    "@vue-flow/controls": "^1.1.2",
+    "@vue-flow/core": "^1.44.0",
+    "@vue-flow/minimap": "latest",
     "ant-design-vue": "^4.1.2",
+    "markmap-lib": "^0.18.11",
+    "markmap-view": "^0.18.10",
     "pinia": "^2.1.4",
+    "vis-network": "^9.1.10",
+    "vue": "^3.4.21",
     "vue-router": "^4.0.3",
     "youyo-basic-layout": "workspace:^1.0.0",
-    "youyo-tools": "workspace:^1.0.0",
     "youyo-flow": "workspace:^1.0.0",
+    "youyo-form": "workspace:^1.0.0",
     "youyo-page-log": "workspace:^1.0.0",
-    "@vue-flow/background": "latest",
-    "@vue-flow/controls": "latest",
-    "@vue-flow/core": "latest",
-    "@vue-flow/minimap": "latest"
+    "youyo-tools": "workspace:^1.0.0",
+    "youyo-ui": "^1.0.0"
   },
   "devDependencies": {
+    "@types/less": "^3.0.3",
     "@vitejs/plugin-vue": "^5.0.5",
+    "less": "^4.1.3",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
-    "vue-tsc": "^2.0.6",
-    "@types/less": "^3.0.3",
-    "less": "^4.1.3"
+    "vue-tsc": "^2.0.6"
   }
 }

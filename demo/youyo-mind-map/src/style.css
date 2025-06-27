@@ -8,21 +8,21 @@ html, body {
 #app {
     height: 100%;
     width: 100%;
-    margin: 0 auto;
-    text-align: center;
+    /*margin: 0 auto;*/
+    /*text-align: center;*/
 }
 
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
-    }
+/*@media (prefers-color-scheme: light) {*/
+/*    :root {*/
+/*        color: #213547;*/
+/*        background-color: #ffffff;*/
+/*    }*/
 
-    a:hover {
-        color: #747bff;
-    }
+/*    a:hover {*/
+/*        color: #747bff;*/
+/*    }*/
 
-    button {
-        background-color: #f9f9f9;
-    }
-}
+/*    button {*/
+/*        background-color: #f9f9f9;*/
+/*    }*/
+/*}*/
