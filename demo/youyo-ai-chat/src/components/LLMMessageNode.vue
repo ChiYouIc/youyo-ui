@@ -12,6 +12,17 @@
       {{ data.message }}
     </div>
 
+    <!-- 添加子节点按钮 -->
+    <div class="node-actions">
+      <button 
+        @click="handleAddChild" 
+        class="add-child-btn"
+        title="添加用户回复"
+      >
+        ➕ 添加用户回复
+      </button>
+    </div>
+
     <!-- Vue Flow 连接点 - 上下连接 -->
     <Handle type="target" :position="Position.Top" class="handle-target" />
     <Handle type="source" :position="Position.Bottom" class="handle-source" />
@@ -19,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import { inject } from 'vue';
 import { Handle, Position } from '@vue-flow/core';
 
 interface LLMMessageData {
@@ -28,10 +40,14 @@ interface LLMMessageData {
 }
 
 interface Props {
+  id: string;
   data: LLMMessageData;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+// 注入添加子节点的方法
+const addChildNodeFunc = inject<(parentId: string) => void>('addChildNode');
 
 // 格式化时间
 const formatTime = (timestamp: Date) => {
@@ -40,6 +56,13 @@ const formatTime = (timestamp: Date) => {
     minute: '2-digit',
     second: '2-digit'
   }).format(timestamp);
+};
+
+// 添加子节点处理函数
+const handleAddChild = () => {
+  if (addChildNodeFunc) {
+    addChildNodeFunc(props.id);
+  }
 };
 </script>
 
@@ -107,6 +130,35 @@ const formatTime = (timestamp: Date) => {
     word-wrap: break-word;
     word-break: break-word;
     white-space: pre-wrap;
+    margin-bottom: 12px;
+  }
+
+  .node-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+
+    .add-child-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: white;
+      padding: 6px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
   }
 
   .handle-target {

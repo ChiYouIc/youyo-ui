@@ -27,6 +27,7 @@ interface UserMessageData {
 }
 
 interface Props {
+  id: string;
   data: UserMessageData;
 }
 

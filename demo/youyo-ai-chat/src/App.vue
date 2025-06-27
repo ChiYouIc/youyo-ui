@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue';
+import { ref, onMounted, nextTick, provide } from 'vue';
 import { VueFlow, Panel, useVueFlow } from '@vue-flow/core';
 import { Background } from '@vue-flow/background';
 import { Controls } from '@vue-flow/controls';
@@ -80,7 +80,8 @@ const nodeTypes = {
   root: RootNode,
   userMessage: UserMessageNode,
   llmMessage: LLMMessageNode,
-};
+} as any;
+
 // 初始节点数据
 const initialNodes: Node[] = [
   {
@@ -273,6 +274,60 @@ const _layoutGraph = async (direction: string) => {
     }, 100);
   });
 };
+
+// 添加子节点的处理函数
+const handleAddChild = (parentId: string) => {
+  const parentNode = nodes.value.find(node => node.id === parentId);
+  if (!parentNode) return;
+
+  // 创建新的用户消息节点
+  const newNodeId = `user-${Date.now()}`;
+  const newNode: Node = {
+    id: newNodeId,
+    type: 'userMessage',
+    position: {
+      x: parentNode.position.x,
+      y: parentNode.position.y + 200,
+    },
+    data: {
+      message: '请输入您的问题...',
+      timestamp: new Date(),
+    },
+  };
+
+  // 添加新节点
+  nodes.value.push(newNode);
+
+  // 创建从父节点到新节点的边
+  const newEdge: Edge = {
+    id: `e-${parentId}-${newNodeId}`,
+    source: parentId,
+    target: newNodeId,
+    animated: true,
+    style: { stroke: '#10b981', strokeWidth: 3 },
+    type: 'smoothstep',
+  };
+
+  // 添加新边
+  edges.value.push(newEdge);
+
+  // 重新布局
+  nextTick(() => {
+    setTimeout(() => {
+      nodes.value = layout(nodes.value, edges.value, 'TB');
+      setTimeout(() => {
+        fitView({
+          padding: 0.3,
+          minZoom: 0.3,
+          maxZoom: 0.9,
+        });
+      }, 150);
+    }, 50);
+  });
+};
+
+// 提供添加子节点的方法给子组件
+provide('addChildNode', handleAddChild);
 
 onMounted(() => {
   console.log('AI Chat Flow 已加载');

@@ -27,6 +27,7 @@ interface RootNodeData {
 }
 
 interface Props {
+  id: string;
   data: RootNodeData;
 }
 
