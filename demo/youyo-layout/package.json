@@ -26,7 +26,7 @@
     "youyo-form": "workspace:^1.0.0",
     "youyo-page-log": "workspace:^1.0.0",
     "youyo-tools": "workspace:^1.0.0",
-    "youyo-ui": "^1.0.0"
+    "youyo-ui": "workspace:^1.0.0"
   },
   "devDependencies": {
     "@types/less": "^3.0.3",

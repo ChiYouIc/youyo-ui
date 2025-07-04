@@ -13,3 +13,4 @@ packages:
   - 'packages/builds'
   - 'packages/page-log'
   - 'packages/tools'
+  - 'packages/mind-map'

@@ -1,0 +1,49 @@
+.sidebar-trigger-container {
+  position: fixed;
+  top: 110px;
+  bottom: 80px;
+  right: 0;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .trigger {
+    position: relative;
+    width: 60px;
+    border-color: #eee;
+    background-color: #fff;
+    box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
+    border-radius: 6px;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .trigger-item {
+      height: 60px;
+      display: flex;
+      flex-direction: column;
+      row-gap: 5px;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: #464646;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: #eee;
+      }
+
+      .trigger-icon {
+        font-size: 16px;
+      }
+
+      .trigger-name {
+        font-size: 13px;
+      }
+    }
+  }
+}

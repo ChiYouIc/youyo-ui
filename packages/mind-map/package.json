@@ -1,0 +1,37 @@
+{
+  "name": "youyo-mind-map",
+  "version": "1.0.0",
+  "description": "youyo mind map",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "author": "Youyo",
+  "license": "MIT",
+  "keywords": [
+    "simple-mind-map"
+  ],
+  "files": [
+    "es",
+    "lib",
+    "README.md"
+  ],
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "publish": "npm publish --access public",
+    "build": "vite build && esno ./build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "mitt": "^3.0.1",
+    "simple-mind-map": "0.14.0-fix.1",
+    "simple-mind-map-plugin-themes": "^1.0.1"
+  },
+  "devDependencies": {
+    "@youyo-ui/builds": "workspace:^1.0.0",
+    "@youyo-ui/plugins": "workspace:^1.0.0",
+    "@youyo-ui/utils": "workspace:^1.0.0",
+    "ant-design-vue": "^4.2.6",
+    "pinia": "^3.0.3",
+    "store": "^2.0.12",
+    "vue": "^3.4.37"
+  }
+}
