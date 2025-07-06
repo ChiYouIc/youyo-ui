@@ -3,9 +3,9 @@
 </template>
 
 <script setup lang="ts">
-import sfj from './form.json';
 import { uuid } from 'vue-uuid';
 import { AbstractComponent as DesignAbstractComponent, Form as DesignForm, YouyoFormDesign } from 'youyo-form';
+// import { AbstractComponent as DesignAbstractComponent, Form as DesignForm, YouyoFormDesign } from 'youyo-form/src';
 import { computed, ref } from 'vue';
 // import { JSONDataType } from 'vue-json-pretty/types/utils';
 
@@ -14,6 +14,7 @@ const form = ref<DesignForm>(new DesignForm(uuid.v1(), '表单v1', '1.0.0', '这
 
 const formJson = computed(() => form.value.toJson());
 const formData = computed(() => form.value.formValue());
+
 // const currComponentJson = ref<JSONDataType>();
 
 function onSelected(item: DesignAbstractComponent) {

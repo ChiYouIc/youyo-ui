@@ -1,5 +1,5 @@
 import cpy from 'cpy';
-import { resolve, dirname } from 'path';
+import { dirname, resolve } from 'path';
 import { promises as fs } from 'fs';
 import less from 'less';
 import glob from 'fast-glob';
@@ -18,7 +18,18 @@ const buildLess = async (p: string) => {
 
   //直接将less文件复制到打包后目录
   await cpy(`${sourceDir}/**/*.less`, targetLib);
+  await cpy(`${sourceDir}/**/*.css`, targetLib);
+  await cpy(`${sourceDir}/**/*.json`, targetLib);
+  await cpy(`${sourceDir}/**/*.ttf`, targetLib);
+  await cpy(`${sourceDir}/**/*.woff`, targetLib);
+  await cpy(`${sourceDir}/**/*.woff2`, targetLib);
+
   await cpy(`${sourceDir}/**/*.less`, targetEs);
+  await cpy(`${sourceDir}/**/*.css`, targetEs);
+  await cpy(`${sourceDir}/**/*.json`, targetEs);
+  await cpy(`${sourceDir}/**/*.ttf`, targetEs);
+  await cpy(`${sourceDir}/**/*.woff`, targetEs);
+  await cpy(`${sourceDir}/**/*.woff2`, targetEs);
 
   //获取打包后.less文件目录(lib和es一样)
   const lessFils = await glob('**/*.less', { cwd: srcDir, onlyFiles: true });

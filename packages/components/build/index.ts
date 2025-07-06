@@ -1,10 +1,5 @@
-import buildLess from '@youyo-ui/builds/buildLess';
-
-async function iconBuild() {
-  console.log('icon build');
-}
+import buildLess from "@youyo-ui/builds/buildLess";
 
 (() => {
-  buildLess('components');
-  iconBuild();
+  buildLess("components");
 })();

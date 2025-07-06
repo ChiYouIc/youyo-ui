@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { ResultType } from './types';
 
 export default class YouyoRequest {
-  private instance: AxiosInstance;
+  private readonly instance: AxiosInstance;
 
   constructor(axiosInstance: AxiosInstance) {
     this.instance = axiosInstance;
@@ -16,11 +16,23 @@ export default class YouyoRequest {
     return this.instance.post(url, data);
   }
 
-  public put<R, T>(url: string, data: T, params?: { [key: string]: string | number | boolean }): Promise<ResultType<R>> {
+  public put<R, T>(
+    url: string,
+    data: T,
+    params?: {
+      [key: string]: string | number | boolean;
+    },
+  ): Promise<ResultType<R>> {
     return this.instance.put(url, data, { params });
   }
 
-  public delete<R, T>(url: string, data?: T, params?: { [key: string]: string | number | boolean }): Promise<ResultType<R>> {
+  public delete<R, T>(
+    url: string,
+    data?: T,
+    params?: {
+      [key: string]: string | number | boolean;
+    },
+  ): Promise<ResultType<R>> {
     return this.instance.delete(url, { data, params });
   }
 

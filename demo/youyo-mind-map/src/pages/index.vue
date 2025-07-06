@@ -54,7 +54,7 @@
         <div class="mindmaps-section">
           <div class="section-title">思维导图</div>
           <div class="mindmap-grid">
-            <div class="mindmap-item" @click="goToEdit">
+            <div v-for="item in list" :key="item.id" class="mindmap-item" @click="goToEdit(item.id)">
               <div class="mindmap-preview">
                 <div class="mindmap-content">
                   <div class="mindmap-badge">可编辑</div>
@@ -77,7 +77,7 @@
                 </div>
               </div>
               <div class="mindmap-info">
-                <h3>一周计划模板_副本</h3>
+                <h3>{{ item.name }}</h3>
               </div>
             </div>
           </div>
@@ -88,16 +88,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { DownOutlined } from '@ant-design/icons-vue';
+import { useRequest } from 'youyo-tools/src';
+import { MindMapType } from '../types';
 
 const router = useRouter();
 const searchValue = ref('');
+const list = ref<Array<MindMapType>>([]);
 
-const goToEdit = () => {
-  router.push('/123');
+const goToEdit = (id: number) => {
+  router.push('/' + id);
 };
+
+onMounted(() => {
+  const { requestTool } = useRequest();
+  requestTool.get<Array<MindMapType>>('/api/mm/all').then(res => {
+    list.value = res.data;
+  });
+});
 </script>
 
 <style scoped>

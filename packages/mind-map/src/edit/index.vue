@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import './style/index.less';
 import { defineEmits, defineProps, onMounted, onUnmounted, ref } from 'vue';
 import AssociativeLine from 'simple-mind-map/src/plugins/AssociativeLine.js';
@@ -24,14 +24,36 @@ import { useMindMapStore } from '../store';
 import useBus from '../hooks/useBus';
 import Themes from 'simple-mind-map-plugin-themes';
 
-type EditProps = { root: any; layout?: string; theme?: any; view?: any };
-const props = withDefaults(defineProps<EditProps>(), {
-  layout: 'logicalStructure',
-});
-const emits = defineEmits<{ (event: 'save', val: any): void }>();
+Themes.init(MindMap);
+MindMap.usePlugin(Drag).usePlugin(AssociativeLine).usePlugin(KeyboardNavigation);
 
-const mindMapContainer = ref<HTMLElement>();
-let mindMapInstance: MindMap | null = null;
+// type EditProps = { root: any; layout?: string; theme?: any; view?: any };
+const props = defineProps({
+  root: {
+    type: Object,
+    required: true,
+  },
+  layout: {
+    type: String,
+    default: 'logicalStructure',
+  },
+  theme: {
+    type: Object,
+    required: false,
+  },
+  view: {
+    type: Object,
+    required: false,
+  },
+});
+// const props = withDefaults(defineProps(['root', 'layout', 'theme', 'view']), {
+//   layout: 'logicalStructure',
+// });
+// const emits = defineEmits<{ (event: 'save', val: any): void; (event: 'create', val: void): void }>();
+const emits = defineEmits({});
+
+const mindMapContainer = ref();
+let mindMapInstance = null;
 // 当前激活的节点列表
 const { setActiveNodes, setActiveNode } = useMindMapStore();
 const { bus } = useBus();
@@ -39,30 +61,20 @@ const { bus } = useBus();
 bus.on('insert_ga', () => mindMapInstance?.execCommand('ADD_GENERALIZATION', { text: '自定义概要内容' }));
 bus.on('insert_line', () => mindMapInstance?.associativeLine.createLineFromActiveNode());
 bus.on('save_mind_map', handleSave);
-bus.on('new_mind_map', () => {
-  handleSave();
-  mindMapInstance?.setData({
-    data: { text: '新内容' },
-    children: [
-      { data: { text: '节点1' }, children: [] },
-      { data: { text: '节点2' }, children: [] },
-      { data: { text: '节点3' }, children: [] },
-      { data: { text: '节点4' }, children: [] },
-    ],
-  });
-});
+bus.on('new_mind_map', handleCreate);
 
 function handleSave() {
   const data = mindMapInstance?.getData(true);
   emits('save', data);
 }
 
+function handleCreate() {
+  emits('create');
+}
+
 // 初始化思维导图
 const initMindMap = () => {
   if (!mindMapContainer.value) return;
-
-  Themes.init(MindMap);
-  MindMap.usePlugin(Drag).usePlugin(AssociativeLine).usePlugin(KeyboardNavigation);
 
   mindMapInstance = new MindMap({
     el: mindMapContainer.value,
@@ -83,7 +95,7 @@ const initMindMap = () => {
   });
 };
 
-function handleKeyDown(e: KeyboardEvent) {
+function handleKeyDown(e) {
   if (e.ctrlKey && e.key === 's') {
     e.preventDefault();
     bus.emit('save_mind_map');

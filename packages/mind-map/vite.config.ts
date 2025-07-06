@@ -13,7 +13,23 @@ export default defineConfig({
     //cssCodeSplit: true,
     rollupOptions: {
       //忽略打包vue文件
-      external: ['vue', 'store', 'ant-design-vue', '@ant-design/icons-vue', 'pinia', 'vue-demi', 'vue-i18n', 'vue-router', 'vue-types', 'less'],
+      external: [
+        'uuid',
+        '@svgdotjs_svg.js',
+        'vue',
+        'store',
+        'ant-design-vue',
+        '@ant-design/icons-vue',
+        'pinia',
+        'vue-demi',
+        'vue-i18n',
+        'vue-router',
+        'vue-types',
+        'less',
+        'mitt',
+        'simple-mind-map',
+        'simple-mind-map-plugin-themes',
+      ],
       input: ['src/index.ts'],
       output: [
         {

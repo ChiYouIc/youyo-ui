@@ -7,4 +7,12 @@ export default defineConfig({
   build: {
     rollupOptions: {},
   },
+  server: {
+    proxy: {
+      '/ai': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
+    },
+  },
 });

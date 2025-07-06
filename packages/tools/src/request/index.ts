@@ -15,7 +15,6 @@ type OptionsType = {
 };
 
 function setupRequest(options: OptionsType) {
-  console.log('setupRequest');
   const axiosInstance = axios.create({
     baseURL: options.baseUrl,
     headers: { 'Content-Type': 'application/json', ...options.headers },
@@ -33,33 +32,23 @@ function setupRequest(options: OptionsType) {
 }
 
 function useRequest() {
-  console.log('useRequest');
-  // if (!requestTool) {
-  //   throw new Error('request not initialized. use setupRequest(options) instead.');
-  // }
+  if (!requestTool) {
+    throw new Error('request not initialized. use setupRequest(options) instead.');
+  }
 
   return {
     requestTool,
-    get: requestTool?.get,
-    post: requestTool?.post,
-    put: requestTool?.put,
-    delete: requestTool?.delete,
-    head: requestTool?.head,
-    options: requestTool?.options,
-    patch: requestTool?.patch,
-    postForm: requestTool?.postForm,
-    putForm: requestTool?.putForm,
-    patchForm: requestTool?.patchForm,
+    get: requestTool.get,
+    post: requestTool.post,
+    put: requestTool.put,
+    delete: requestTool.delete,
+    head: requestTool.head,
+    options: requestTool.options,
+    patch: requestTool.patch,
+    postForm: requestTool.postForm,
+    putForm: requestTool.putForm,
+    patchForm: requestTool.patchForm,
   };
-}
-
-abstract class AbstractRequest {
-  static request: YouyoRequest;
-
-  static {
-    const { requestTool } = useRequest();
-    this.request = requestTool;
-  }
 }
 
 export { setupRequest, useRequest, YouyoRequest };

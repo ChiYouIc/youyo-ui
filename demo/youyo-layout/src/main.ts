@@ -26,6 +26,12 @@ setupForm({
   componentFactories: [{ name: 'IdCard', creator: (c: ComponentConstructorOptionType) => new IdCard(c) }],
 });
 
+import { setupForm } from 'youyo-form/src';
+
+setupForm({
+  componentList: [{ name: '输入框', component: 'Input', description: '输入框' }],
+});
+
 setupRequest({ baseUrl: '/' });
 const pinia = createPinia();
 const app = createApp(App);
