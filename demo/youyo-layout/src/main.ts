@@ -12,8 +12,8 @@ import Antd from 'ant-design-vue';
 // import 'ant-design-vue/dist/reset.css';
 import router from './router';
 import { setupRequest } from 'youyo-tools/src';
-import 'youyo-ui/es/style.css';
-import youyo from 'youyo-ui';
+// import 'youyo-ui/es/style.css';
+// import youyo from 'youyo-ui';
 import { setupForm } from 'youyo-form';
 import { ComponentConstructorOptionType } from 'youyo-form/src';
 import IdCard from './src/components/id-card/IdCard.ts';
@@ -35,4 +35,4 @@ setupForm({
 setupRequest({ baseUrl: '/' });
 const pinia = createPinia();
 const app = createApp(App);
-app.use(router).use(pinia).use(Antd).use(youyo).mount('#app');
+app.use(router).use(pinia).use(Antd).mount('#app');

@@ -15,9 +15,7 @@
     "es",
     "lib"
   ],
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "devDependencies": {
     "youyo-form": "workspace:^1.0.0",
     "@youyo-ui/utils": "workspace:^1.0.0",

@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue';
 import { NodeType } from '../types';
 
-export default function useNodeSetting(node: NodeType) {
+export default function useNodeSetting(_node: NodeType) {
   const visible = ref<boolean>(false);
 
   return reactive({

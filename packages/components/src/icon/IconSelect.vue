@@ -3,7 +3,7 @@
     <a-tabs v-model:activeKey="activeKey" centered>
       <a-tab-pane key="antd" tab="Ant Design">
         <div class="icon-select-content">
-          <div class="icon-item" v-for="icon in antdIconList">
+          <div class="icon-item" v-for="(icon, index) in antdIconList" :key="index">
             <div>
               <y-icon :icon="icon" size="60px" />
             </div>

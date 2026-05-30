@@ -16,13 +16,7 @@
               </ul>
             </div>
             <div>
-              <a-pagination
-                size="small"
-                v-model:current="page"
-                v-model:pageSize="pageSize"
-                :total="antdTotal"
-                @change="handlePageChange"
-              />
+              <a-pagination size="small" v-model:current="page" v-model:pageSize="pageSize" :total="antdTotal" @change="handlePageChange" />
             </div>
           </template>
         </a-popover>

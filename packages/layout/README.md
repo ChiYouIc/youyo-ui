@@ -50,5 +50,4 @@ const menuList = ref<BaseFrameMenuType[]>([
 </script>
 
 <style></style>
-
 ```

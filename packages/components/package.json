@@ -20,8 +20,7 @@
     "build:test": "esno ./build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@youyo-ui/utils": "workspace:^1.0.0",
     "@youyo-ui/plugins": "workspace:^1.0.0",

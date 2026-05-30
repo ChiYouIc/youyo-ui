@@ -12,9 +12,7 @@ export default defineComponent({
   setup(props, { slots }) {
     // ture 折叠， false 展开
     const unfold = ref<boolean>(true);
-    const placeList = Array.from({ length: props.columns - (slots.default().length % props.columns) - 1 }).map(() =>
-      h('div'),
-    );
+    const placeList = Array.from({ length: props.columns - (slots.default().length % props.columns) - 1 }).map(() => h('div'));
 
     // 注入
     provide('labelWidth', props.labelWidth);
@@ -36,14 +34,8 @@ export default defineComponent({
         }
         return [
           !unfold.value
-            ? h(YIcon, { icon: 'antd-up', size: '12px', class: 'fold', onClick: () => (unfold.value = true) }, () => [
-                '折叠',
-              ])
-            : h(
-                YIcon,
-                { icon: 'antd-down', size: '12px', class: 'fold', onClick: () => (unfold.value = false) },
-                () => ['展开'],
-              ),
+            ? h(YIcon, { icon: 'antd-up', size: '12px', class: 'fold', onClick: () => (unfold.value = true) }, () => ['折叠'])
+            : h(YIcon, { icon: 'antd-down', size: '12px', class: 'fold', onClick: () => (unfold.value = false) }, () => ['展开']),
         ];
       }
     }
@@ -60,13 +52,7 @@ export default defineComponent({
       return [...slots.default(), ...placeList];
     }
 
-    return () =>
-      h('div', { class: 'y-search-bar' }, [
-        h('div', { class: 'y-search-bar-content', style: style() }, [
-          !unfold.value ? foldItemList() : unfoldItemList(),
-          bt(),
-        ]),
-      ]);
+    return () => h('div', { class: 'y-search-bar' }, [h('div', { class: 'y-search-bar-content', style: style() }, [!unfold.value ? foldItemList() : unfoldItemList(), bt()])]);
   },
 });
 </script>

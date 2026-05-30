@@ -1,10 +1,13 @@
-import type { App, Plugin } from 'vue';
+import type { App, Component, Plugin } from 'vue';
 
-type SFCWithInstall<T> = T & Plugin;
-const withInstall = <T>(comp: T, name?: string) => {
+type NamedComponent = Component & { name?: string };
+type SFCWithInstall<T extends Component> = T & Plugin;
+
+const withInstall = <T extends NamedComponent>(comp: T, name?: string) => {
   (comp as SFCWithInstall<T>).install = (app: App) => {
     //注册组件
-    app.component(name || (comp as any).name, comp);
+    const componentName = name || comp.name || 'AnonymousComponent';
+    app.component(componentName, comp);
   };
   return comp as SFCWithInstall<T>;
 };

@@ -14,7 +14,7 @@
     white-space: nowrap;
 
     label::after {
-      content: ":";
+      content: ':';
       position: relative;
       margin-block: 0;
       margin-inline-start: 2px;
@@ -26,11 +26,12 @@
       margin-inline-end: 4px;
       color: #ff4d4f;
       font-size: 14px;
-      content: "*";
+      content: '*';
     }
   }
 
-  [item-label-type=Fence], [item-label-type=Table] {
+  [item-label-type='Fence'],
+  [item-label-type='Table'] {
     display: none;
   }
 
@@ -50,7 +51,6 @@
     div.fence-item:last-child > ul#fence {
       border-bottom: none;
     }
-
   }
 
   .draggable-item-action {
@@ -71,5 +71,4 @@
       column-gap: 5px;
     }
   }
-
 }

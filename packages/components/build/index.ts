@@ -1,5 +1,5 @@
-import buildLess from "@youyo-ui/builds/buildLess";
+import buildLess from '@youyo-ui/builds/buildLess';
 
 (() => {
-  buildLess("components");
+  buildLess('components');
 })();

@@ -3,9 +3,7 @@ import { ref } from 'vue';
 
 export default function () {
   const antdPrefix = antdIcons.css_prefix_text;
-  const antdIconList = ref<Array<string>>(
-    antdIcons.glyphs.map((icon: { font_class: string }) => `${antdPrefix}${icon.font_class}`),
-  );
+  const antdIconList = ref<Array<string>>(antdIcons.glyphs.map((icon: { font_class: string }) => `${antdPrefix}${icon.font_class}`));
   const antdTotal = antdIconList.value.length;
 
   /**

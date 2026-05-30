@@ -102,7 +102,7 @@ class Fence extends AbstractComponent {
     return json;
   }
 
-  protected setVal(val: any): void {}
+  protected setVal(_val: any): void {}
 }
 
 export default Fence;
