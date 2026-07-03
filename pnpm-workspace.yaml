@@ -3,7 +3,7 @@ packages:
   - 'demo/youyo-form-design'
   - 'demo/youyo-layout'
   - 'demo/qiankun-app'
-  - 'demo/youyo-ai-chat'
+  - 'demo/youyo-any-flow'
   - 'packages/components'
   - 'packages/layout'
   - 'packages/utils'
