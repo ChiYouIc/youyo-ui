@@ -12,13 +12,13 @@
     justify-content: flex-end;
     align-items: center;
     flex: 0 0 auto;
-    color: #334155;
+    color: var(--youyo-color-text);
     font-weight: 500;
 
     .mark-required::before {
       display: inline;
       margin-inline-end: 4px;
-      color: #ff4d4f;
+      color: var(--youyo-color-error);
       font-size: 14px;
       content: '*';
     }
@@ -49,7 +49,7 @@
     .required-msg {
       position: absolute;
       display: block;
-      color: #ff4d4f;
+      color: var(--youyo-color-error);
       font-size: 14px;
     }
   }

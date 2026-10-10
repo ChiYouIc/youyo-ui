@@ -7,9 +7,9 @@
   align-content: center;
   align-items: center;
   position: relative;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--youyo-color-border-secondary);
   border-radius: 8px;
-  background: #fff;
+  background: var(--youyo-color-bg-container);
   box-sizing: border-box;
   cursor: pointer;
   transition:
@@ -19,7 +19,7 @@
 
   .draggable-item-label {
     white-space: nowrap;
-    color: #334155;
+    color: var(--youyo-color-text);
     font-weight: 500;
 
     label::after {
@@ -33,7 +33,7 @@
     .marker-required::before {
       display: inline;
       margin-inline-end: 4px;
-      color: #ff4d4f;
+      color: var(--youyo-color-error);
       font-size: 14px;
       content: '*';
     }
@@ -63,17 +63,17 @@
     align-items: center;
     gap: 4px;
     padding: 4px 6px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--youyo-color-border-secondary);
     border-radius: 6px;
-    background: #fff;
-    box-shadow: 0 2px 6px rgb(15 23 42 / 8%);
+    background: var(--youyo-color-bg-elevated);
+    box-shadow: var(--youyo-box-shadow-secondary);
     cursor: pointer;
   }
 
   &:hover {
-    border-color: #93c5fd;
-    background: #f8fbff;
-    box-shadow: 0 2px 8px rgb(37 99 235 / 8%);
+    border-color: var(--youyo-color-primary-border);
+    background: var(--youyo-color-primary-bg);
+    box-shadow: var(--youyo-box-shadow-secondary);
 
     & > .draggable-item-action {
       display: flex;

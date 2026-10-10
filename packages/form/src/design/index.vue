@@ -1,5 +1,5 @@
 <template>
-  <div class="youyo-form-design">
+  <div class="youyo-form-design" :style="themeStyles">
     <div class="youyo-form-design__content">
       <form-select :form="form" />
       <form-design :form="form" @preview="onPreview" />
@@ -20,6 +20,8 @@
 <script setup lang="ts">
 import './style/index.less';
 import { computed, defineProps, onUnmounted, ref } from 'vue';
+import type { CSSProperties } from 'vue';
+import { theme } from 'ant-design-vue';
 import FormSelect from './select.vue';
 import FormDesign from './design.vue';
 import FormConfig from './config.vue';
@@ -28,6 +30,27 @@ import YouyoFormPreview from '../preview/index';
 import { useMitt } from '../hooks';
 
 const props = defineProps<{ form: FormModel }>();
+
+const { token } = theme.useToken();
+const themeStyles = computed<CSSProperties>(() => ({
+  '--youyo-color-bg-layout': token.value.colorBgLayout,
+  '--youyo-color-bg-container': token.value.colorBgContainer,
+  '--youyo-color-bg-elevated': token.value.colorBgElevated,
+  '--youyo-color-border': token.value.colorBorder,
+  '--youyo-color-border-secondary': token.value.colorBorderSecondary,
+  '--youyo-color-text': token.value.colorText,
+  '--youyo-color-text-heading': token.value.colorTextHeading,
+  '--youyo-color-text-secondary': token.value.colorTextSecondary,
+  '--youyo-color-text-tertiary': token.value.colorTextTertiary,
+  '--youyo-color-primary': token.value.colorPrimary,
+  '--youyo-color-primary-bg': token.value.colorPrimaryBg,
+  '--youyo-color-primary-bg-hover': token.value.colorPrimaryBgHover,
+  '--youyo-color-primary-border': token.value.colorPrimaryBorder,
+  '--youyo-color-error': token.value.colorError,
+  '--youyo-color-fill-tertiary': token.value.colorFillTertiary,
+  '--youyo-box-shadow-secondary': token.value.boxShadowSecondary,
+  '--youyo-box-shadow-tertiary': token.value.boxShadowTertiary,
+}));
 
 const open = ref<boolean>(false);
 const componentType = ref<'Component' | 'Form'>('Component');

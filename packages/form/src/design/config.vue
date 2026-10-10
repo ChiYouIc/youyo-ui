@@ -1,5 +1,9 @@
 <template>
   <div class="form-config">
+    <div class="form-panel-heading">
+      <div class="form-panel-heading__title">属性配置</div>
+      <div class="form-panel-heading__description">{{ item ? `正在编辑：${item.label || item.component}` : '选择画布中的组件查看和编辑属性' }}</div>
+    </div>
     <a-tabs v-model:active-key="activeKey">
       <a-tab-pane key="Form" tab="表单配置">
         <f-config :form="form" />

@@ -1,47 +1,92 @@
 .form-design {
-  flex: 3;
-  height: 100%;
-  min-width: 600px;
-  box-shadow:
-    6px 0 10px -5px #8888,
-    -6px 0 10px -5px #8888;
-  padding: 5px;
-  overflow-y: auto;
-
   .form-design-draggable {
     list-style: none;
-    padding: 0;
+    box-sizing: border-box;
+    min-height: calc(100% - 64px);
     margin: 0;
-    min-height: 120px;
-    outline: 1px dashed;
-    height: 100%;
-    overflow: overlay;
+    padding: 14px;
+    border: 1px dashed var(--youyo-color-border);
+    border-radius: 10px;
+    background: var(--youyo-color-bg-layout);
+    overflow: auto;
+    transition:
+      border-color 0.15s ease,
+      background-color 0.15s ease;
+
+    &:hover {
+      border-color: var(--youyo-color-primary-border);
+    }
 
     & > li {
-      margin: 0 5px 10px;
+      margin: 0 0 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 
   .empty-draggable::after {
-    content: '请将组件拖拽到此处';
+    content: '拖拽组件到这里，开始构建表单';
     display: flex;
     justify-content: center;
-    vertical-align: middle;
-    line-height: 70px;
-    color: #86909c;
+    align-items: center;
+    min-height: 140px;
+    color: var(--youyo-color-text-tertiary);
+    font-size: 13px;
   }
 
   .draggable-header {
     display: flex;
     align-items: center;
-    justify-content: center;
-    column-gap: 5px;
-    padding: 5px;
-    cursor: pointer;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 0 12px;
+    cursor: default;
+
+    &__form {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    &__eyebrow {
+      color: var(--youyo-color-text-tertiary);
+      font-size: 11px;
+      line-height: 16px;
+    }
 
     & > .title {
-      font-size: 24px;
-      text-align: center;
+      overflow: hidden;
+      color: var(--youyo-color-text-heading);
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 24px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__actions {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 6px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .draggable-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .draggable-header__actions {
+      width: 100%;
+
+      .ant-btn {
+        flex: 1;
+      }
     }
   }
 }

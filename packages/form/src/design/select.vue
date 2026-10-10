@@ -1,5 +1,9 @@
 <template>
   <div class="form-select">
+    <div class="form-panel-heading">
+      <div class="form-panel-heading__title">组件库</div>
+      <div class="form-panel-heading__description">拖拽组件到画布开始设计</div>
+    </div>
     <a-tabs v-model:active-key="activeKey">
       <a-tab-pane key="component" tab="组件">
         <draggable-component data-role="design" v-model:list="globalConfig.componentList" tag="ul" :group="{ name: 'design', pull: 'clone', put: false }" item-key="component" :move="onMove" :clone="onClone">

@@ -1,48 +1,101 @@
 .youyo-form-design {
   width: 100%;
   height: 100%;
+  min-height: 0;
+  color: var(--youyo-color-text);
+  background: var(--youyo-color-bg-layout);
 
   .youyo-form-design__content {
+    box-sizing: border-box;
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    overflow: auto;
+    min-height: 0;
+    grid-template-columns: minmax(230px, 0.78fr) minmax(420px, 1.8fr) minmax(280px, 0.92fr);
+    gap: 14px;
+    padding: 14px;
+    overflow: hidden;
+
+    & > .form-select,
+    & > .form-design,
+    & > .form-config {
+      box-sizing: border-box;
+      min-width: 0;
+      min-height: 0;
+      height: 100%;
+      margin: 0;
+      padding: 14px;
+      overflow: auto;
+      border: 1px solid var(--youyo-color-border-secondary);
+      border-radius: 12px;
+      background: var(--youyo-color-bg-container);
+      box-shadow: var(--youyo-box-shadow-tertiary);
+    }
   }
 
-  /* 滚动条整体部分，可以设置宽度 */
+  .form-panel-heading {
+    margin-bottom: 10px;
+
+    &__title {
+      color: var(--youyo-color-text-heading);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 22px;
+    }
+
+    &__description {
+      margin-top: 3px;
+      color: var(--youyo-color-text-tertiary);
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+
   ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
   }
 
-  /* 滚动条两端的按钮 */
-  ::-webkit-scrollbar-button {
-  }
-
-  /* 滚动的滑块 */
   ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    box-shadow: inset 0 0 5px rgb(0 0 0 / 20%);
-    background: rgb(83 97 111);
+    border-radius: 999px;
+    background: var(--youyo-color-border);
   }
 
-  /* 外层轨道 */
   ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px rgb(0 0 0 / 20%);
-    border-radius: 0;
-    background: rgb(0 0 0 / 10%);
+    background: transparent;
   }
 
-  /* 内层滚动槽 */
-  ::-webkit-scrollbar-track-piece {
+  @media (max-width: 1100px) {
+    .youyo-form-design__content {
+      grid-template-columns: minmax(210px, 0.72fr) minmax(360px, 1.5fr) minmax(260px, 0.88fr);
+      gap: 10px;
+      padding: 10px;
+
+      & > .form-select,
+      & > .form-design,
+      & > .form-config {
+        padding: 10px;
+      }
+    }
   }
 
-  /* 边角 */
-  ::-webkit-scrollbar-corner {
-  }
+  @media (max-width: 860px) {
+    height: auto;
+    min-height: 100%;
 
-  /* 定义右下角拖动块的样式 */
-  ::-webkit-resizer {
+    .youyo-form-design__content {
+      height: auto;
+      min-height: 100%;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto minmax(440px, 60vh) auto;
+      overflow: visible;
+
+      & > .form-select,
+      & > .form-design,
+      & > .form-config {
+        min-height: 0;
+        height: auto;
+      }
+    }
   }
 }
 

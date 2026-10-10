@@ -4,9 +4,9 @@
   gap: 10px;
   align-items: stretch;
   padding: 10px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--youyo-color-border-secondary);
   border-radius: 10px;
-  background: #f8fafc;
+  background: var(--youyo-color-bg-layout);
   box-sizing: border-box;
 }
 
@@ -15,9 +15,9 @@
   min-width: 0;
   min-height: 88px;
   padding: 23px 8px 8px;
-  border: 1px dashed #cbd5e1;
+  border: 1px dashed var(--youyo-color-border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--youyo-color-bg-container);
   box-sizing: border-box;
   transition:
     border-color 0.15s ease,
@@ -25,14 +25,14 @@
     box-shadow 0.15s ease;
 
   &:hover {
-    border-color: #94a3b8;
+    border-color: var(--youyo-color-primary-border);
   }
 
   &__position {
     position: absolute;
     top: 6px;
     left: 8px;
-    color: #94a3b8;
+    color: var(--youyo-color-text-tertiary);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -54,28 +54,28 @@
     inset: 23px 8px 8px;
     display: grid;
     place-items: center;
-    color: #94a3b8;
+    color: var(--youyo-color-text-tertiary);
     font-size: 12px;
     pointer-events: none;
   }
 
   &:has(.sortable-ghost) {
-    border-color: #3b82f6;
-    background: #eff6ff;
-    box-shadow: inset 0 0 0 1px #3b82f6;
+    border-color: var(--youyo-color-primary);
+    background: var(--youyo-color-primary-bg);
+    box-shadow: inset 0 0 0 1px var(--youyo-color-primary);
   }
 }
 
 .fence-cell .draggable-item {
   min-height: 52px;
   padding: 4px;
-  border: 1px solid #dbeafe;
+  border: 1px solid var(--youyo-color-primary-border);
   border-radius: 6px;
-  background: #f8fbff;
+  background: var(--youyo-color-primary-bg);
   cursor: grab;
 
   &:hover {
     border-style: solid;
-    border-color: #93c5fd;
+    border-color: var(--youyo-color-primary);
   }
 }

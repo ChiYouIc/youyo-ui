@@ -1,19 +1,17 @@
 <template>
   <div class="form-design">
-    <draggable-component
-      :class="['form-design-draggable', form.components.length === 0 ? 'empty-draggable' : '']"
-      :list="form.components"
-      :move="onMove"
-      tag="ul"
-      group="design"
-      item-key="id"
-    >
+    <draggable-component :class="['form-design-draggable', form.components.length === 0 ? 'empty-draggable' : '']" :list="form.components" :move="onMove" tag="ul" group="design" item-key="id">
       <template #header>
         <div class="draggable-header">
-          <span class="title">{{ form.name }}</span>
-          <a-button type="primary" @click="onFormClean">清空</a-button>
-          <a-button type="primary" @click="$emit('preview')">预览</a-button>
-          <a-button type="primary" @click="onConfig">配置</a-button>
+          <div class="draggable-header__form">
+            <span class="draggable-header__eyebrow">表单画布</span>
+            <span class="title">{{ form.name }}</span>
+          </div>
+          <div class="draggable-header__actions">
+            <a-button @click="onFormClean">清空</a-button>
+            <a-button @click="onConfig">表单配置</a-button>
+            <a-button type="primary" @click="$emit('preview')">预览</a-button>
+          </div>
         </div>
       </template>
       <template #item="{ element }">

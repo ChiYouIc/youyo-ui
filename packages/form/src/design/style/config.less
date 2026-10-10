@@ -1,6 +1,39 @@
 .form-config {
-  flex: 1;
-  min-width: 300px;
-  padding: 5px;
-  overflow-y: auto;
+  .ant-tabs {
+    min-height: 0;
+  }
+
+  .ant-tabs-nav {
+    margin-bottom: 14px;
+  }
+
+  .ant-tabs-tab {
+    padding: 8px 4px;
+    color: var(--youyo-color-text-secondary);
+    font-size: 13px;
+  }
+
+  .ant-tabs-tab-active .ant-tabs-tab-btn {
+    font-weight: 600;
+  }
+
+  .ant-form-item {
+    margin-bottom: 14px;
+  }
+
+  .ant-form-item-label > label {
+    color: var(--youyo-color-text-secondary);
+    font-size: 12px;
+  }
+
+  .ant-input,
+  .ant-input-number,
+  .ant-select,
+  .ant-picker {
+    width: 100%;
+  }
+
+  .ant-empty {
+    margin: 36px 0;
+  }
 }
