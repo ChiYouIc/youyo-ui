@@ -1,5 +1,5 @@
 <template>
-  <a-slider v-model:value="sliderVal" :disabled="disabled"></a-slider>
+  <a-slider v-model:value="sliderVal" :disabled="disabled" :min="min" :max="max" :step="step" :range="range"></a-slider>
 </template>
 
 <script setup lang="ts">
@@ -13,6 +13,10 @@ interface SliderProps {
   id: string;
   value: [number, number] | number;
   disabled: boolean;
+  min: number;
+  max: number;
+  step: number;
+  range: boolean;
 }
 
 const props = defineProps<SliderProps>();

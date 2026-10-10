@@ -7,7 +7,7 @@
       <a-input v-model:value="configForm.name" />
     </a-form-item>
     <a-form-item label="默认值" name="defaultValue">
-      <a-select v-model:value="configForm.defaultValue" placeholder="请选择默认值" :options="form.options" />
+      <a-select v-model:value="configForm.defaultValue" placeholder="请选择默认值" :options="configForm.options" />
     </a-form-item>
     <a-form-item label="必填" name="required">
       <a-switch v-model:checked="configForm.required" />
@@ -21,13 +21,31 @@
         <a-select-option value="button">Button</a-select-option>
       </a-select>
     </a-form-item>
+    <a-form-item label="排列方向" name="direction">
+      <a-select v-model:value="configForm.direction">
+        <a-select-option value="horizontal">横向</a-select-option>
+        <a-select-option value="vertical">纵向</a-select-option>
+      </a-select>
+    </a-form-item>
+    <a-form-item v-if="configForm.optionType === 'button'" label="按钮尺寸" name="buttonSize">
+      <a-select v-model:value="configForm.buttonSize">
+        <a-select-option value="large">大</a-select-option>
+        <a-select-option value="middle">中</a-select-option>
+        <a-select-option value="small">小</a-select-option>
+      </a-select>
+    </a-form-item>
     <a-form-item label="候选项" name="options">
       <a-form :model="configForm.options">
         <template v-for="(option, index) in configForm.options" :key="index">
           <a-row :gutter="5">
-            <a-col :span="11">
+            <a-col :span="9">
               <a-form-item style="margin-bottom: 5px">
                 <a-input v-model:value="option.label" placeholder="请输入label" />
+              </a-form-item>
+            </a-col>
+            <a-col :span="4">
+              <a-form-item style="margin-bottom: 5px">
+                <a-switch v-model:checked="option.disabled" size="small" />
               </a-form-item>
             </a-col>
             <a-col :span="11">
@@ -58,11 +76,13 @@ import { computed, defineEmits, defineProps } from 'vue';
 interface Form {
   label: string;
   name: string;
-  defaultValue: string;
+  defaultValue: string | number;
   required: boolean;
   disabled: boolean;
   optionType: 'button' | 'default';
   options: Array<{ label: string; value: string; disabled?: boolean }>;
+  direction: 'horizontal' | 'vertical';
+  buttonSize: 'large' | 'middle' | 'small';
 }
 
 const props = defineProps<{ form: Form }>();

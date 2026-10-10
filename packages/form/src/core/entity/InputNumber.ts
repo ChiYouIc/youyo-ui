@@ -8,6 +8,8 @@ class InputNumber extends AbstractComponent {
   private _min: number = -1000;
   private _max: number = 1000;
   private _placeholder: string = '请输入数值';
+  private _step: number = 1;
+  private _precision: number | undefined;
 
   constructor(option: ComponentConstructorOptionType) {
     super(option);
@@ -37,11 +39,29 @@ class InputNumber extends AbstractComponent {
     this._placeholder = value;
   }
 
-  init({ value, max, min, placeholder }: Record<string, any>): void {
-    this._value = value;
-    this._placeholder = placeholder;
-    this._max = max;
-    this._min = min;
+  get step(): number {
+    return this._step;
+  }
+
+  set step(value: number) {
+    this._step = value;
+  }
+
+  get precision(): number | undefined {
+    return this._precision;
+  }
+
+  set precision(value: number | undefined) {
+    this._precision = value;
+  }
+
+  init({ value, max, min, placeholder, step, precision }: Record<string, any>): void {
+    this._value = value ?? this.defaultValue ?? 0;
+    this._placeholder = placeholder ?? '请输入数值';
+    this._max = max ?? 1000;
+    this._min = min ?? -1000;
+    this._step = step ?? 1;
+    this._precision = precision;
   }
 
   node(): VNode {
@@ -53,6 +73,8 @@ class InputNumber extends AbstractComponent {
       disabled: this.disabled,
       min: this._min,
       max: this._max,
+      step: this._step,
+      precision: this._precision,
     });
   }
 
@@ -61,6 +83,8 @@ class InputNumber extends AbstractComponent {
     json['placeholder'] = this._placeholder;
     json['min'] = this._min;
     json['max'] = this._max;
+    json['step'] = this._step;
+    json['precision'] = this._precision;
     json['value'] = this._value;
     return json;
   }

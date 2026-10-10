@@ -1,5 +1,13 @@
 <template>
-  <a-radio-group :id="id" v-model:value="radioVal" :disabled="disabled" :option-type="optionType" :options="options" />
+  <a-radio-group
+    :id="id"
+    v-model:value="radioVal"
+    :disabled="disabled"
+    :option-type="optionType"
+    :options="options"
+    :size="buttonSize"
+    :class="{ 'is-vertical': direction === 'vertical' }"
+  />
 </template>
 
 <script setup lang="ts">
@@ -15,6 +23,8 @@ interface RadioProps {
   disabled: boolean;
   optionType: 'button' | 'default';
   options: Array<{ label: string; value: string; disabled?: boolean }>;
+  direction: 'horizontal' | 'vertical';
+  buttonSize: 'large' | 'middle' | 'small';
 }
 
 const props = defineProps<RadioProps>();
@@ -26,4 +36,10 @@ const radioVal = computed({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.is-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+</style>

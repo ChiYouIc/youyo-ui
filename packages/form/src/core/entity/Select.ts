@@ -22,20 +22,38 @@ class Select extends AbstractComponent {
     this._placeholder = value;
   }
 
-  private _options: Array<{ label: string; value: string }> = [];
+  private _options: Array<{ label: string; value: string | number; disabled?: boolean }> = [];
 
-  get options(): Array<{ label: string; value: string }> {
+  private _mode?: 'multiple' | 'tags';
+  private _showSearch = false;
+  private _allowClear = true;
+  private _maxCount?: number;
+
+  get options(): Array<{ label: string; value: string | number; disabled?: boolean }> {
     return this._options;
   }
 
-  set options(value: Array<{ label: string; value: string }>) {
+  set options(value: Array<{ label: string; value: string | number; disabled?: boolean }>) {
     this._options = value;
   }
 
-  init({ value, placeholder, options }: Record<string, any>): void {
-    this._value = value;
-    this._placeholder = placeholder;
-    this._options = options;
+  init({ value, placeholder, options, mode, showSearch, allowClear, maxCount }: Record<string, any>): void {
+    this._mode = mode;
+    const initialValue = value ?? this.defaultValue;
+    this._value = this._mode
+      ? Array.isArray(initialValue)
+        ? initialValue
+        : initialValue === undefined || initialValue === null
+          ? []
+          : [initialValue]
+      : Array.isArray(initialValue)
+        ? initialValue[0]
+        : initialValue;
+    this._placeholder = placeholder ?? '';
+    this._options = options ?? [];
+    this._showSearch = showSearch ?? false;
+    this._allowClear = allowClear ?? true;
+    this._maxCount = maxCount;
   }
 
   node(): VNode {
@@ -46,6 +64,10 @@ class Select extends AbstractComponent {
       placeholder: this._placeholder,
       disabled: this.disabled,
       options: this._options,
+      mode: this._mode,
+      showSearch: this._showSearch,
+      allowClear: this._allowClear,
+      maxCount: this._maxCount,
       style: { minWidth: '200px' },
     });
   }
@@ -55,6 +77,10 @@ class Select extends AbstractComponent {
     json['placeholder'] = this._placeholder;
     json['options'] = this._options;
     json['value'] = this._value;
+    json['mode'] = this._mode;
+    json['showSearch'] = this._showSearch;
+    json['allowClear'] = this._allowClear;
+    json['maxCount'] = this._maxCount;
     return json;
   }
 

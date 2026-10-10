@@ -11,6 +11,8 @@ class Radio extends AbstractComponent {
   }
 
   private _optionType: 'button' | 'default' = 'default';
+  private _direction: 'horizontal' | 'vertical' = 'horizontal';
+  private _buttonSize: 'large' | 'middle' | 'small' = 'middle';
 
   get optionType(): 'button' | 'default' {
     return this._optionType;
@@ -30,10 +32,12 @@ class Radio extends AbstractComponent {
     this._options = value;
   }
 
-  init({ value, optionType, options }: Record<string, any>): void {
-    this._value = value;
-    this._optionType = optionType;
-    this._options = options;
+  init({ value, optionType, options, direction, buttonSize }: Record<string, any>): void {
+    this._value = value ?? this.defaultValue;
+    this._optionType = optionType ?? 'default';
+    this._options = options ?? [];
+    this._direction = direction === 'vertical' ? 'vertical' : 'horizontal';
+    this._buttonSize = buttonSize ?? 'middle';
   }
 
   node(): VNode {
@@ -44,6 +48,8 @@ class Radio extends AbstractComponent {
       disabled: this.disabled,
       optionType: this._optionType,
       options: this._options,
+      direction: this._direction,
+      buttonSize: this._buttonSize,
     });
   }
 
@@ -52,6 +58,8 @@ class Radio extends AbstractComponent {
     toJson['optionType'] = this._optionType;
     toJson['options'] = this._options;
     toJson['value'] = this._value;
+    toJson['direction'] = this._direction;
+    toJson['buttonSize'] = this._buttonSize;
     return toJson;
   }
 

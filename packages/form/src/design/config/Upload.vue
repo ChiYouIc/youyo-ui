@@ -15,6 +15,16 @@
     <a-form-item label="按钮文案" name="placeholder">
       <a-input v-model:value="configForm.placeholder" />
     </a-form-item>
+    <a-form-item label="文件类型" name="accept">
+      <a-input v-model:value="configForm.accept" placeholder=".png,.jpg,application/pdf" />
+    </a-form-item>
+    <a-form-item label="多文件" name="multiple"><a-switch v-model:checked="configForm.multiple" /></a-form-item>
+    <a-form-item label="最多文件数" name="maxCount">
+      <a-input-number v-model:value="configForm.maxCount" :min="1" :disabled="!configForm.multiple" />
+    </a-form-item>
+    <a-form-item label="单文件大小限制 (MB)" name="maxSize">
+      <a-input-number v-model:value="configForm.maxSize" :min="0.1" :step="0.1" />
+    </a-form-item>
   </a-form>
 </template>
 <script setup lang="ts" name="UploadConfig">
@@ -26,6 +36,10 @@ type Form = {
   required: boolean;
   disabled: boolean;
   placeholder: string;
+  accept: string;
+  multiple: boolean;
+  maxCount?: number;
+  maxSize?: number;
 };
 
 const props = defineProps<{ form: Form }>();

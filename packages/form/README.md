@@ -16,13 +16,17 @@
 
 ### 组件库
 
-- Input 输出框
+- Input 输入框
+- Textarea 多行输入框
 - Select 选择框
-- InputNumber 数字输出框
+- Cascader 级联选择
+- InputNumber 数字输入框
+- Slider 滑块
 - Radio 单选框
+- Checkbox 复选框
 - Rate 评分
-- Switch 开光
-- TimerPicker 时间选择框
+- Switch 开关
+- TimePicker 时间选择框
 - DatePicker 日期选择框
 - Upload 上传
 - Table 表格
@@ -34,13 +38,17 @@
 
 ### 组件和套件的配置
 
-- Input 输出框
+- Input 输入框
+- Textarea 多行输入框
 - Select 选择框
-- InputNumber 数字输出框
+- Cascader 级联选择
+- InputNumber 数字输入框
+- Slider 滑块
 - Radio 单选框
+- Checkbox 复选框
 - Rate 评分
-- Switch 开光
-- TimerPicker 时间选择框
+- Switch 开关
+- TimePicker 时间选择框
 - DatePicker 日期选择框
 - Upload 上传
 - Table 表格
@@ -52,9 +60,9 @@
 
 - `new Form(id, name, version, description, components?, labelWidth = '120px', width = '100%', height = '100%', verticalSpacing = 16, horizontalSpacing = 16, labelLayout = 'horizontal')`：创建表单；间距参数用于统一设置预览中组件的上下、左右间距，单位为 px；`labelLayout` 控制标签与组件左右或上下排列
 - `Form.fromJson(json)`：从 `toJson()` 输出的 json 还原表单
-- `form.toJson()`：输出表单配置 json，包含 `labelWidth` / `width` / `height` / `components`
+- `form.toJson()`：输出表单配置 json，包含 `labelWidth` / `width` / `height` / `verticalSpacing` / `horizontalSpacing` / `labelLayout` / `components`
 - `form.formValue()`：输出表单当前值，以组件的 `name` 为 key
-- `form.validate()`：校验表单，返回 `{ valid, errors }`，`errors` 为 `{ name, message }` 列表。包含两项规则：必填校验、字段名重复（重复的 `name` 会让 `formValue()` 归并时相互覆盖）
+- `form.validate()`：校验表单，返回 `{ valid, errors }`，`errors` 为 `{ name, message }` 列表。包含必填校验、字段名重复校验，以及复选框的最少/最多选中项校验（重复的 `name` 会让 `formValue()` 归并时相互覆盖）
 - `form.remove(component)`：移除组件，栅栏内的组件同样支持
 - `form.clear()`：清空所有组件
 
@@ -73,7 +81,16 @@
 
 ### 组件校验
 
-组件的必填规则统一由 `AbstractComponent.validate()` 提供：`required` 为真且值为空（`undefined` / `null` / 空字符串 / 空数组）时返回错误信息，否则返回 `undefined`。`Form.validate()` 会下沉到栅栏内部组件，因此 `errors` 里是具体字段的 `name`。
+组件的必填规则统一由 `AbstractComponent.validate()` 提供：`required` 为真且值为空（`undefined` / `null` / 空字符串 / 空数组）时返回错误信息，否则返回 `undefined`。复选框可额外配置最少/最多选中项数；级联选择的值为从根到末级的路径数组。`Form.validate()` 会下沉到栅栏内部组件，因此 `errors` 里是具体字段的 `name`。
+
+### 组件配置
+
+- Select 支持单选、多选/标签、搜索、清空、最大选择数及禁用候选项。
+- Radio 与 Checkbox 支持横向/纵向排列、禁用候选项；Checkbox 输出选中值数组。
+- DatePicker / TimePicker 支持默认值、格式与范围选择。日期选择还支持可选日期上下界。
+- Upload 支持文件类型、多文件、数量及单文件大小限制；上传文件由表单组件管理，不会自动发送到服务端。
+- Table 支持列宽、对齐方式、分页及每页行数。
+- InputNumber / Slider 支持数值范围与步长；InputNumber 另支持小数精度，Slider 支持区间值。
 
 ### 栅栏 Fence
 

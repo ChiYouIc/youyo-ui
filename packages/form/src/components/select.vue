@@ -1,5 +1,15 @@
 <template>
-  <a-select :id="id" v-model:value="selectVal" :disabled="disabled" :placeholder="placeholder" :options="options" />
+  <a-select
+    :id="id"
+    v-model:value="selectVal"
+    :disabled="disabled"
+    :placeholder="placeholder"
+    :options="options"
+    :mode="mode"
+    :show-search="showSearch"
+    :allow-clear="allowClear"
+    :max-count="maxCount"
+  />
 </template>
 <script setup lang="ts">
 import { computed, defineEmits, defineProps } from 'vue';
@@ -13,7 +23,11 @@ interface SelectProps {
   value: any;
   disabled: boolean;
   placeholder: string;
-  options: Array<{ label: string; value: string }>;
+  options: Array<{ label: string; value: string | number; disabled?: boolean }>;
+  mode?: 'multiple' | 'tags';
+  showSearch: boolean;
+  allowClear: boolean;
+  maxCount?: number;
 }
 
 const props = defineProps<SelectProps>();

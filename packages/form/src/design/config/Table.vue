@@ -10,14 +10,28 @@
       <a-form :model="configForm.columns">
         <template v-for="(option, index) in configForm.columns" :key="index">
           <a-row :gutter="5">
-            <a-col :span="11">
+            <a-col :span="8">
               <a-form-item style="margin-bottom: 5px">
                 <a-input v-model:value="option.title" placeholder="请输入label" />
               </a-form-item>
             </a-col>
-            <a-col :span="11">
+            <a-col :span="8">
               <a-form-item style="margin-bottom: 5px">
                 <a-input v-model:value="option.prop" placeholder="请输入dataIndex" />
+              </a-form-item>
+            </a-col>
+            <a-col :span="3">
+              <a-form-item style="margin-bottom: 5px">
+                <a-input-number v-model:value="option.width" placeholder="列宽" :min="40" />
+              </a-form-item>
+            </a-col>
+            <a-col :span="3">
+              <a-form-item style="margin-bottom: 5px">
+                <a-select v-model:value="option.align" placeholder="对齐">
+                  <a-select-option value="left">左</a-select-option>
+                  <a-select-option value="center">中</a-select-option>
+                  <a-select-option value="right">右</a-select-option>
+                </a-select>
               </a-form-item>
             </a-col>
             <a-col :span="2">
@@ -30,6 +44,10 @@
       </a-form>
       <a-button type="dashed" block @click="onAddOption"><plus-outlined />新增</a-button>
     </a-form-item>
+    <a-form-item label="分页" name="pagination"><a-switch v-model:checked="configForm.pagination" /></a-form-item>
+    <a-form-item v-if="configForm.pagination" label="每页行数" name="pageSize">
+      <a-input-number v-model:value="configForm.pageSize" :min="1" />
+    </a-form-item>
   </a-form>
 </template>
 <script setup lang="ts" name="TableConfig">
@@ -41,6 +59,8 @@ type Form = {
   label: string;
   name: string;
   columns: TableColumnType[];
+  pagination: boolean;
+  pageSize: number;
 };
 
 const props = defineProps<{ form: Form }>();
@@ -61,7 +81,7 @@ function onRemoveOption(option: TableColumnType, index: number) {
 }
 
 function onAddOption() {
-  configForm.value.columns.push({ title: '', prop: '' });
+  configForm.value.columns.push({ title: '', prop: '', align: 'left' });
 }
 </script>
 

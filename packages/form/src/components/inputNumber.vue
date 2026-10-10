@@ -1,5 +1,5 @@
 <template>
-  <a-input-number :id="id" v-model:value="inputNumberVal" :disabled="disabled" :min="min" :max="max"></a-input-number>
+  <a-input-number :id="id" v-model:value="inputNumberVal" :disabled="disabled" :placeholder="placeholder" :min="min" :max="max" :step="step" :precision="precision"></a-input-number>
 </template>
 <script setup lang="ts">
 import { computed, defineEmits, defineProps } from 'vue';
@@ -15,6 +15,8 @@ interface InputNumberProps {
   disabled: boolean;
   min: number;
   max: number;
+  step: number;
+  precision?: number;
 }
 
 const props = defineProps<InputNumberProps>();

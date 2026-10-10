@@ -7,6 +7,10 @@ class Slider extends AbstractComponent {
   private _value: [number, number] | number = 0;
 
   private _placeholder: string | undefined = undefined;
+  private _min: number = 0;
+  private _max: number = 100;
+  private _step: number = 1;
+  private _range: boolean = false;
 
   constructor(option: ComponentConstructorOptionType) {
     super(option);
@@ -20,8 +24,19 @@ class Slider extends AbstractComponent {
     this._placeholder = value;
   }
 
-  init({ placeholder, value }: Record<string, any>): void {
-    this._value = value;
+  init({ placeholder, value, min, max, step, range }: Record<string, any>): void {
+    this._min = min ?? 0;
+    this._max = max ?? 100;
+    this._step = step ?? 1;
+    this._range = range ?? (Array.isArray(value) && value.length === 2);
+    const initialValue = value ?? this.defaultValue;
+    if (this._range) {
+      this._value = Array.isArray(initialValue)
+        ? [initialValue[0] ?? this._min, initialValue[1] ?? this._max]
+        : [initialValue ?? this._min, this._max];
+    } else {
+      this._value = Array.isArray(initialValue) ? (initialValue[0] ?? this._min) : (initialValue ?? this._min);
+    }
     this._placeholder = placeholder;
   }
 
@@ -31,6 +46,10 @@ class Slider extends AbstractComponent {
       value: this._value,
       'onUpdate:value': (val: [number, number] | number) => (this._value = val),
       disabled: this.disabled,
+      min: this._min,
+      max: this._max,
+      step: this._step,
+      range: this._range,
     });
   }
 
@@ -38,6 +57,10 @@ class Slider extends AbstractComponent {
     const json = super.configToJson();
     json['placeholder'] = this._placeholder;
     json['value'] = this._value;
+    json['min'] = this._min;
+    json['max'] = this._max;
+    json['step'] = this._step;
+    json['range'] = this._range;
     return json;
   }
 

@@ -12,6 +12,11 @@
     <a-form-item label="禁用" name="disabled">
       <a-switch v-model:checked="configForm.disabled" />
     </a-form-item>
+    <a-form-item label="默认值" name="defaultValue">
+      <a-time-range-picker v-if="configForm.range" v-model:value="defaultRange" :format="configForm.format" :value-format="configForm.valueFormat" />
+      <a-time-picker v-else v-model:value="defaultTime" :format="configForm.format" :value-format="configForm.valueFormat" />
+    </a-form-item>
+    <a-form-item label="时间范围" name="range"><a-switch v-model:checked="configForm.range" /></a-form-item>
     <a-form-item label="占位符" name="placeholder">
       <a-input v-model:value="configForm.placeholder" />
     </a-form-item>
@@ -40,12 +45,13 @@ import { computed, defineEmits, defineProps } from 'vue';
 type Form = {
   label: string;
   name: string;
-  defaultValue: string;
+  defaultValue: string | string[];
   required: boolean;
   placeholder: string;
   disabled: boolean;
   format: string;
   valueFormat: string;
+  range: boolean;
   hourStep: number;
   minuteStep: number;
   secondStep: number;
@@ -69,6 +75,14 @@ const format = computed({
     configForm.value.format = val;
     configForm.value.valueFormat = val;
   },
+});
+const defaultTime = computed({
+  get: () => (Array.isArray(configForm.value.defaultValue) ? undefined : configForm.value.defaultValue),
+  set: value => (configForm.value.defaultValue = value ?? ''),
+});
+const defaultRange = computed({
+  get: () => (Array.isArray(configForm.value.defaultValue) ? configForm.value.defaultValue : undefined),
+  set: value => (configForm.value.defaultValue = value ?? []),
 });
 </script>
 

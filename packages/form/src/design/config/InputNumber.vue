@@ -24,6 +24,12 @@
     <a-form-item label="最小值" name="min">
       <a-input-number v-model:value="configForm.min" />
     </a-form-item>
+    <a-form-item label="步长" name="step">
+      <a-input-number v-model:value="configForm.step" :min="0.001" :step="0.1" />
+    </a-form-item>
+    <a-form-item label="精度" name="precision">
+      <a-input-number v-model:value="configForm.precision" :min="0" :max="10" />
+    </a-form-item>
   </a-form>
 </template>
 
@@ -39,6 +45,8 @@ type Form = {
   placeholder: string;
   max: number;
   min: number;
+  step: number;
+  precision?: number;
 };
 
 const props = defineProps<{ form: Form }>();
