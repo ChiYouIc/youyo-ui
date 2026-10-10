@@ -1,7 +1,7 @@
 <template>
   <div class="y-form-fence-item" v-for="(_, ri) in row" :key="ri">
     <template v-for="(_, ci) in col" :key="ci">
-      <y-form-item v-if="comList[ri * col + ci].length > 0" :component="comList[ri * row + ci][0]"> </y-form-item>
+      <y-form-item v-if="comList[ri * col + ci] && comList[ri * col + ci].length > 0" :component="comList[ri * col + ci][0]"> </y-form-item>
       <div v-else>-</div>
     </template>
   </div>
@@ -10,11 +10,11 @@
 <script setup lang="ts">
 import './style/formFenceItem.less';
 import { computed, defineProps } from 'vue';
-import type { Fence } from '../core/entity';
+import type { FenceModel } from '../core';
 import YFormItem from './formItem.vue';
 
 interface FenceProps {
-  fence: Fence;
+  fence: FenceModel;
 }
 
 const props = defineProps<FenceProps>();

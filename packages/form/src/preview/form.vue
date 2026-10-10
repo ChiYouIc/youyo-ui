@@ -5,10 +5,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Form } from '../core';
+import type { FormModel } from '../core';
 import { provide } from 'vue';
 
-const props = defineProps<{ form: Form; model: Record<string, any> }>();
+const props = defineProps<{ form: FormModel; model: Record<string, any> }>();
 provide('form', props.form);
 </script>
 

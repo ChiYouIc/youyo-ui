@@ -21,14 +21,14 @@
 import './style/formItem.less';
 import { computed, CSSProperties, defineProps, inject, ref } from 'vue';
 import Factory from '../factory/index.vue';
-import type { AbstractComponent, Form } from '../core';
+import type { ComponentModel, FormModel } from '../core';
 
 interface FormItemProps {
-  component: AbstractComponent;
+  component: ComponentModel;
 }
 
 const props = defineProps<FormItemProps>();
-const form = inject<Form>('form');
+const form = inject<FormModel>('form');
 const mode = inject<'form' | 'text'>('mode');
 const requiredMsg = ref<string>();
 const showMode = computed(() => {
@@ -46,30 +46,11 @@ const labelStyle = computed<CSSProperties>(() => {
 const label = computed(() => props.component.label);
 const required = computed(() => props.component.required);
 
-function isNull(val: any): boolean {
-  if (val === undefined || val === null) {
-    return true;
-  }
-
-  if (typeof val === 'string') {
-    return val.length === 0;
-  }
-
-  return false;
-}
-
 /** 执行校验 */
 function doValid(): boolean {
-  if (!props.component.required) {
-    return true;
-  }
-  const val = props.component.getVal();
-  if (isNull(val)) {
-    requiredMsg.value = '请输入';
-    return false;
-  }
-
-  return false;
+  const message = props.component.validate();
+  requiredMsg.value = message;
+  return message === undefined;
 }
 
 /** 清除校验 */
@@ -78,7 +59,7 @@ function clearValid() {
 }
 
 function nullDefaultValue(val: any): string {
-  if (val === undefined || val === null) '（空）';
+  if (val === undefined || val === null) return '（空）';
   if (String(val).trim().length === 0) return '（空）';
   return val;
 }

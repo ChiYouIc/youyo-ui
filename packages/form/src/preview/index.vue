@@ -7,7 +7,7 @@
       <y-form :model="data" :form="form">
         <template v-for="item in form.components" :key="item.primaryId()">
           <!-- 栅栏 -->
-          <form-fence-item v-if="item.component === 'Fence'" :fence="item as Fence" />
+          <form-fence-item v-if="item.component === 'Fence'" :fence="item as FenceModel" />
           <!-- 表格 -->
           <y-form-item v-else :component="item" />
         </template>
@@ -21,11 +21,10 @@ import { computed, defineProps, provide } from 'vue';
 import FormFenceItem from './formFenceItem.vue';
 import YForm from './form.vue';
 import YFormItem from './formItem.vue';
-import type { Form } from '../core';
-import { Fence } from '../core/entity';
+import type { FenceModel, FormModel } from '../core';
 
 interface PreviewProps {
-  form: Form;
+  form: FormModel;
   data: Record<string, any>;
   mode: 'form' | 'text';
 }
