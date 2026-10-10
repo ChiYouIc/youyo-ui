@@ -50,7 +50,7 @@
 
 ### Form
 
-- `new Form(id, name, version, description, components?, labelWidth = '120px', width = '100%', height = '100%')`：创建表单
+- `new Form(id, name, version, description, components?, labelWidth = '120px', width = '100%', height = '100%', verticalSpacing = 16, horizontalSpacing = 16, labelLayout = 'horizontal')`：创建表单；间距参数用于统一设置预览中组件的上下、左右间距，单位为 px；`labelLayout` 控制标签与组件左右或上下排列
 - `Form.fromJson(json)`：从 `toJson()` 输出的 json 还原表单
 - `form.toJson()`：输出表单配置 json，包含 `labelWidth` / `width` / `height` / `components`
 - `form.formValue()`：输出表单当前值，以组件的 `name` 为 key
@@ -77,7 +77,7 @@
 
 ### 栅栏 Fence
 
-`configToJson()` 输出的 `list` 与行列数等长，空白单元格为 `null`，`Fence.init()` 据此按原位置还原，不会出现字段前移。
+`configToJson()` 输出的 `list` 与行列数等长，空白单元格为 `null`，`Fence.init()` 据此按原位置还原，不会出现字段前移。栅栏支持 1–3 列；缩小行列时会自动扩展行数，以保留所有已放置的组件。
 
 ### 新增组件
 

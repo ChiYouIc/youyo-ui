@@ -4,6 +4,7 @@
       <div class="title">
         <span>{{ form.name }}</span>
       </div>
+      <p v-if="form.description" class="description">{{ form.description }}</p>
       <y-form :model="data" :form="form">
         <template v-for="item in form.components" :key="item.primaryId()">
           <!-- 栅栏 -->
@@ -18,6 +19,7 @@
 <script setup lang="ts">
 import './style/index.less';
 import { computed, defineProps, provide } from 'vue';
+import type { CSSProperties } from 'vue';
 import FormFenceItem from './formFenceItem.vue';
 import YForm from './form.vue';
 import YFormItem from './formItem.vue';
@@ -32,7 +34,12 @@ interface PreviewProps {
 const props = defineProps<PreviewProps>();
 provide('mode', props.mode);
 
-const style = computed(() => ({ width: props.form.width, height: props.form.height }));
+const style = computed<CSSProperties>(() => ({
+  width: props.form.width,
+  height: props.form.height,
+  '--form-vertical-spacing': `${props.form.verticalSpacing ?? 16}px`,
+  '--form-horizontal-spacing': `${props.form.horizontalSpacing ?? 16}px`,
+}));
 </script>
 
 <style scoped></style>

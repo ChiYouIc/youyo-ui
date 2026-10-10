@@ -1,10 +1,10 @@
 <template>
   <li>
-    <div class="draggable-item" :style="{ borderColor: token.colorPrimary }">
+    <div class="draggable-item" @click="onClick(element)">
       <div class="draggable-item-label" :item-label-type="element.component">
         <label :class="{ 'marker-required': element.required }">{{ element.label }}</label>
       </div>
-      <div class="draggable-item-content">
+      <div :class="['draggable-item-content', { 'draggable-item-content--layout': element.component === 'Fence' || element.component === 'Table' }]">
         <factory :el="element" />
       </div>
       <div class="draggable-item-action">

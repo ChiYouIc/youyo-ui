@@ -1,5 +1,5 @@
 <template>
-  <a-select :id="id" style="width: 200px" v-model:value="selectVal" :disabled="disabled" :placeholder="placeholder" :options="options" />
+  <a-select :id="id" v-model:value="selectVal" :disabled="disabled" :placeholder="placeholder" :options="options" />
 </template>
 <script setup lang="ts">
 import { computed, defineEmits, defineProps } from 'vue';

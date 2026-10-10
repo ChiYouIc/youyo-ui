@@ -1,8 +1,11 @@
 .y-form-fence-item {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  gap: var(--form-vertical-spacing, 16px) var(--form-horizontal-spacing, 16px);
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  & > * {
-    flex: 1;
-  }
+.y-form-fence-cell {
+  display: block;
+  min-width: 0;
 }

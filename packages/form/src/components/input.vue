@@ -1,5 +1,5 @@
 <template>
-  <a-input :id="id" style="width: 200px" v-model:value="inputVal" :placeholder="placeholder" :allow-clear="true" :disabled="disabled" :maxlength="maxlength"></a-input>
+  <a-input :id="id" v-model:value="inputVal" :placeholder="placeholder" :allow-clear="true" :disabled="disabled" :maxlength="maxlength"></a-input>
 </template>
 <script setup lang="ts">
 import { computed, defineEmits, defineProps } from 'vue';

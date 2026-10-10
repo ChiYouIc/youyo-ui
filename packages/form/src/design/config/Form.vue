@@ -21,6 +21,18 @@
     <a-form-item label="高">
       <a-input v-model:value="f.height"></a-input>
     </a-form-item>
+    <a-form-item label="组件上下间距">
+      <a-input-number v-model:value="f.verticalSpacing" :min="0" :max="100" addon-after="px" />
+    </a-form-item>
+    <a-form-item label="组件左右间距">
+      <a-input-number v-model:value="f.horizontalSpacing" :min="0" :max="100" addon-after="px" />
+    </a-form-item>
+    <a-form-item label="标签与组件排列">
+      <a-select v-model:value="f.labelLayout">
+        <a-select-option value="horizontal">左右排列</a-select-option>
+        <a-select-option value="vertical">上下排列</a-select-option>
+      </a-select>
+    </a-form-item>
     <!--    <a-form-item label="val-json">
       <span>{{ form.formValue() }}</span>
     </a-form-item>

@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form class="y-preview-form" :class="{ 'y-preview-form--vertical': form.labelLayout === 'vertical' }">
     <slot name="default"></slot>
   </form>
 </template>

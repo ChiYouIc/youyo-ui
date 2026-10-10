@@ -1,15 +1,15 @@
 <template>
-  <div class="y-form-fence-item" v-for="(_, ri) in row" :key="ri">
-    <template v-for="(_, ci) in col" :key="ci">
-      <y-form-item v-if="comList[ri * col + ci] && comList[ri * col + ci].length > 0" :component="comList[ri * col + ci][0]"> </y-form-item>
-      <div v-else>-</div>
-    </template>
+  <div class="y-form-fence-item" :style="gridStyle">
+    <div v-for="(cell, index) in cells" :key="index" class="y-form-fence-cell">
+      <y-form-item v-if="cell?.[0]" :component="cell[0]" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import './style/formFenceItem.less';
 import { computed, defineProps } from 'vue';
+import type { CSSProperties } from 'vue';
 import type { FenceModel } from '../core';
 import YFormItem from './formItem.vue';
 
@@ -18,7 +18,8 @@ interface FenceProps {
 }
 
 const props = defineProps<FenceProps>();
-const comList = computed(() => props.fence.list);
-const row = computed(() => props.fence.row);
-const col = computed(() => props.fence.col);
+const cells = computed(() => props.fence.list.slice(0, props.fence.row * props.fence.col));
+const gridStyle = computed<CSSProperties>(() => ({
+  gridTemplateColumns: `repeat(${props.fence.col}, minmax(0, 1fr))`,
+}));
 </script>

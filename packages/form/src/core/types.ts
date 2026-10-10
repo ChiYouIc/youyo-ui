@@ -99,6 +99,12 @@ export interface FormModel {
   width: string;
   /** 高 */
   height: string;
+  /** 组件上下间距，单位 px */
+  verticalSpacing?: number;
+  /** 组件左右间距，单位 px */
+  horizontalSpacing?: number;
+  /** 标签与组件的排列方式 */
+  labelLayout?: 'horizontal' | 'vertical';
   /** 组件列表 */
   readonly components: Array<ComponentModel>;
   /** 清空组件 */

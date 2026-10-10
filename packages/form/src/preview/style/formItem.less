@@ -1,17 +1,19 @@
 .y-preview-form-item {
   display: flex;
   flex-direction: row;
-  justify-content: start;
-  //align-items: center;
-  margin-bottom: 20px;
+  align-items: flex-start;
+  margin-bottom: 0;
   vertical-align: top;
 
   .item-label {
     height: 32px;
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
+    flex: 0 0 auto;
+    color: #334155;
+    font-weight: 500;
 
     .mark-required::before {
       display: inline;
@@ -33,7 +35,16 @@
   .item-content {
     position: relative;
     width: 100%;
+    min-width: 0;
     min-height: 32px;
+
+    .ant-input,
+    .ant-input-number,
+    .ant-select,
+    .ant-picker {
+      width: 100%;
+      box-sizing: border-box;
+    }
 
     .required-msg {
       position: absolute;
@@ -45,5 +56,52 @@
 
   .item-content[mode='text'] {
     line-height: 32px;
+  }
+}
+
+.y-form-fence-cell {
+  .y-preview-form-item {
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+
+    .item-label {
+      min-width: min(120px, 40%) !important;
+      height: 32px;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.y-preview-form--vertical {
+  .y-preview-form-item {
+    display: block;
+
+    .item-label {
+      min-width: 0 !important;
+      height: auto;
+      justify-content: flex-start;
+      margin-bottom: 6px;
+    }
+  }
+
+  .y-form-fence-cell .y-preview-form-item .item-label {
+    min-width: 0 !important;
+    height: auto;
+    justify-content: flex-start;
+    margin-bottom: 6px;
+  }
+}
+
+@media (max-width: 640px) {
+  .y-preview-form-item {
+    display: block;
+
+    .item-label {
+      min-width: 0 !important;
+      height: auto;
+      justify-content: flex-start;
+      margin-bottom: 6px;
+    }
   }
 }

@@ -1,17 +1,26 @@
 .draggable-item {
-  min-height: 60px;
-  padding: 5px;
+  min-height: 72px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
-  column-gap: 5px;
+  column-gap: 8px;
   align-content: center;
   align-items: center;
   position: relative;
-  border: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  box-sizing: border-box;
   cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
 
   .draggable-item-label {
     white-space: nowrap;
+    color: #334155;
+    font-weight: 500;
 
     label::after {
       content: ':';
@@ -37,38 +46,37 @@
 
   .draggable-item-content {
     width: 100%;
+    min-width: 0;
+    padding-right: 38px;
+    box-sizing: border-box;
+  }
 
-    ul[data-role='fence'] {
-      border-left: 1px dashed #d9d9d9;
-      border-bottom: 1px dashed #d9d9d9;
-      padding: 10px;
-    }
-
-    ul[data-role='fence']:first-child {
-      border-left: none;
-    }
-
-    div.fence-item:last-child > ul[data-role='fence'] {
-      border-bottom: none;
-    }
+  .draggable-item-content--layout {
+    padding-right: 0;
   }
 
   .draggable-item-action {
     position: absolute;
     display: none;
-    right: 10px;
-    top: 0;
+    right: 8px;
+    top: 8px;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 6px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgb(15 23 42 / 8%);
     cursor: pointer;
   }
 
   &:hover {
-    border-width: 1px;
-    border-style: dashed;
+    border-color: #93c5fd;
+    background: #f8fbff;
+    box-shadow: 0 2px 8px rgb(37 99 235 / 8%);
 
     & > .draggable-item-action {
       display: flex;
-      flex-direction: row;
-      column-gap: 5px;
     }
   }
 }

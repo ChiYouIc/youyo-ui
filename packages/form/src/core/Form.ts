@@ -13,10 +13,25 @@ class Form implements FormModel {
   private _labelWidth: string;
   private _width: string;
   private _height: string;
+  private _verticalSpacing: number;
+  private _horizontalSpacing: number;
+  private _labelLayout: 'horizontal' | 'vertical';
   private _version: string;
   private _components: Array<AbstractComponent> = [];
 
-  constructor(id: string, name: string, version: string, description: string, components: Array<ComponentConstructorOptionType>, labelWidth: string = '120px', width: string = '100%', height: string = '100%') {
+  constructor(
+    id: string,
+    name: string,
+    version: string,
+    description: string,
+    components: Array<ComponentConstructorOptionType>,
+    labelWidth: string = '120px',
+    width: string = '100%',
+    height: string = '100%',
+    verticalSpacing: number = 16,
+    horizontalSpacing: number = 16,
+    labelLayout: 'horizontal' | 'vertical' = 'horizontal',
+  ) {
     this._id = id;
     this._name = name;
     this._version = version;
@@ -24,6 +39,9 @@ class Form implements FormModel {
     this._labelWidth = labelWidth;
     this._width = width;
     this._height = height;
+    this._verticalSpacing = verticalSpacing;
+    this._horizontalSpacing = horizontalSpacing;
+    this._labelLayout = labelLayout;
     this.initComponents(components);
   }
 
@@ -55,7 +73,19 @@ class Form implements FormModel {
    * 从 json 还原表单
    */
   public static fromJson(json: Record<string, any>): Form {
-    return new Form(json.id, json.name, json.version, json.description, json.components ?? [], json.labelWidth ?? '120px', json.width ?? '100%', json.height ?? '100%');
+    return new Form(
+      json.id,
+      json.name,
+      json.version,
+      json.description,
+      json.components ?? [],
+      json.labelWidth ?? '120px',
+      json.width ?? '100%',
+      json.height ?? '100%',
+      json.verticalSpacing ?? 16,
+      json.horizontalSpacing ?? 16,
+      json.labelLayout === 'vertical' ? 'vertical' : 'horizontal',
+    );
   }
 
   /**
@@ -160,6 +190,9 @@ class Form implements FormModel {
       labelWidth: this._labelWidth,
       width: this._width,
       height: this._height,
+      verticalSpacing: this._verticalSpacing,
+      horizontalSpacing: this._horizontalSpacing,
+      labelLayout: this._labelLayout,
       components: [],
     };
 
@@ -229,6 +262,30 @@ class Form implements FormModel {
 
   set height(value: string) {
     this._height = value;
+  }
+
+  get verticalSpacing(): number {
+    return this._verticalSpacing;
+  }
+
+  set verticalSpacing(value: number) {
+    this._verticalSpacing = value;
+  }
+
+  get horizontalSpacing(): number {
+    return this._horizontalSpacing;
+  }
+
+  set horizontalSpacing(value: number) {
+    this._horizontalSpacing = value;
+  }
+
+  get labelLayout(): 'horizontal' | 'vertical' {
+    return this._labelLayout;
+  }
+
+  set labelLayout(value: 'horizontal' | 'vertical') {
+    this._labelLayout = value;
   }
 }
 

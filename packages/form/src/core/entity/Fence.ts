@@ -7,6 +7,7 @@ import globalConfig from '../../config';
 class Fence extends AbstractComponent implements FenceModel {
   constructor(c: ComponentConstructorOptionType) {
     super(c);
+    this.fillEmptyCells();
   }
 
   private _row: number = 1;
@@ -16,7 +17,7 @@ class Fence extends AbstractComponent implements FenceModel {
   }
 
   set row(value: number) {
-    this._row = value;
+    this._row = Number.isFinite(value) ? Math.max(1, Math.floor(value)) : 1;
     this.fillEmptyCells();
   }
 
@@ -27,7 +28,7 @@ class Fence extends AbstractComponent implements FenceModel {
   }
 
   set col(value: number) {
-    this._col = value;
+    this._col = Number.isFinite(value) ? Math.min(3, Math.max(1, Math.floor(value))) : 1;
     this.fillEmptyCells();
   }
 
@@ -60,13 +61,15 @@ class Fence extends AbstractComponent implements FenceModel {
   }
 
   init({ col, row, list }: Record<string, any>): void {
-    const column = Number(col) > 0 ? Number(col) : 2;
+    const parsedColumn = Math.floor(Number(col));
+    const column = Number.isFinite(parsedColumn) && parsedColumn > 0 ? parsedColumn : 2;
     if (column > 3) {
       console.warn(`[youyo-form] Fence columns cannot be larger than three, clamped from ${col} to 3`);
     }
 
     this._col = Math.min(column, 3);
-    this._row = Number(row) > 0 ? Number(row) : 1;
+    const parsedRow = Math.floor(Number(row));
+    this._row = Number.isFinite(parsedRow) && parsedRow > 0 ? parsedRow : 1;
     this._list = [];
     for (const item of list ?? []) {
       // 保留空单元格，避免还原后字段位置前移
@@ -86,11 +89,19 @@ class Fence extends AbstractComponent implements FenceModel {
    * 按行列数补齐空白单元格，渲染与拖拽时下标才不会越界
    */
   private fillEmptyCells(): void {
-    const total = this._row * this._col;
-    if (!Number.isFinite(total) || total <= 0) {
-      return;
+    let lastOccupiedCell = -1;
+    for (let index = this._list.length - 1; index >= 0; index--) {
+      if (this._list[index]?.[0]) {
+        lastOccupiedCell = index;
+        break;
+      }
     }
 
+    const minimumRows = Math.ceil((lastOccupiedCell + 1) / this._col);
+    this._row = Math.max(this._row, minimumRows, 1);
+
+    const total = this._row * this._col;
+    this._list.length = Math.min(this._list.length, total);
     for (let i = this._list.length; i < total; i++) {
       this._list.push([]);
     }
