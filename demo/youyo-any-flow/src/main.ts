@@ -1,9 +1,12 @@
 import { createApp } from 'vue'
-import Antd from 'ant-design-vue'
-import 'ant-design-vue/dist/reset.css';
+import { VueFlow } from '@vue-flow/core'
 import '@vue-flow/minimap/dist/style.css'
 import '@vue-flow/controls/dist/style.css'
 import './style.css'
 import App from './App.vue'
+import { i18n } from './locales'
 
-createApp(App).use(Antd).mount('#app')
+const app = createApp(App)
+app.use(VueFlow)
+app.use(i18n)
+app.mount('#app')
