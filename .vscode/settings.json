@@ -1,5 +1,8 @@
 {
     "terminal.integrated.env.windows": {
-        "PATH": "D:\\Program Files\\nodejs\\node-versions\\v22.14.0\\installation;${env:PATH}"
-    }
+        "PATH": "E:\\Program Files\\nodejs\\node-versions\\v22.14.0\\installation;${env:PATH}"
+    },
+    "i18n-ally.localesPaths": [
+        "demo/youyo-any-flow/src/locales"
+    ]
 }
