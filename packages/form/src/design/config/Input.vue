@@ -15,11 +15,17 @@
     <a-form-item label="禁用" name="disabled">
       <a-switch v-model:checked="configForm.disabled" />
     </a-form-item>
+    <a-form-item label="类型" name="type">
+      <a-select v-model:value="configForm.type">
+        <a-select-option value="text">文本</a-select-option>
+        <a-select-option value="password">密码</a-select-option>
+      </a-select>
+    </a-form-item>
     <a-form-item label="占位符" name="placeholder">
       <a-input v-model:value="configForm.placeholder" />
     </a-form-item>
     <a-form-item label="输入最大长度" name="maxlength">
-      <a-input-number v-model:value="configForm.maxlength" :min="50" :max="1000" />
+      <a-input-number v-model:value="configForm.maxlength" :min="1" :max="1000" />
     </a-form-item>
   </a-form>
 </template>
@@ -32,6 +38,7 @@ type Form = {
   defaultValue: string;
   required: boolean;
   disabled: boolean;
+  type: 'text' | 'password';
   placeholder: string;
   maxlength: number;
 };

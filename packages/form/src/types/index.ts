@@ -5,6 +5,8 @@ export type ComponentSelectType = {
   name: string;
   component: string;
   description: string;
+  /** 套件条目的套件类型标识 */
+  suiteType?: string;
 };
 
 export type DateType = {

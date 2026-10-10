@@ -21,6 +21,7 @@
 import './style/formItem.less';
 import { computed, CSSProperties, defineProps, inject, ref } from 'vue';
 import Factory from '../factory/index.vue';
+import { isSuiteModel } from '../core/types';
 import type { ComponentModel, FormModel } from '../core';
 
 interface FormItemProps {
@@ -32,7 +33,8 @@ const form = inject<FormModel>('form');
 const mode = inject<'form' | 'text'>('mode');
 const requiredMsg = ref<string>();
 const showMode = computed(() => {
-  if (props.component.component == 'Table') {
+  // 表格与套件在文本模式下也由组件自身渲染内容
+  if (props.component.component === 'Table' || isSuiteModel(props.component)) {
     return 'form';
   }
 
@@ -43,7 +45,7 @@ const labelStyle = computed<CSSProperties>(() => {
   return { minWidth: form?.labelWidth || '120px' };
 });
 
-const label = computed(() => props.component.label);
+const label = computed(() => (isSuiteModel(props.component) ? '' : props.component.label));
 const required = computed(() => props.component.required);
 
 /** 执行校验 */

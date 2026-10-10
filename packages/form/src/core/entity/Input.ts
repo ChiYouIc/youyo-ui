@@ -3,6 +3,8 @@ import { h, VNode } from 'vue';
 import { CInput } from '../../components';
 import { ComponentConstructorOptionType } from '../types';
 
+type InputType = 'text' | 'password';
+
 class Input extends AbstractComponent {
   private _value: string = '';
 
@@ -30,10 +32,21 @@ class Input extends AbstractComponent {
     this._maxlength = value;
   }
 
-  init({ value, placeholder, maxlength }: Record<string, any>): void {
-    this._value = value;
-    this._placeholder = placeholder;
-    this._maxlength = maxlength;
+  private _type: InputType = 'text';
+
+  get type(): InputType {
+    return this._type;
+  }
+
+  set type(value: InputType) {
+    this._type = value === 'password' ? 'password' : 'text';
+  }
+
+  init({ value, placeholder, maxlength, type }: Record<string, any>): void {
+    this._value = value ?? this.defaultValue ?? '';
+    this._placeholder = placeholder ?? '请输入内容';
+    this._maxlength = maxlength ?? 500;
+    this.type = type ?? 'text';
   }
 
   node(): VNode {
@@ -44,6 +57,7 @@ class Input extends AbstractComponent {
       placeholder: this._placeholder,
       disabled: this.disabled,
       maxlength: this._maxlength,
+      type: this._type,
       allowClear: true,
       style: { width: '200px' },
     });
@@ -53,6 +67,7 @@ class Input extends AbstractComponent {
     const json = super.configToJson();
     json['placeholder'] = this._placeholder;
     json['maxlength'] = this._maxlength;
+    json['type'] = this._type;
     json['value'] = this._value;
     return json;
   }
@@ -62,7 +77,7 @@ class Input extends AbstractComponent {
   }
 
   protected setVal(val: any): void {
-    this._value = val;
+    this._value = val ?? '';
   }
 }
 

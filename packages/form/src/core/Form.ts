@@ -1,5 +1,5 @@
 import globalConfig from '../config';
-import { ComponentConstructorOptionType, ComponentModel, FormModel, FormValidateError, FormValidateResult } from './types';
+import { ComponentConstructorOptionType, ComponentModel, FormModel, FormValidateError, FormValidateResult, isSuiteModel } from './types';
 import AbstractComponent from './AbstractComponent';
 import Fence from './entity/Fence';
 
@@ -98,7 +98,7 @@ class Form implements FormModel {
     return { valid: errors.length === 0, errors };
   }
 
-  private collectErrors(components: Array<AbstractComponent>, errors: Array<FormValidateError>): void {
+  private collectErrors(components: Array<ComponentModel>, errors: Array<FormValidateError>): void {
     for (const item of components) {
       // 栅栏需要下沉到内部组件，才能定位到具体的字段
       if (item instanceof Fence) {
@@ -108,6 +108,7 @@ class Form implements FormModel {
         continue;
       }
 
+      // 套件不在这里下沉：内部字段校验与跨字段校验都由套件自己的 validate() 上报
       const message = item.validate();
       if (message !== undefined) {
         errors.push({ name: item.name, message });
@@ -118,7 +119,7 @@ class Form implements FormModel {
   /**
    * 字段名重复会让 formValue() 归并时相互覆盖，这里单独报出来
    */
-  private collectDuplicateNames(components: Array<AbstractComponent>, errors: Array<FormValidateError>): void {
+  private collectDuplicateNames(components: Array<ComponentModel>, errors: Array<FormValidateError>): void {
     const names: string[] = [];
     this.collectNames(components, names);
 
@@ -134,12 +135,18 @@ class Form implements FormModel {
     }
   }
 
-  private collectNames(components: Array<AbstractComponent>, names: Array<string>): void {
+  private collectNames(components: Array<ComponentModel>, names: Array<string>): void {
     for (const item of components) {
       if (item instanceof Fence) {
         for (const cell of item.list) {
           this.collectNames(cell, names);
         }
+        continue;
+      }
+
+      // 套件内部字段带实例名前缀，同样纳入重名检测
+      if (isSuiteModel(item)) {
+        this.collectNames(item.fields, names);
         continue;
       }
 
@@ -161,6 +168,8 @@ class Form implements FormModel {
         label: item.label,
         required: item.required,
         disabled: item.disabled,
+        // 套件依赖 suiteType 解析定义，必须透传
+        suiteType: item.suiteType,
       });
       component.init(item);
       this._components.push(component);

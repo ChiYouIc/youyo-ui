@@ -62,6 +62,16 @@ export interface FenceModel extends ComponentModel {
 }
 
 /**
+ * 套件组件的结构化描述
+ */
+export interface SuiteModel extends ComponentModel {
+  /** 套件类型标识 */
+  readonly suiteType: string;
+  /** 内部字段，清单与校验规则由套件代码固定 */
+  readonly fields: Array<ComponentModel>;
+}
+
+/**
  * 表单校验错误
  */
 export interface FormValidateError {
@@ -124,6 +134,13 @@ export interface FormModel {
  */
 export function isFenceModel(component: ComponentModel): component is FenceModel {
   return component.component === 'Fence';
+}
+
+/**
+ * 判断是否是套件组件
+ */
+export function isSuiteModel(component: ComponentModel): component is SuiteModel {
+  return component.component === 'Suite';
 }
 
 /**

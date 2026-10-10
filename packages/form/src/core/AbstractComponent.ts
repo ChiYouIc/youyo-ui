@@ -35,6 +35,14 @@ abstract class AbstractComponent implements ComponentModel {
   protected abstract setVal(val: any): void;
 
   /**
+   * 以程序方式写入组件的值。
+   * 容器类组件（套件、栅栏）需要回填内部字段的值，因此对外暴露一个入口。
+   */
+  public setValue(val: any): void {
+    this.setVal(val);
+  }
+
+  /**
    * 初始化
    */
   public abstract init(json: Record<string, any>): void;

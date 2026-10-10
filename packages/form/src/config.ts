@@ -1,6 +1,9 @@
 import { ComponentSelectType } from './types';
 import { AbstractFactory, ComponentConstructorOptionType, Factory } from './core/index';
+import { getSuite } from './core/suite/index';
 import { Cascader, Checkbox, DatePicker, Fence, Input, InputNumber, Radio, Rate, Select, Slider, Switch, Table, Textarea, TimePicker, Upload } from './core/entity/index';
+// 内置套件在模块加载时完成注册，工厂与调色板据此工作
+import './suites';
 
 type FormConfigType = {
   componentList?: ComponentSelectType[];
@@ -28,6 +31,16 @@ const factories: AbstractFactory[] = [
   { name: 'TimePicker', creator: (c: ComponentConstructorOptionType) => new TimePicker(c) },
   { name: 'Upload', creator: (c: ComponentConstructorOptionType) => new Upload(c) },
   { name: 'Fence', creator: (c: ComponentConstructorOptionType) => new Fence(c) },
+  {
+    name: 'Suite',
+    creator: (c: ComponentConstructorOptionType) => {
+      const suite = getSuite(c.suiteType);
+      if (suite === undefined) {
+        throw new Error(`No suite definition found for ${c.suiteType}`);
+      }
+      return new suite.Entity(c);
+    },
+  },
 ];
 
 const globalConfig: FormConfigType = {

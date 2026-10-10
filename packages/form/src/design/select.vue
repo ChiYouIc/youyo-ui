@@ -22,6 +22,23 @@
           </template>
         </draggable-component>
       </a-tab-pane>
+      <a-tab-pane key="suite" tab="套件">
+        <draggable-component data-role="design" :list="suiteList" tag="ul" :group="{ name: 'design', pull: 'clone', put: false }" :item-key="suiteItemKey" :move="onMove" :clone="onClone">
+          <template #item="{ element }">
+            <li :name="element.name" :component="element.component" :suite-type="element.suiteType">
+              <div class="component-item">
+                <span>{{ element.suiteType }}</span>
+                <span>{{ element.name }}</span>
+                <span>
+                  <a-tooltip :title="element.description">
+                    <question-circle-outlined />
+                  </a-tooltip>
+                </span>
+              </div>
+            </li>
+          </template>
+        </draggable-component>
+      </a-tab-pane>
       <a-tab-pane key="form" tab="Json">
         <vue-json-pretty :showIcon="true" :data="formJson"></vue-json-pretty>
       </a-tab-pane>
@@ -43,6 +60,7 @@ import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 import { useDraggableHook } from '../hooks/index';
 import VueJsonPretty from 'vue-json-pretty';
 import globalConfig from '../config';
+import { suitePaletteItems } from '../core/suite/index';
 import { ComponentSelectType } from '../types';
 
 const props = defineProps<{ form: FormModel }>();
@@ -50,6 +68,12 @@ const props = defineProps<{ form: FormModel }>();
 const activeKey = ref<string>('component');
 const formJson = computed(() => props.form.toJson());
 const formData = computed(() => props.form.formValue());
+const suiteList = computed<ComponentSelectType[]>(() => suitePaletteItems());
+
+/** 套件条目的 component 都是 Suite，必须按 suiteType 生成唯一 key */
+function suiteItemKey(item: ComponentSelectType): string {
+  return item.suiteType ?? item.component;
+}
 
 function onMove(obj: any) {
   const { draggableMove } = useDraggableHook();
@@ -57,7 +81,7 @@ function onMove(obj: any) {
 }
 
 /** 取一个当前表单未占用的字段名，name 重复会让 formValue() 归并时相互覆盖 */
-function nextFieldName(): string {
+function nextFieldName(prefix: string = 'filed'): string {
   const used = new Set<string>();
   const collect = (components: Array<ComponentModel>) => {
     for (const component of components) {
@@ -70,18 +94,24 @@ function nextFieldName(): string {
   collect(props.form.components);
 
   let index = used.size + 1;
-  while (used.has(`filed${index}`)) {
+  while (used.has(`${prefix}${index}`)) {
     index += 1;
   }
-  return `filed${index}`;
+  return `${prefix}${index}`;
+}
+
+/** 套件字段前缀取自套件类型，例如 PasswordSuite → passwordSuite1 */
+function suiteFieldPrefix(suiteType: string): string {
+  return suiteType.charAt(0).toLowerCase() + suiteType.slice(1);
 }
 
 function onClone(obj: ComponentSelectType): ComponentModel {
   return globalConfig.componentFactory.creator({
     id: uuid.v1(),
     label: obj.name,
-    name: nextFieldName(),
+    name: nextFieldName(obj.suiteType ? suiteFieldPrefix(obj.suiteType) : 'filed'),
     component: obj.component,
+    suiteType: obj.suiteType,
     required: false,
     disabled: false,
     defaultValue: null,

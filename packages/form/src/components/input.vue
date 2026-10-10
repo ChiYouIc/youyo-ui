@@ -1,5 +1,5 @@
 <template>
-  <a-input :id="id" v-model:value="inputVal" :placeholder="placeholder" :allow-clear="true" :disabled="disabled" :maxlength="maxlength"></a-input>
+  <a-input :id="id" v-model:value="inputVal" :type="type" :placeholder="placeholder" :allow-clear="true" :disabled="disabled" :maxlength="maxlength"></a-input>
 </template>
 <script setup lang="ts">
 import { computed, defineEmits, defineProps } from 'vue';
@@ -14,6 +14,7 @@ interface InputProps {
   placeholder: string;
   disabled: boolean;
   maxlength: number;
+  type: 'text' | 'password';
 }
 
 const props = defineProps<InputProps>();

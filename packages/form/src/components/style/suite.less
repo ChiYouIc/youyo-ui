@@ -1,0 +1,113 @@
+.youyo-suite {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* 设计画布上的套件名称标记，固定在左上角；预览不渲染 */
+.youyo-suite__title {
+  display: flex;
+  align-self: flex-start;
+  align-items: baseline;
+  gap: 6px;
+  max-width: 100%;
+  margin-bottom: 8px;
+  color: var(--youyo-color-text-tertiary);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 14px;
+  pointer-events: none;
+
+  &-label,
+  &-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &-name {
+    font-weight: 400;
+    opacity: 0.75;
+  }
+}
+
+.youyo-suite__field + .youyo-suite__field {
+  margin-top: var(--form-vertical-spacing, 16px);
+}
+
+.youyo-suite__field {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.youyo-suite__label {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+  height: 32px;
+  color: var(--youyo-color-text);
+  font-weight: 500;
+
+  label::after {
+    content: ':';
+    position: relative;
+    margin-inline-start: 2px;
+    margin-inline-end: 8px;
+  }
+
+  .marker-required::before {
+    display: inline;
+    margin-inline-end: 4px;
+    color: var(--youyo-color-error);
+    font-size: 14px;
+    content: '*';
+  }
+}
+
+.youyo-suite__content {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 32px;
+
+  .ant-input,
+  .ant-input-number,
+  .ant-select,
+  .ant-picker {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.youyo-suite__text {
+  line-height: 32px;
+}
+
+.y-preview-form--vertical .youyo-suite__field {
+  display: block;
+
+  .youyo-suite__label {
+    min-width: 0 !important;
+    height: auto;
+    justify-content: flex-start;
+    margin-bottom: 6px;
+  }
+}
+
+@media (max-width: 640px) {
+  .youyo-suite__field {
+    display: block;
+
+    .youyo-suite__label {
+      min-width: 0 !important;
+      height: auto;
+      justify-content: flex-start;
+      margin-bottom: 6px;
+    }
+  }
+}

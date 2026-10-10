@@ -65,6 +65,8 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { computed, defineEmits, defineProps } from 'vue';
 
+type SelectOption = { label: string; value: string | number; disabled?: boolean };
+
 type Form = {
   label: string;
   name: string;
@@ -72,7 +74,7 @@ type Form = {
   required: boolean;
   disabled: boolean;
   placeholder: string;
-  options: { label: string; value: string | number; disabled?: boolean }[];
+  options: SelectOption[];
   mode?: 'multiple' | 'tags';
   showSearch: boolean;
   allowClear: boolean;
@@ -95,7 +97,7 @@ function onAddOption() {
   configForm.value.options.push({ label: '', value: '', disabled: false });
 }
 
-function onRemoveOption(_: { label: string; value: string }, index: number) {
+function onRemoveOption(_: SelectOption, index: number) {
   configForm.value.options.splice(index, 1);
 }
 </script>
