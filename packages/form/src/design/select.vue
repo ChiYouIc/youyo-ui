@@ -2,7 +2,7 @@
   <div class="form-select">
     <a-tabs v-model:active-key="activeKey">
       <a-tab-pane key="component" tab="组件">
-        <draggable-component id="design" v-model:list="globalConfig.componentList" tag="ul" :group="{ name: 'design', pull: 'clone', put: false }" item-key="id" :move="onMove" :clone="onClone">
+        <draggable-component data-role="design" v-model:list="globalConfig.componentList" tag="ul" :group="{ name: 'design', pull: 'clone', put: false }" item-key="component" :move="onMove" :clone="onClone">
           <template #item="{ element }">
             <li :name="element.name" :component="element.component">
               <div class="component-item">
@@ -33,14 +33,15 @@ import './style/select.less';
 import { computed, defineProps, ref } from 'vue';
 import { uuid } from 'vue-uuid';
 import DraggableComponent from 'vuedraggable';
-import type { AbstractComponent, Form } from '../core';
+import { isFenceModel } from '../core/types';
+import type { ComponentModel, FormModel } from '../core/types';
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 import { useDraggableHook } from '../hooks/index';
 import VueJsonPretty from 'vue-json-pretty';
 import globalConfig from '../config';
 import { ComponentSelectType } from '../types';
 
-const props = defineProps<{ form: Form }>();
+const props = defineProps<{ form: FormModel }>();
 
 const activeKey = ref<string>('component');
 const formJson = computed(() => props.form.toJson());
@@ -51,13 +52,31 @@ function onMove(obj: any) {
   return draggableMove(obj);
 }
 
-const count = ref<number>(1);
+/** 取一个当前表单未占用的字段名，name 重复会让 formValue() 归并时相互覆盖 */
+function nextFieldName(): string {
+  const used = new Set<string>();
+  const collect = (components: Array<ComponentModel>) => {
+    for (const component of components) {
+      used.add(component.name);
+      if (isFenceModel(component)) {
+        component.list.forEach(cell => collect(cell));
+      }
+    }
+  };
+  collect(props.form.components);
 
-function onClone(obj: ComponentSelectType): AbstractComponent {
+  let index = used.size + 1;
+  while (used.has(`filed${index}`)) {
+    index += 1;
+  }
+  return `filed${index}`;
+}
+
+function onClone(obj: ComponentSelectType): ComponentModel {
   return globalConfig.componentFactory.creator({
     id: uuid.v1(),
     label: obj.name,
-    name: `filed${count.value++}`,
+    name: nextFieldName(),
     component: obj.component,
     required: false,
     disabled: false,

@@ -38,17 +38,17 @@
   .draggable-item-content {
     width: 100%;
 
-    ul#fence {
+    ul[data-role='fence'] {
       border-left: 1px dashed #d9d9d9;
       border-bottom: 1px dashed #d9d9d9;
       padding: 10px;
     }
 
-    ul#fence:first-child {
+    ul[data-role='fence']:first-child {
       border-left: none;
     }
 
-    div.fence-item:last-child > ul#fence {
+    div.fence-item:last-child > ul[data-role='fence'] {
       border-bottom: none;
     }
   }

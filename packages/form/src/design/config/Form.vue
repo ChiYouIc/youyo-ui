@@ -31,23 +31,10 @@
 </template>
 <script setup lang="ts">
 import { computed, defineEmits, defineProps } from 'vue';
-import AbstractComponent from '../../core/AbstractComponent';
+import type { FormModel } from '../../core';
 
-type Form = {
-  id: string;
-  name: string;
-  description: string;
-  version: boolean;
-  labelWidth: string;
-  width: string;
-  height: string;
-  components: Array<Array<AbstractComponent>>;
-  toJson(): string;
-  formValue(): string;
-};
-
-const props = defineProps<{ form: Form }>();
-const emits = defineEmits<{ (event: 'update:form', val: Form): void }>();
+const props = defineProps<{ form: FormModel }>();
+const emits = defineEmits<{ (event: 'update:form', val: FormModel): void }>();
 
 const f = computed({
   get() {

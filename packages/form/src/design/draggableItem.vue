@@ -20,11 +20,11 @@ import { defineProps } from 'vue';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons-vue';
 import { theme } from 'ant-design-vue';
 import Factory from '../factory/index.vue';
-import type { AbstractComponent } from '../core';
+import type { ComponentModel } from '../core';
 import { useMitt } from '../hooks';
 
 interface DraggableItemProps {
-  element: AbstractComponent;
+  element: ComponentModel;
 }
 
 defineProps<DraggableItemProps>();
@@ -33,11 +33,11 @@ const { emit } = useMitt();
 const { useToken } = theme;
 const { token } = useToken();
 
-function onClick(item: AbstractComponent): void {
+function onClick(item: ComponentModel): void {
   emit('toConfig', item);
 }
 
-function onRemove(item: AbstractComponent): void {
+function onRemove(item: ComponentModel): void {
   emit('toRemove', item);
 }
 </script>

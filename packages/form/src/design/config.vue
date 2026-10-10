@@ -2,65 +2,39 @@
   <div class="form-config">
     <a-tabs v-model:active-key="activeKey">
       <a-tab-pane key="Form" tab="表单配置">
-        <f-config v-model:form="form" />
+        <f-config :form="form" />
       </a-tab-pane>
       <a-tab-pane key="Component" tab="组件配置">
         <template v-if="item">
-          <component :is="`${item.component}Config`" v-model:form="item" />
+          <component v-if="panel" :is="panel" v-model:form="item" />
+          <a-empty v-else :description="`${item.component} 组件暂未提供配置面板`" />
         </template>
       </a-tab-pane>
     </a-tabs>
   </div>
 </template>
-<script lang="ts">
+<script setup lang="ts" name="form-config">
 import './style/config.less';
-import { defineComponent, ref } from 'vue';
-import {
-  DatePicker as DatePickerConfig,
-  Fence as FenceConfig,
-  Form as FConfig,
-  Input as InputConfig,
-  InputNumber as InputNumberConfig,
-  Radio as RadioConfig,
-  Rate as RateConfig,
-  Select as SelectConfig,
-  Switch as SwitchConfig,
-  Table as TableConfig,
-  TimePicker as TimePickerConfig,
-} from './config';
-import type { AbstractComponent } from '../core';
+import { computed, ref } from 'vue';
+import FConfig from './config/Form.vue';
+import { configPanels } from './config';
+import type { ComponentModel, FormModel } from '../core';
 
-export default defineComponent({
-  name: 'form-config',
-  components: { InputConfig, SwitchConfig, SelectConfig, InputNumberConfig, RadioConfig, RateConfig, TimePickerConfig, DatePickerConfig, TableConfig, FenceConfig, FConfig },
-  props: {
-    form: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup() {
-    const activeKey = ref<'Component' | 'Form'>('Form');
-    const item = ref<AbstractComponent>();
-    const type = ref<string>('');
+defineProps<{ form: FormModel }>();
 
-    function switchFormItemConfig(componentType: 'Component' | 'Form', component: AbstractComponent) {
-      activeKey.value = componentType;
-      type.value = componentType;
-      if (componentType === 'Component') {
-        item.value = component;
-      }
-    }
+const activeKey = ref<'Component' | 'Form'>('Form');
+const item = ref<ComponentModel>();
 
-    return {
-      activeKey,
-      item,
-      type,
-      switchFormItemConfig,
-    };
-  },
-  expose: ['switchFormItemConfig'],
-});
+const panel = computed(() => (item.value ? configPanels[item.value.component] : undefined));
+
+function switchFormItemConfig(componentType: 'Component' | 'Form', component: FormModel | ComponentModel) {
+  activeKey.value = componentType;
+  if (componentType === 'Component') {
+    item.value = component as ComponentModel;
+  }
+}
+
+defineExpose({ switchFormItemConfig });
 </script>
 
 <style scoped></style>
