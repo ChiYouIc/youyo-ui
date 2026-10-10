@@ -1,7 +1,7 @@
 <template>
   <div :id="id" class="fence">
     <div v-for="(r, ri) in row" :key="r" class="fence-item">
-      <draggable v-for="(c, ci) in col" :key="c" id="fence" item-key="id" group="design" tag="ul" :fence-id="ri * col + ci" :list="list[ri * col + ci]" :move="onMove">
+      <draggable v-for="(c, ci) in col" :key="c" data-role="fence" item-key="id" group="design" tag="ul" :fence-id="ri * col + ci" :list="list[ri * col + ci]" :move="onMove">
         <template #item="{ element }">
           <draggable-item :element="element" />
         </template>
@@ -14,7 +14,7 @@
 import './style/fence.less';
 import Draggable from 'vuedraggable';
 import { defineProps } from 'vue';
-import AbstractComponent from '../core/AbstractComponent';
+import type { ComponentModel } from '../core/types';
 import DraggableItem from '../design/draggableItem.vue';
 import useDraggableHook from '../hooks/useDraggableHook';
 
@@ -22,7 +22,7 @@ interface FenceProps {
   id: string;
   row: number;
   col: number;
-  list: Array<Array<AbstractComponent>>;
+  list: Array<Array<ComponentModel>>;
 }
 
 defineProps<FenceProps>();
