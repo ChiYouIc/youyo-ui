@@ -1,10 +1,10 @@
 import { VNode } from 'vue';
-import { ComponentActionType, ComponentConstructorOptionType } from './types';
+import { ComponentConstructorOptionType, ComponentModel } from './types';
 
 /**
  * 抽象的组件
  */
-abstract class AbstractComponent implements ComponentActionType {
+abstract class AbstractComponent implements ComponentModel {
   /** id */
   private readonly _id: string;
   /** 字段标签 */
@@ -44,6 +44,32 @@ abstract class AbstractComponent implements ComponentActionType {
    */
   public abstract node(): VNode;
 
+  /**
+   * 是否为空值
+   */
+  protected isBlank(val: any): boolean {
+    if (val === undefined || val === null) {
+      return true;
+    }
+
+    if (Array.isArray(val)) {
+      return val.length === 0;
+    }
+
+    return typeof val === 'string' && val.trim().length === 0;
+  }
+
+  /**
+   * 校验，通过时返回 undefined，否则返回错误信息
+   */
+  public validate(): string | undefined {
+    if (!this._required || !this.isBlank(this.getVal())) {
+      return undefined;
+    }
+
+    return '请输入';
+  }
+
   public valToJson(): Record<string, any> {
     return { [this._name]: this.getVal() };
   }
@@ -61,6 +87,10 @@ abstract class AbstractComponent implements ComponentActionType {
   }
 
   public primaryId(): string {
+    return this._id;
+  }
+
+  get id(): string {
     return this._id;
   }
 
