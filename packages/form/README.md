@@ -1,5 +1,7 @@
 # 动态表单
 
+> 使用说明见 [docs/usage.md](./docs/usage.md)，类图与加载流程图见 [docs/architecture.md](./docs/architecture.md)。
+
 ## 表单设计器
 
 ### 表单
