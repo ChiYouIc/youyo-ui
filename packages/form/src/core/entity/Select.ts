@@ -44,11 +44,11 @@ class Select extends AbstractComponent {
       ? Array.isArray(initialValue)
         ? initialValue
         : initialValue === undefined || initialValue === null
-          ? []
-          : [initialValue]
+        ? []
+        : [initialValue]
       : Array.isArray(initialValue)
-        ? initialValue[0]
-        : initialValue;
+      ? initialValue[0]
+      : initialValue;
     this._placeholder = placeholder ?? '';
     this._options = options ?? [];
     this._showSearch = showSearch ?? false;

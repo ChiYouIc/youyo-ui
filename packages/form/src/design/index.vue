@@ -1,11 +1,18 @@
 <template>
   <div class="youyo-form-design" :style="themeStyles">
     <div class="youyo-form-design__content">
-      <form-select :form="form" />
-      <form-design :form="form" @preview="onPreview" />
-      <form-config ref="formConfigRef" :form="form" />
+      <template v-if="!open">
+        <form-select :form="form" />
+        <form-design :form="form" @preview="onPreview" />
+        <form-config ref="formConfigRef" :form="form" />
+      </template>
+      <template v-else>
+        <div></div>
+        <youyo-form-preview :form="form" :data="formData" mode="form" />
+        <div></div>
+      </template>
     </div>
-    <a-modal v-model:open="open" width="100%" wrap-class-name="full-modal" destroy-on-close>
+    <!-- <a-modal v-model:open="open" width="100%" wrap-class-name="full-modal" destroy-on-close>
       <a-tabs>
         <a-tab-pane key="form" tab="表单">
           <youyo-form-preview :form="form" :data="formData" mode="form" />
@@ -14,7 +21,7 @@
           <youyo-form-preview :form="form" :data="formData" mode="text" />
         </a-tab-pane>
       </a-tabs>
-    </a-modal>
+    </a-modal> -->
   </div>
 </template>
 <script setup lang="ts">

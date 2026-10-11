@@ -59,7 +59,7 @@ class Input extends AbstractComponent {
       maxlength: this._maxlength,
       type: this._type,
       allowClear: true,
-      style: { width: '200px' },
+      style: { minWidth: '100%' },
     });
   }
 
